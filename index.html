@@ -19,9 +19,6 @@
             </div>
             <div class="role-switcher">
                 <span id="user-status-text">Active User: <strong>Guest</strong></span>
-                <button id="auth-btn" onclick="openModal('auth-modal')" class="btn-role btn-accent">
-                    <i class="fa-solid fa-shield-halved"></i> Access Portal
-                </button>
                 <button onclick="requestRoleSwitch('customer')" class="btn-role"><i class="fa-solid fa-user"></i> Customer</button>
                 <button onclick="requestRoleSwitch('seller')" class="btn-role"><i class="fa-solid fa-store"></i> Seller</button>
                 <button onclick="requestRoleSwitch('admin')" class="btn-role"><i class="fa-solid fa-user-shield"></i> Admin</button>
@@ -234,7 +231,7 @@
         </main>
     </div>
 
-    <!-- INITIAL ENTRY LOGIN PORTAL (active class removed from here) -->
+    <!-- INITIAL ENTRY LOGIN PORTAL -->
     <div class="modal" id="auth-modal">
         <div class="portal-modal-box">
             
