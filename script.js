@@ -480,7 +480,7 @@ let products = [
         price: 380,
         stock: 18,
         specs: "Enriched with Aloe Vera & Tea Tree",
-        image: "images (60).jpg"
+        image: "images (71).jpg"
     },
     {
         id: 144,
