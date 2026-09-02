@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarketLoop — Multi-Vendor E-Commerce Marketplace System</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <div class="nav-container">
+      <div class="brand">
+        <i class="fa-solid fa-arrows-spin"></i> MarketLoop
+      </div>
+      
+      <!-- Stakeholder View Switcher -->
+      <div class="view-switcher">
+        <button class="switch-btn active" data-view="customer">
+          <i class="fa-solid fa-bag-shopping"></i> Customer View
+        </button>
+        <button class="switch-btn" data-view="seller">
+          <i class="fa-solid fa-store"></i> Seller Panel
+        </button>
+        <button class="switch-btn" data-view="admin">
+          <i class="fa-solid fa-user-shield"></i> Admin Control
+        </button>
+        <button class="switch-btn" data-view="system">
+          <i class="fa-solid fa-diagram-project"></i> System Architecture
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- 1. CUSTOMER VIEW -->
+    <section id="customer" class="view-panel active">
+      <div class="hero-banner">
+        <div>
+          <h1 style="font-size: 2.2rem; margin-bottom: 0.5rem;">Explore MarketLoop Storefront</h1>
+          <p style="color: var(--text-muted);">Multi-vendor ecosystem: Buy products from top verified local sellers.</p>
+          <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search laptops, gadgets, fashion...">
+            <button class="btn btn-customer" id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+          </div>
+        </div>
+        <div style="font-size: 5rem; opacity: 0.3;">
+          <i class="fa-solid fa-cart-flatbed"></i>
+        </div>
+      </div>
+
+      <h2 style="margin-bottom: 1rem;"><i class="fa-solid fa-fire" style="color: #ef4444;"></i> Featured Marketplace Products</h2>
+      <div class="product-grid" id="productGrid">
+        
+        <div class="product-card" data-title="MacBook Pro M2">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80" alt="MacBook Pro M2">
+            <span class="badge">-15%</span>
+            <span class="badge-seller">TechZone</span>
+          </div>
+          <div class="product-details">
+            <div class="product-title">MacBook Pro M2 (16GB / 512GB)</div>
+            <div class="rating"><i class="fa-solid fa-star"></i> 4.9 (128 reviews)</div>
+            <div class="product-meta">
+              <span class="price">৳ 1,65,000</span>
+              <button class="btn btn-customer add-to-cart-btn" data-name="MacBook Pro M2" data-price="165000"><i class="fa-solid fa-cart-plus"></i> Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-title="Wireless Noise Cancelling Headphones">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80" alt="Sony Headphones">
+            <span class="badge-seller">Gadget Lab</span>
+          </div>
+          <div class="product-details">
+            <div class="product-title">Sony WH-1000XM5 Headphones</div>
+            <div class="rating"><i class="fa-solid fa-star"></i> 4.8 (85 reviews)</div>
+            <div class="product-meta">
+              <span class="price">৳ 38,500</span>
+              <button class="btn btn-customer add-to-cart-btn" data-name="Sony Headphones" data-price="38500"><i class="fa-solid fa-cart-plus"></i> Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-title="Smart Fitness Watch">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Amazfit Smartwatch">
+            <span class="badge">-10%</span>
+            <span class="badge-seller">Smart Life</span>
+          </div>
+          <div class="product-details">
+            <div class="product-title">Amazfit GTS 4 Smartwatch</div>
+            <div class="rating"><i class="fa-solid fa-star"></i> 4.6 (42 reviews)</div>
+            <div class="product-meta">
+              <span class="price">৳ 12,200</span>
+              <button class="btn btn-customer add-to-cart-btn" data-name="Amazfit Watch" data-price="12200"><i class="fa-solid fa-cart-plus"></i> Add</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card" data-title="Leather Urban Backpack">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80" alt="Leather Backpack">
+            <span class="badge-seller">StyleCraft</span>
+          </div>
+          <div class="product-details">
+            <div class="product-title">Premium Leather Backpack</div>
+            <div class="rating"><i class="fa-solid fa-star"></i> 4.7 (19 reviews)</div>
+            <div class="product-meta">
+              <span class="price">৳ 4,500</span>
+              <button class="btn btn-customer add-to-cart-btn" data-name="Leather Backpack" data-price="4500"><i class="fa-solid fa-cart-plus"></i> Add</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. SELLER PANEL VIEW -->
+    <section id="seller" class="view-panel">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+          <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=100&q=80" alt="Store Logo" class="avatar-img">
+          <div>
+            <h2><i class="fa-solid fa-store" style="color: var(--accent-seller);"></i> Seller Dashboard — TechZone Store</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Store URL: marketloop.com/store/techzone</p>
+          </div>
+        </div>
+        <button class="btn" style="background: var(--accent-seller); color: #000;" id="addProductBtn">+ Add New Product</button>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-seller);">
+            <i class="fa-solid fa-sack-dollar"></i>
+          </div>
+          <div class="stat-info">
+            <h4>Total Revenue</h4>
+            <p>৳ 4,85,000</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(6, 182, 212, 0.2); color: var(--accent-customer);">
+            <i class="fa-solid fa-box"></i>
+          </div>
+          <div class="stat-info">
+            <h4>Active Products</h4>
+            <p>34 Items</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(245, 158, 11, 0.2); color: var(--accent-warning);">
+            <i class="fa-solid fa-truck-ramp-box"></i>
+          </div>
+          <div class="stat-info">
+            <h4>Pending Orders</h4>
+            <p>12 Orders</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><i class="fa-solid fa-boxes-stacked"></i> Inventory & Low Stock Alerts</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Item Image</th>
+                <th>SKU</th>
+                <th>Product Name</th>
+                <th>Current Stock</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=100&q=80" class="table-thumb" alt="MacBook"></td>
+                <td>SKU-TL-001</td>
+                <td>MacBook Pro M2</td>
+                <td>12 units</td>
+                <td>৳ 1,65,000</td>
+                <td><span class="status-pill status-success">In Stock</span></td>
+                <td><button class="btn action-btn">Edit</button></td>
+              </tr>
+              <tr>
+                <td><img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=100&q=80" class="table-thumb" alt="Keyboard"></td>
+                <td>SKU-TL-008</td>
+                <td>Mechanical Keyboard RGB</td>
+                <td><strong style="color: var(--accent-danger);">3 units</strong></td>
+                <td>৳ 6,500</td>
+                <td><span class="status-pill status-pending">Low Stock Alert</span></td>
+                <td><button class="btn action-btn">Update Stock</button></td>
+              </tr>
+              <tr>
+                <td><img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=100&q=80" class="table-thumb" alt="USB Hub"></td>
+                <td>SKU-TL-015</td>
+                <td>USB-C Hub Multiport</td>
+                <td>0 units</td>
+                <td>৳ 2,800</td>
+                <td><span class="status-pill status-danger">Out of Stock</span></td>
+                <td><button class="btn action-btn">Restock</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ADMIN CONTROL VIEW -->
+    <section id="admin" class="view-panel">
+      <div style="margin-bottom: 1.5rem;">
+        <h2><i class="fa-solid fa-user-shield" style="color: var(--accent-admin);"></i> Admin Master Control Panel</h2>
+        <p style="color: var(--text-muted);">Manage platform users, verify sellers, monitor moderation and system revenue.</p>
+      </div>
+
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(139, 92, 246, 0.2); color: var(--accent-admin);">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div class="stat-info">
+            <h4>Total Platform Users</h4>
+            <p>12,450</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-seller);">
+            <i class="fa-solid fa-shop"></i>
+          </div>
+          <div class="stat-info">
+            <h4>Verified Stores</h4>
+            <p>184 Sellers</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon" style="background: rgba(239, 68, 68, 0.2); color: var(--accent-danger);">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <div class="stat-info">
+            <h4>Pending Seller Approvals</h4>
+            <p>5 Requests</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom: 2rem;">
+        <h3><i class="fa-solid fa-id-card"></i> Pending Seller Verification Applications</h3>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Seller Profile</th>
+                <th>Applicant / Business</th>
+                <th>NID / Trade License</th>
+                <th>Store Slug</th>
+                <th>Applied Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="seller-row-1">
+                <td><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&q=80" class="avatar-img" alt="Seller Avatar"></td>
+                <td>
+                  <strong>Apex Tech Ltd.</strong><br>
+                  <small style="color: var(--text-muted);">Rahim Chowdhury</small>
+                </td>
+                <td>TL-8839201</td>
+                <td>marketloop.com/store/apextech</td>
+                <td>Sep 01, 2026</td>
+                <td>
+                  <button class="btn approve-btn" data-row="seller-row-1">Approve</button>
+                  <button class="btn reject-btn" data-row="seller-row-1">Reject</button>
+                </td>
+              </tr>
+              <tr id="seller-row-2">
+                <td><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" class="avatar-img" alt="Seller Avatar"></td>
+                <td>
+                  <strong>Urban Fashion House</strong><br>
+                  <small style="color: var(--text-muted);">Tania Sultana</small>
+                </td>
+                <td>TL-1102938</td>
+                <td>marketloop.com/store/urbanfashion</td>
+                <td>Sep 02, 2026</td>
+                <td>
+                  <button class="btn approve-btn" data-row="seller-row-2">Approve</button>
+                  <button class="btn reject-btn" data-row="seller-row-2">Reject</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SYSTEM ARCHITECTURE & DOCS -->
+    <section id="system" class="view-panel">
+      <div style="margin-bottom: 1.5rem;">
+        <h2><i class="fa-solid fa-diagram-project" style="color: var(--accent-warning);"></i> System Blueprint & Database Schema</h2>
+        <p style="color: var(--text-muted);">MarketLoop Core Specifications, Entities Structure and Implementation Roadmap.</p>
+      </div>
+
+      <div class="spec-grid" style="margin-bottom: 2rem;">
+        <div class="card">
+          <h3 style="color: var(--accent-warning); margin-bottom: 1rem;"><i class="fa-solid fa-database"></i> Database Entities (32 Schema Tables)</h3>
+          <ul style="list-style: none; line-height: 2; font-size: 0.95rem;">
+            <li><i class="fa-solid fa-check" style="color:var(--accent-seller)"></i> <strong>Users & Roles:</strong> users, roles, user_roles</li>
+            <li><i class="fa-solid fa-check" style="color:var(--accent-seller)"></i> <strong>Sellers & Stores:</strong> seller_profiles, stores, seller_verifications</li>
+            <li><i class="fa-solid fa-check" style="color:var(--accent-seller)"></i> <strong>Catalog:</strong> categories, products, product_images, product_variants, inventories</li>
+            <li><i class="fa-solid fa-check" style="color:var(--accent-seller)"></i> <strong>Commerce:</strong> carts, wishlists, orders, order_items, payments, coupons</li>
+            <li><i class="fa-solid fa-check" style="color:var(--accent-seller)"></i> <strong>Logistics & Support:</strong> shipments, delivery_partners, support_tickets</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 style="color: var(--accent-customer); margin-bottom: 1rem;"><i class="fa-solid fa-route"></i> Complete Order Lifecycle Flow</h3>
+          
+          <div class="flow-step">
+            <div class="flow-number">1</div>
+            <div>
+              <strong>Order Placement</strong><br>
+              <small style="color: var(--text-muted);">Customer adds to Cart → Address → Online / COD Payment</small>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-number">2</div>
+            <div>
+              <strong>Vendor Notification</strong><br>
+              <small style="color: var(--text-muted);">Seller receives order alert → Accepts & Packages item</small>
+            </div>
+          </div>
+
+          <div class="flow-step">
+            <div class="flow-number">3</div>
+            <div>
+              <strong>Shipment & Delivery</strong><br>
+              <small style="color: var(--text-muted);">Assigned to Delivery Partner → Tracking Status Update → Delivered</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-bars-progress"></i> Development Roadmap</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+          <div style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 10px; border-top: 3px solid var(--accent-customer);">
+            <h4 style="color: var(--accent-customer);">Phase 1: Basic MVP</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Auth System (RBAC), Simple Catalog, Cart, Cash on Delivery, Order Management.</p>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 10px; border-top: 3px solid var(--accent-seller);">
+            <h4 style="color: var(--accent-seller);">Phase 2: Multi-Vendor Platform</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Seller Verification Dashboard, Unique Store URLs, Stock Threshold Alerts, Reviews & Coupons.</p>
+          </div>
+          <div style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 10px; border-top: 3px solid var(--accent-admin);">
+            <h4 style="color: var(--accent-admin);">Phase 3: Advanced Ecosystem</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Automated Payouts, Integrated Delivery API, Product Moderation Queue, Analytics & Tickets.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Cart Counter Widget -->
+  <div class="cart-indicator" id="cartWidget">
+    <i class="fa-solid fa-basket-shopping"></i>
+    <span>Cart: <span id="cartCount">0</span> items</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
