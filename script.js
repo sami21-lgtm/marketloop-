@@ -1,5 +1,6 @@
-// PRODUCT DATASET
+// EXPANDED PRODUCT DATASET (25 PRODUCTS WITH ACCURATE IMAGES)
 let products = [
+    // --- MOBILES & TABLETS ---
     {
         id: 201,
         title: "Tecno Camon Slim 5G",
@@ -9,71 +10,199 @@ let products = [
         price: 59999,
         stock: 12,
         seller: "MobileDokan BD",
-        spec: "Ultra Slim, 5G Chipset, 64MP OIS Camera",
+        spec: "Ultra Slim, Dimensity 8020 5G, 64MP OIS Camera",
         image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80"
     },
     {
         id: 202,
-        title: "Realme C100x (8000mAh Battery)",
+        title: "Realme C100x Power",
         category: "MOBILES",
         subcategory: "Best Battery",
         brand: "Realme",
-        price: 80000,
+        price: 28500,
         stock: 8,
         seller: "MobileDokan BD",
-        spec: "8000mAh Battery, EMI Available",
+        spec: "8000mAh Monster Battery, 67W Fast Charging",
         image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80"
     },
     {
         id: 203,
-        title: "Xiaomi AI Smartphone Pro",
+        title: "Xiaomi AI Pro 5G",
         category: "MOBILES",
         subcategory: "AI Smartphones",
         brand: "Xiaomi",
         price: 42000,
         stock: 15,
         seller: "MobileDokan BD",
-        spec: "AI Quad Camera, 120Hz AMOLED",
+        spec: "AI Quad Camera System, 120Hz AMOLED Display",
         image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80"
     },
     {
+        id: 204,
+        title: "Samsung Galaxy S24 Ultra",
+        category: "MOBILES",
+        subcategory: "Best Camera",
+        brand: "Samsung",
+        price: 135000,
+        stock: 6,
+        seller: "Gadget Central BD",
+        spec: "200MP Zoom Camera, Snapdragon 8 Gen 3, S-Pen",
+        image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 205,
+        title: "iPhone 15 Pro Max Titanium",
+        category: "MOBILES",
+        subcategory: "5G Mobiles",
+        brand: "Apple",
+        price: 165000,
+        stock: 5,
+        seller: "Apple Gadgets BD",
+        spec: "A17 Pro Chip, Titanium Body, 5x Optical Zoom",
+        image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=600&q=80"
+    },
+
+    // --- WOMEN'S FASHION ---
+    {
         id: 101,
-        title: "Traditional Jamdani Saree",
+        title: "Traditional Handcrafted Jamdani Saree",
         category: "WOMEN",
         subcategory: "Saree",
         brand: "Taaga",
         price: 12500,
         stock: 5,
         seller: "Aarong Store",
-        spec: "Handcrafted Premium Jamdani Cotton",
+        spec: "Pure Cotton Handloom Weave, Red & Gold Border",
         image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80"
     },
     {
         id: 102,
-        title: "Men's Premium Designer Kurta",
+        title: "Royal Silk Banarasi Saree",
+        category: "WOMEN",
+        subcategory: "Saree",
+        brand: "Taaga",
+        price: 18900,
+        stock: 4,
+        seller: "Aarong Store",
+        spec: "Pure Silk Fabric, Intricate Zari Embroidery",
+        image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 103,
+        title: "Embroidered Cotton Shalwar Kameez",
+        category: "WOMEN",
+        subcategory: "Shalwar Kameez",
+        brand: "Taaga",
+        price: 6500,
+        stock: 10,
+        seller: "Aarong Store",
+        spec: "3-Piece Outfit, Chiffon Dupatta, Organic Cotton",
+        image: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 104,
+        title: "Printed Summer Kurta & Top",
+        category: "WOMEN",
+        subcategory: "Kurta & Tops",
+        brand: "Taaga",
+        price: 2450,
+        stock: 14,
+        seller: "Aarong Store",
+        spec: "Breathable Lawn Cotton, Casual Floral Print",
+        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80"
+    },
+
+    // --- MEN'S FASHION ---
+    {
+        id: 301,
+        title: "Men's Designer Silk Panjabi",
+        category: "MEN",
+        subcategory: "Panjabi",
+        brand: "Taaga",
+        price: 4500,
+        stock: 10,
+        seller: "Aarong Store",
+        spec: "Premium Raw Silk Blend, Mandarin Collar",
+        image: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 302,
+        title: "Cotton Slim-Fit Kabli Panjabi",
         category: "MEN",
         subcategory: "Panjabi",
         brand: "Taaga",
         price: 3200,
-        stock: 10,
+        stock: 8,
         seller: "Aarong Store",
-        spec: "100% Fine Organic Cotton",
-        image: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=600&q=80"
+        spec: "100% Breathable Cotton, Modern Cut",
+        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=80"
     },
     {
-        id: 104,
+        id: 303,
+        title: "Casual Short Kurta Shirt",
+        category: "MEN",
+        subcategory: "Short Kurta",
+        brand: "Taaga",
+        price: 1850,
+        stock: 20,
+        seller: "Aarong Store",
+        spec: "Full Sleeve Cotton Short Kurta",
+        image: "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 304,
+        title: "Stretch Cotton Chino Trousers",
+        category: "MEN",
+        subcategory: "Trousers",
+        brand: "Taaga",
+        price: 2600,
+        stock: 15,
+        seller: "Aarong Store",
+        spec: "Slim Fit Twill Cotton Chino Pants",
+        image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80"
+    },
+
+    // --- HOME DÉCOR ---
+    {
+        id: 401,
         title: "Quilted Nakshi Kantha Bedcover",
         category: "HOME DÉCOR",
         subcategory: "Bedcovers",
         brand: "Aarong Earth",
-        price: 4800,
-        stock: 4,
+        price: 5800,
+        stock: 6,
         seller: "Aarong Store",
-        spec: "Traditional Stitch Handmade Cotton",
+        spec: "Traditional Stitch Handmade Cotton Spread",
         image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80"
     },
     {
-        id: 105,
+        id: 402,
+        title: "Luxury Ceramic Dinnerware Set (24 Pcs)",
+        category: "HOME DÉCOR",
+        subcategory: "Dining",
+        brand: "Aarong Earth",
+        price: 8900,
+        stock: 3,
+        seller: "Aarong Store",
+        spec: "Microwave Safe Stoneware Dinner Plates & Bowls",
+        image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 403,
+        title: "Handcrafted Wooden Serving Tray Set",
+        category: "HOME DÉCOR",
+        subcategory: "Dining",
+        brand: "Aarong Earth",
+        price: 2100,
+        stock: 12,
+        seller: "Aarong Store",
+        spec: "Solid Teak Wood Trays with Brass Handles",
+        image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80"
+    },
+
+    // --- SKIN & HAIR ---
+    {
+        id: 501,
         title: "Aarong Earth Orange Peel Face Pack",
         category: "SKIN & HAIR",
         subcategory: "Face Care",
@@ -81,8 +210,44 @@ let products = [
         price: 450,
         stock: 30,
         seller: "Aarong Store",
-        spec: "100% Natural Glow Clay Mask",
+        spec: "100% Natural Organic Clay Brightening Mask",
         image: "https://images.unsplash.com/photo-1567928257400-f137810776b1?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 502,
+        title: "Cold-Pressed Herbal Hair Growth Oil",
+        category: "SKIN & HAIR",
+        subcategory: "Hair Care",
+        brand: "Aarong Earth",
+        price: 780,
+        stock: 25,
+        seller: "Aarong Store",
+        spec: "Amla, Bhringraj & Coconut Blend (200ml)",
+        image: "https://images.unsplash.com/photo-1608248597261-833244675b1d?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 503,
+        title: "Vitamin C Radiance Glowing Serum",
+        category: "SKIN & HAIR",
+        subcategory: "Face Care",
+        brand: "Aarong Earth",
+        price: 1250,
+        stock: 18,
+        seller: "Aarong Store",
+        spec: "15% Pure Vitamin C + Hyaluronic Acid Formula",
+        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 504,
+        title: "Nourishing Argan Oil Shampoo",
+        category: "SKIN & HAIR",
+        subcategory: "Hair Care",
+        brand: "Aarong Earth",
+        price: 950,
+        stock: 22,
+        seller: "Aarong Store",
+        spec: "Sulfate-Free Hair Repairing Shampoo (350ml)",
+        image: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=600&q=80"
     }
 ];
 
@@ -106,13 +271,30 @@ let minPrice = 0;
 let maxPrice = 999999;
 let currentViewMode = "grid";
 
-// INITIALIZATION
+// INITIALIZATION (PAGE LOAD ENHANCEMENT)
 document.addEventListener("DOMContentLoaded", () => {
     filterProducts();
     updateBadges();
+
+    // পেজ লোড হলে পুরো ওয়েবসাইট লুকানো থাকবে এবং লগইন উইন্ডো খোলা থাকবে
+    if (!currentUser) {
+        hideMainApp();
+        openModal('auth-modal');
+    }
 });
 
-// PORTAL TAB SWITCHER (LIKE IMAGE UI)
+// UI VISIBILITY CONTROL
+function showMainApp() {
+    const appWrapper = document.getElementById("app-wrapper");
+    if (appWrapper) appWrapper.style.display = "block";
+}
+
+function hideMainApp() {
+    const appWrapper = document.getElementById("app-wrapper");
+    if (appWrapper) appWrapper.style.display = "none";
+}
+
+// PORTAL TAB SWITCHER
 function switchPortalTab(tab) {
     const guestBtn = document.getElementById("tab-guest-btn");
     const staffBtn = document.getElementById("tab-staff-btn");
@@ -120,15 +302,15 @@ function switchPortalTab(tab) {
     const staffContent = document.getElementById("staff-portal-content");
 
     if (tab === 'guest') {
-        guestBtn.classList.add("active");
-        staffBtn.classList.remove("active");
-        guestContent.classList.remove("hidden");
-        staffContent.classList.add("hidden");
+        if(guestBtn) guestBtn.classList.add("active");
+        if(staffBtn) staffBtn.classList.remove("active");
+        if(guestContent) guestContent.classList.remove("hidden");
+        if(staffContent) staffContent.classList.add("hidden");
     } else {
-        staffBtn.classList.add("active");
-        guestBtn.classList.remove("active");
-        staffContent.classList.remove("hidden");
-        guestContent.classList.add("hidden");
+        if(staffBtn) staffBtn.classList.add("active");
+        if(guestBtn) guestBtn.classList.remove("active");
+        if(staffContent) staffContent.classList.remove("hidden");
+        if(guestContent) guestContent.classList.add("hidden");
     }
 }
 
@@ -141,7 +323,8 @@ function requestRoleSwitch(role) {
 
     if (!currentUser || currentUser.role !== role) {
         switchPortalTab('staff');
-        document.getElementById("staff-role-select").value = role;
+        const roleSelect = document.getElementById("staff-role-select");
+        if(roleSelect) roleSelect.value = role;
         openModal('auth-modal');
         alert(`Authentication Required: Please login with ${role.toUpperCase()} credentials.`);
     } else {
@@ -152,45 +335,59 @@ function requestRoleSwitch(role) {
 function switchRole(role) {
     document.querySelectorAll(".btn-role").forEach(btn => btn.classList.remove("active"));
     
-    document.getElementById("customer-view").classList.add("hidden");
-    document.getElementById("seller-view").classList.add("hidden");
-    document.getElementById("admin-view").classList.add("hidden");
+    const custView = document.getElementById("customer-view");
+    const sellView = document.getElementById("seller-view");
+    const adminView = document.getElementById("admin-view");
 
-    if (role === 'customer') document.getElementById("customer-view").classList.remove("hidden");
-    if (role === 'seller') {
-        document.getElementById("seller-view").classList.remove("hidden");
+    if (custView) custView.classList.add("hidden");
+    if (sellView) sellView.classList.add("hidden");
+    if (adminView) adminView.classList.add("hidden");
+
+    if (role === 'customer' && custView) custView.classList.remove("hidden");
+    if (role === 'seller' && sellView) {
+        sellView.classList.remove("hidden");
         renderSellerInventory();
     }
-    if (role === 'admin') {
-        document.getElementById("admin-view").classList.remove("hidden");
+    if (role === 'admin' && adminView) {
+        adminView.classList.remove("hidden");
         updateAdminStats();
     }
 }
 
-// HANDLERS FOR PORTAL FORMS
+// CUSTOMER ACCESS (NAME, PHONE, PASS)
 function handleCustomerAccess(e) {
-    e.preventDefault();
-    const name = document.getElementById("guest-name").value;
-    const email = document.getElementById("guest-email").value;
-    const phone = document.getElementById("guest-phone").value;
-    const pass = document.getElementById("guest-pass").value;
+    if(e) e.preventDefault();
+    const nameInput = document.getElementById("guest-name");
+    const phoneInput = document.getElementById("guest-phone");
+    const passInput = document.getElementById("guest-pass");
 
-    let user = registeredUsers.find(u => u.email === email || u.phone === phone);
+    const name = nameInput ? nameInput.value.trim() : "";
+    const phone = phoneInput ? phoneInput.value.trim() : "";
+    const pass = passInput ? passInput.value : "";
+
+    if (!name || !phone || !pass) {
+        alert("দয়া করে নাম, ফোন নম্বর এবং পাসওয়ার্ড পূরণ করুন।");
+        return;
+    }
+
+    let user = registeredUsers.find(u => u.phone === phone);
     
     if (!user) {
-        user = { name, email, phone, id: phone, pass, role: "customer" };
+        user = { name, email: "", phone, id: phone, pass, role: "customer" };
         registeredUsers.push(user);
     }
 
     currentUser = user;
     updateUserStatus();
     closeModal('auth-modal');
+    showMainApp(); // সফলভাবে লগইন করলে ওয়েবসাইট আনলক হবে
     switchRole('customer');
-    alert(`Welcome to Customer Portal, ${user.name}!`);
+    alert(`স্বাগতম, ${user.name}!`);
 }
 
+// STAFF ACCESS (ADMIN / SELLER)
 function handleStaffAccess(e) {
-    e.preventDefault();
+    if(e) e.preventDefault();
     const role = document.getElementById("staff-role-select").value;
     const idInput = document.getElementById("staff-id").value.trim();
     const passInput = document.getElementById("staff-pass").value;
@@ -205,6 +402,7 @@ function handleStaffAccess(e) {
         currentUser = user;
         updateUserStatus();
         closeModal('auth-modal');
+        showMainApp();
         switchRole(role);
         alert(`Logged in successfully as ${user.name} (${user.role.toUpperCase()})`);
     } else {
@@ -212,37 +410,58 @@ function handleStaffAccess(e) {
     }
 }
 
+// GUEST ACCESS OPTION
+function enterAsGuest() {
+    currentUser = null;
+    updateUserStatus();
+    closeModal('auth-modal');
+    showMainApp();
+    switchRole('customer');
+}
+
 function updateUserStatus() {
+    const statusText = document.getElementById("user-status-text");
+    const authBtn = document.getElementById("auth-btn");
+
     if (currentUser) {
-        document.getElementById("user-status-text").innerHTML = `Logged in: <strong>${currentUser.name} (${currentUser.role.toUpperCase()})</strong>`;
-        document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> Logout`;
-        document.getElementById("auth-btn").onclick = handleLogout;
+        if(statusText) statusText.innerHTML = `Logged in: <strong>${currentUser.name} (${currentUser.role.toUpperCase()})</strong>`;
+        if(authBtn) {
+            authBtn.innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> Logout`;
+            authBtn.onclick = handleLogout;
+        }
     } else {
-        document.getElementById("user-status-text").innerHTML = `Active User: <strong>Guest</strong>`;
-        document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-shield-halved"></i> Access Portal`;
-        document.getElementById("auth-btn").onclick = () => openModal('auth-modal');
+        if(statusText) statusText.innerHTML = `Active User: <strong>Guest</strong>`;
+        if(authBtn) {
+            authBtn.innerHTML = `<i class="fa-solid fa-shield-halved"></i> Access Portal`;
+            authBtn.onclick = () => openModal('auth-modal');
+        }
     }
 }
 
 function handleLogout() {
     currentUser = null;
     updateUserStatus();
+    hideMainApp(); // ওয়েবসাইট লুকিয়ে দেওয়া হবে
     switchRole('customer');
     alert("Logged out successfully.");
+    openModal('auth-modal');
 }
 
 // PRODUCT FILTERS
 function setCategoryFilter(cat) {
     currentCategory = cat;
     currentSubCategory = "ALL";
-    document.getElementById("search-category-select").value = cat;
-    document.getElementById("current-filter-heading").innerText = `Products: ${cat}`;
+    const catSelect = document.getElementById("search-category-select");
+    if(catSelect) catSelect.value = cat;
+    const heading = document.getElementById("current-filter-heading");
+    if(heading) heading.innerText = `Products: ${cat}`;
     filterProducts();
 }
 
 function setSubCategoryFilter(subcat) {
     currentSubCategory = subcat;
-    document.getElementById("current-filter-heading").innerText = `Category: ${subcat}`;
+    const heading = document.getElementById("current-filter-heading");
+    if(heading) heading.innerText = `Category: ${subcat}`;
     filterProducts();
 }
 
@@ -250,25 +469,34 @@ function setPriceRange(min, max) {
     minPrice = min;
     maxPrice = max;
     document.querySelectorAll(".pill-btn").forEach(btn => btn.classList.remove("active"));
-    event.target.classList.add("active");
+    if(event && event.target) event.target.classList.add("active");
     filterProducts();
 }
 
 function setViewMode(mode) {
     currentViewMode = mode;
-    document.getElementById("grid-view-btn").classList.toggle("active", mode === 'grid');
-    document.getElementById("list-view-btn").classList.toggle("active", mode === 'list');
+    const gridBtn = document.getElementById("grid-view-btn");
+    const listBtn = document.getElementById("list-view-btn");
+    if(gridBtn) gridBtn.classList.toggle("active", mode === 'grid');
+    if(listBtn) listBtn.classList.toggle("active", mode === 'list');
     
     const grid = document.getElementById("product-grid");
-    if (mode === 'list') grid.classList.add("list-view");
-    else grid.classList.remove("list-view");
+    if (grid) {
+        if (mode === 'list') grid.classList.add("list-view");
+        else grid.classList.remove("list-view");
+    }
 }
 
 function filterProducts() {
-    const query = document.getElementById("search-input").value.toLowerCase();
-    const selectCat = document.getElementById("search-category-select").value;
-    const brand = document.getElementById("brand-select").value;
-    const sort = document.getElementById("sort-select").value;
+    const queryEl = document.getElementById("search-input");
+    const catEl = document.getElementById("search-category-select");
+    const brandEl = document.getElementById("brand-select");
+    const sortEl = document.getElementById("sort-select");
+
+    const query = queryEl ? queryEl.value.toLowerCase() : "";
+    const selectCat = catEl ? catEl.value : "ALL";
+    const brand = brandEl ? brandEl.value : "ALL";
+    const sort = sortEl ? sortEl.value : "default";
 
     let filtered = products.filter(p => {
         const matchesQuery = p.title.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query);
@@ -289,10 +517,12 @@ function filterProducts() {
 // RENDER PRODUCTS
 function renderProducts(items) {
     const grid = document.getElementById("product-grid");
+    if(!grid) return;
+    
     grid.innerHTML = "";
 
     if (items.length === 0) {
-        grid.innerHTML = "<p style='grid-column: 1/-1; padding: 20px;'>No products found matching your filters.</p>";
+        grid.innerHTML = "<p style='grid-column: 1/-1; padding: 30px; text-align:center;'>No products found matching your filters.</p>";
         return;
     }
 
@@ -305,7 +535,7 @@ function renderProducts(items) {
                 <span class="wishlist-icon" onclick="toggleWishlist(${p.id})">
                     <i class="${isWish ? 'fa-solid' : 'fa-regular'} fa-heart" style="color: ${isWish ? '#ef4444' : '#64748b'}"></i>
                 </span>
-                <img src="${p.image}" alt="${p.title}">
+                <img src="${p.image}" alt="${p.title}" loading="lazy">
                 <div class="product-details">
                     <span class="product-cat">${p.brand} • ${p.subcategory}</span>
                     <h4 class="product-title">${p.title}</h4>
@@ -318,7 +548,7 @@ function renderProducts(items) {
                         ${p.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
                     </button>
                     <label class="compare-check">
-                        <input type="checkbox" ${isCompared ? 'checked' : ''} onchange="toggleCompare(${p.id})"> Compare
+                        <input type="checkbox" ${isCompared ? 'checked' : ''} onchange="toggleCompare(${p.id})"> Compare Specs
                     </label>
                 </div>
             </div>
@@ -343,6 +573,8 @@ function toggleCompare(id) {
 
 function renderCompareModal() {
     const container = document.getElementById("compare-items-container");
+    if(!container) return;
+    
     if (compareList.length === 0) {
         container.innerHTML = "<p>No products selected for comparison.</p>";
         return;
@@ -356,15 +588,15 @@ function renderCompareModal() {
 
     tableHTML += `<tr><td><strong>Price</strong></td>` + selectedProds.map(p => `<td>৳${p.price.toLocaleString()}</td>`).join('') + `</tr>`;
     tableHTML += `<tr><td><strong>Brand</strong></td>` + selectedProds.map(p => `<td>${p.brand}</td>`).join('') + `</tr>`;
-    tableHTML += `<tr><td><strong>Subcategory</strong></td>` + selectedProds.map(p => `<td>${p.subcategory}</td>`).join('') + `</tr>`;
-    tableHTML += `<tr><td><strong>Details</strong></td>` + selectedProds.map(p => `<td>${p.spec}</td>`).join('') + `</tr>`;
-    tableHTML += `<tr><td><strong>Seller</strong></td>` + selectedProds.map(p => `<td>${p.seller}</td>`).join('') + `</tr>`;
+    tableHTML += `<tr><td><strong>Category</strong></td>` + selectedProds.map(p => `<td>${p.category} (${p.subcategory})</td>`).join('') + `</tr>`;
+    tableHTML += `<tr><td><strong>Specifications</strong></td>` + selectedProds.map(p => `<td>${p.spec}</td>`).join('') + `</tr>`;
+    tableHTML += `<tr><td><strong>Seller Store</strong></td>` + selectedProds.map(p => `<td>${p.seller}</td>`).join('') + `</tr>`;
 
     tableHTML += `</tbody></table>`;
     container.innerHTML = tableHTML;
 }
 
-// CART & WISHLIST
+// CART & WISHLIST SYSTEM
 function addToCart(id) {
     const prod = products.find(p => p.id === id);
     const inCart = cart.find(c => c.id === id);
@@ -376,7 +608,7 @@ function addToCart(id) {
         cart.push({ ...prod, qty: 1 });
     }
     updateBadges();
-    alert(`${prod.title} added to cart!`);
+    alert(`${prod.title} added to shopping cart!`);
 }
 
 function removeFromCart(id) {
@@ -394,19 +626,26 @@ function toggleWishlist(id) {
 }
 
 function updateBadges() {
-    document.getElementById("cart-count").innerText = cart.reduce((s, i) => s + i.qty, 0);
-    document.getElementById("wishlist-count").innerText = wishlist.length;
-    document.getElementById("compare-count").innerText = compareList.length;
-    document.getElementById("orders-count").innerText = orders.length;
+    const cartEl = document.getElementById("cart-count");
+    const wishEl = document.getElementById("wishlist-count");
+    const compEl = document.getElementById("compare-count");
+    const ordEl = document.getElementById("orders-count");
+
+    if(cartEl) cartEl.innerText = cart.reduce((s, i) => s + i.qty, 0);
+    if(wishEl) wishEl.innerText = wishlist.length;
+    if(compEl) compEl.innerText = compareList.length;
+    if(ordEl) ordEl.innerText = orders.length;
 }
 
 function renderCart() {
     const container = document.getElementById("cart-items-container");
+    if(!container) return;
+    
     container.innerHTML = "";
     let subtotal = 0;
 
     if (cart.length === 0) {
-        container.innerHTML = "<p>Your cart is empty.</p>";
+        container.innerHTML = "<p>Your shopping cart is currently empty.</p>";
     }
 
     cart.forEach(item => {
@@ -425,18 +664,24 @@ function renderCart() {
         `;
     });
 
-    document.getElementById("cart-subtotal").innerText = subtotal.toLocaleString();
+    const subEl = document.getElementById("cart-subtotal");
+    const discEl = document.getElementById("cart-discount");
+    const grandEl = document.getElementById("cart-grand-total");
+
     const grand = Math.max(0, subtotal - appliedDiscount);
-    document.getElementById("cart-discount").innerText = appliedDiscount.toLocaleString();
-    document.getElementById("cart-grand-total").innerText = grand.toLocaleString();
+    if(subEl) subEl.innerText = subtotal.toLocaleString();
+    if(discEl) discEl.innerText = appliedDiscount.toLocaleString();
+    if(grandEl) grandEl.innerText = grand.toLocaleString();
 }
 
 function renderWishlist() {
     const container = document.getElementById("wishlist-items-container");
+    if(!container) return;
+    
     container.innerHTML = "";
 
     if (wishlist.length === 0) {
-        container.innerHTML = "<p>Wishlist is empty.</p>";
+        container.innerHTML = "<p>Your wishlist is empty.</p>";
         return;
     }
 
@@ -455,7 +700,9 @@ function renderWishlist() {
 }
 
 function applyCoupon() {
-    const code = document.getElementById("coupon-code").value.trim();
+    const codeEl = document.getElementById("coupon-code");
+    const code = codeEl ? codeEl.value.trim() : "";
+
     if (code === "WELCOME20") {
         appliedDiscount = 500;
         alert("Coupon Applied! ৳500 Discount.");
@@ -467,7 +714,7 @@ function applyCoupon() {
 }
 
 function checkout() {
-    if (cart.length === 0) return alert("Cart is empty!");
+    if (cart.length === 0) return alert("Your cart is empty!");
 
     cart.forEach(c => {
         const p = products.find(prod => prod.id === c.id);
@@ -495,6 +742,8 @@ function checkout() {
 // ORDERS TRACKING
 function renderOrders() {
     const container = document.getElementById("orders-items-container");
+    if(!container) return;
+    
     container.innerHTML = "";
 
     if (orders.length === 0) {
@@ -519,12 +768,18 @@ function renderOrders() {
 // SELLER & ADMIN UTILS
 function renderSellerInventory() {
     const tbody = document.getElementById("seller-inventory-table");
+    if(!tbody) return;
+    
     tbody.innerHTML = "";
     
     let totalSales = orders.reduce((s, o) => s + o.total, 0);
-    document.getElementById("seller-total-sales").innerText = `৳ ${totalSales.toLocaleString()}`;
-    document.getElementById("seller-active-products").innerText = products.length;
-    document.getElementById("seller-total-orders").innerText = orders.length;
+    const salesEl = document.getElementById("seller-total-sales");
+    const activeEl = document.getElementById("seller-active-products");
+    const ordersEl = document.getElementById("seller-total-orders");
+
+    if(salesEl) salesEl.innerText = `৳ ${totalSales.toLocaleString()}`;
+    if(activeEl) activeEl.innerText = products.length;
+    if(ordersEl) ordersEl.innerText = orders.length;
 
     products.forEach(p => {
         tbody.innerHTML += `
@@ -542,7 +797,7 @@ function renderSellerInventory() {
 }
 
 function saveProduct(e) {
-    e.preventDefault();
+    if(e) e.preventDefault();
     const newProd = {
         id: Date.now(),
         title: document.getElementById("new-prod-name").value,
@@ -560,7 +815,7 @@ function saveProduct(e) {
     filterProducts();
     renderSellerInventory();
     closeModal('product-modal');
-    alert("Product Added!");
+    alert("New product published successfully!");
 }
 
 function deleteProduct(id) {
@@ -571,31 +826,51 @@ function deleteProduct(id) {
 
 function updateAdminStats() {
     const rev = orders.reduce((s, o) => s + o.total, 0);
-    document.getElementById("admin-gross-revenue").innerText = `৳ ${rev.toLocaleString()}`;
-    document.getElementById("admin-platform-orders").innerText = orders.length;
+    const revEl = document.getElementById("admin-gross-revenue");
+    const ordEl = document.getElementById("admin-platform-orders");
+
+    if(revEl) revEl.innerText = `৳ ${rev.toLocaleString()}`;
+    if(ordEl) ordEl.innerText = orders.length;
 }
 
 function approveSeller(id) {
-    document.getElementById(`status-${id.toLowerCase()}`).className = "tag tag-success";
-    document.getElementById(`status-${id.toLowerCase()}`).innerText = "VERIFIED";
-    document.getElementById(`action-${id.toLowerCase()}`).innerHTML = `<button class="btn-sm btn-disabled" disabled>Approved</button>`;
+    const statusEl = document.getElementById(`status-${id.toLowerCase()}`);
+    const actionEl = document.getElementById(`action-${id.toLowerCase()}`);
+
+    if(statusEl) {
+        statusEl.className = "tag tag-success";
+        statusEl.innerText = "VERIFIED";
+    }
+    if(actionEl) {
+        actionEl.innerHTML = `<button class="btn-sm btn-disabled" disabled>Approved</button>`;
+    }
 }
 
 function rejectSeller(id) {
-    document.getElementById(`status-${id.toLowerCase()}`).className = "tag tag-danger";
-    document.getElementById(`status-${id.toLowerCase()}`).innerText = "REJECTED";
-    document.getElementById(`action-${id.toLowerCase()}`).innerHTML = `<button class="btn-sm btn-disabled" disabled>Rejected</button>`;
+    const statusEl = document.getElementById(`status-${id.toLowerCase()}`);
+    const actionEl = document.getElementById(`action-${id.toLowerCase()}`);
+
+    if(statusEl) {
+        statusEl.className = "tag tag-danger";
+        statusEl.innerText = "REJECTED";
+    }
+    if(actionEl) {
+        actionEl.innerHTML = `<button class="btn-sm btn-disabled" disabled>Rejected</button>`;
+    }
 }
 
-// MODAL UTILS
+// MODAL CONTROLLERS
 function openModal(id) {
     if (id === 'cart-modal') renderCart();
     if (id === 'wishlist-modal') renderWishlist();
     if (id === 'orders-modal') renderOrders();
     if (id === 'compare-modal') renderCompareModal();
-    document.getElementById(id).style.display = 'flex';
+    
+    const targetModal = document.getElementById(id);
+    if (targetModal) targetModal.style.display = 'flex';
 }
 
 function closeModal(id) {
-    document.getElementById(id).style.display = 'none';
+    const targetModal = document.getElementById(id);
+    if (targetModal) targetModal.style.display = 'none';
 }
