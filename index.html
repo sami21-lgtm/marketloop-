@@ -25,6 +25,7 @@
                 <button onclick="requestRoleSwitch('customer')" class="btn-role"><i class="fa-solid fa-user"></i> Customer</button>
                 <button onclick="requestRoleSwitch('seller')" class="btn-role"><i class="fa-solid fa-store"></i> Seller</button>
                 <button onclick="requestRoleSwitch('admin')" class="btn-role"><i class="fa-solid fa-user-shield"></i> Admin</button>
+                <button onclick="logout()" class="btn-role" style="background: #ef4444; color: white;"><i class="fa-solid fa-right-from-bracket"></i> Logout</button>
             </div>
         </div>
 
@@ -233,8 +234,8 @@
         </main>
     </div>
 
-    <!-- INITIAL ENTRY LOGIN PORTAL -->
-    <div class="modal active" id="auth-modal">
+    <!-- INITIAL ENTRY LOGIN PORTAL (active class removed from here) -->
+    <div class="modal" id="auth-modal">
         <div class="portal-modal-box">
             
             <div class="portal-header">
