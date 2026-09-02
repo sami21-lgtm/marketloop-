@@ -86,6 +86,16 @@ let products = [
     }
 ];
 
+// SYSTEM USERS DATABASE (IN-MEMORY)
+let registeredUsers = [
+    { name: "System Admin", email: "admin@marketloop.com", id: "admin", phone: "01700000000", pass: "admin123", role: "admin" },
+    { name: "Demo Seller", email: "seller@marketloop.com", id: "seller", phone: "01800000000", pass: "seller123", role: "seller" },
+    { name: "Rahim Ahmed", email: "rahim@gmail.com", id: "01900000000", phone: "01900000000", pass: "123456", role: "customer" }
+];
+
+// CURRENT USER STATE
+let currentUser = null;
+
 let cart = [];
 let wishlist = [];
 let compareList = [];
@@ -104,12 +114,27 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBadges();
 });
 
-// ROLE SWITCHING
+// AUTHENTICATION LOGIC
+function requestRoleSwitch(role) {
+    if (role === 'customer') {
+        switchRole('customer');
+        return;
+    }
+
+    if (!currentUser || currentUser.role !== role) {
+        document.getElementById("login-role-select").value = role;
+        toggleRoleHint();
+        openModal('auth-modal');
+        alert(`Authentication Required: Please login with ${role.toUpperCase()} credentials to access this area.`);
+    } else {
+        switchRole(role);
+    }
+}
+
 function switchRole(role) {
     document.getElementById("current-role-label").innerText = role.toUpperCase();
     document.querySelectorAll(".btn-role").forEach(btn => btn.classList.remove("active"));
-    event.target.classList.add("active");
-
+    
     document.getElementById("customer-view").classList.add("hidden");
     document.getElementById("seller-view").classList.add("hidden");
     document.getElementById("admin-view").classList.add("hidden");
@@ -123,6 +148,95 @@ function switchRole(role) {
         document.getElementById("admin-view").classList.remove("hidden");
         updateAdminStats();
     }
+}
+
+function switchAuthTab(tab) {
+    const loginForm = document.getElementById("login-form");
+    const regForm = document.getElementById("register-form");
+    const tabBtns = document.querySelectorAll(".auth-tab-btn");
+
+    if (tab === 'login') {
+        loginForm.classList.remove("hidden");
+        regForm.classList.add("hidden");
+        tabBtns[0].classList.add("active");
+        tabBtns[1].classList.remove("active");
+    } else {
+        loginForm.classList.add("hidden");
+        regForm.classList.remove("hidden");
+        tabBtns[0].classList.remove("active");
+        tabBtns[1].classList.add("active");
+    }
+}
+
+function toggleRoleHint() {
+    const role = document.getElementById("login-role-select").value;
+    const hint = document.getElementById("admin-credentials-hint");
+    if (role === 'admin') {
+        hint.style.display = 'block';
+    } else {
+        hint.style.display = 'none';
+    }
+}
+
+function handleLogin(e) {
+    e.preventDefault();
+    const role = document.getElementById("login-role-select").value;
+    const idInput = document.getElementById("login-id").value.trim();
+    const passInput = document.getElementById("login-pass").value;
+
+    const user = registeredUsers.find(u => 
+        (u.email === idInput || u.phone === idInput || u.id === idInput) && 
+        u.pass === passInput && 
+        u.role === role
+    );
+
+    if (user) {
+        currentUser = user;
+        document.getElementById("user-status-text").innerHTML = `Logged as: <strong>${user.name} (${user.role.toUpperCase()})</strong>`;
+        document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> Logout`;
+        document.getElementById("auth-btn").onclick = handleLogout;
+        
+        closeModal('auth-modal');
+        switchRole(role);
+        alert(`Welcome back, ${user.name}!`);
+    } else {
+        alert("Invalid credentials or role selection! Please check ID and Password.");
+    }
+}
+
+function handleCustomerRegister(e) {
+    e.preventDefault();
+    const name = document.getElementById("reg-name").value;
+    const phone = document.getElementById("reg-phone").value;
+    const email = document.getElementById("reg-email").value;
+    const pass = document.getElementById("reg-pass").value;
+
+    const exists = registeredUsers.find(u => u.email === email || u.phone === phone);
+    if (exists) {
+        alert("Account with this Email or Phone already exists!");
+        return;
+    }
+
+    const newUser = { name, phone, email, id: phone, pass, role: "customer" };
+    registeredUsers.push(newUser);
+
+    currentUser = newUser;
+    document.getElementById("user-status-text").innerHTML = `Logged as: <strong>${newUser.name} (CUSTOMER)</strong>`;
+    document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> Logout`;
+    document.getElementById("auth-btn").onclick = handleLogout;
+
+    closeModal('auth-modal');
+    switchRole('customer');
+    alert("Registration Successful! You are now logged in.");
+}
+
+function handleLogout() {
+    currentUser = null;
+    document.getElementById("user-status-text").innerHTML = `Active Role: <strong>GUEST</strong>`;
+    document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Login / Register`;
+    document.getElementById("auth-btn").onclick = () => openModal('auth-modal');
+    switchRole('customer');
+    alert("Logged out successfully.");
 }
 
 // FILTER LOGIC
@@ -250,15 +364,10 @@ function renderCompareModal() {
     });
     tableHTML += `</tr></thead><tbody>`;
 
-    // Price Row
     tableHTML += `<tr><td><strong>Price</strong></td>` + selectedProds.map(p => `<td>৳${p.price.toLocaleString()}</td>`).join('') + `</tr>`;
-    // Brand Row
     tableHTML += `<tr><td><strong>Brand</strong></td>` + selectedProds.map(p => `<td>${p.brand}</td>`).join('') + `</tr>`;
-    // Category Row
     tableHTML += `<tr><td><strong>Subcategory</strong></td>` + selectedProds.map(p => `<td>${p.subcategory}</td>`).join('') + `</tr>`;
-    // Specs Row
     tableHTML += `<tr><td><strong>Specifications</strong></td>` + selectedProds.map(p => `<td>${p.spec}</td>`).join('') + `</tr>`;
-    // Seller Row
     tableHTML += `<tr><td><strong>Seller</strong></td>` + selectedProds.map(p => `<td>${p.seller}</td>`).join('') + `</tr>`;
 
     tableHTML += `</tbody></table>`;
@@ -421,7 +530,7 @@ function saveProduct(e) {
         price: parseFloat(document.getElementById("new-prod-price").value),
         stock: parseInt(document.getElementById("new-prod-stock").value),
         spec: document.getElementById("new-prod-spec").value || "N/A",
-        seller: "Active Vendor",
+        seller: currentUser ? currentUser.name : "Active Vendor",
         image: document.getElementById("new-prod-img").value
     };
 
