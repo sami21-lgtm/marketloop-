@@ -585,7 +585,7 @@ let ads = [
     { id: 2, storeId: "STR-802", storeName: "MobileDokan BD", ownerEmail: "contact@mobiledokan.bd", slot: "Category Banner", price: 1500, duration: "5 Days", status: "PENDING" }
 ];
 
-let currentUser = { name: "Guest", role: "customer" };
+let currentUser = null;
 let selectedCategory = "ALL";
 let selectedSubCategory = "ALL";
 let minPrice = 0;
@@ -595,15 +595,15 @@ let appliedDiscount = 0;
 
 // --- INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
-    // localStorage ব্যবহার করে সেশন রিলোডে লগইন ধরে রাখা নিশ্চিত করা হলো
-    const savedUser = localStorage.getItem("currentUser");
+    // sessionStorage ব্যবহার করা হয়েছে যেন লিংকে প্রথম ঢুকলে পপআপ আসে, কিন্তু রিলোড দিলে পপআপ না আসে
+    const savedUser = sessionStorage.getItem("currentUser");
     
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
-        closeModal("auth-modal"); // লগইন ডাটা থাকলে পপআপটি হাইড বা বন্ধ রাখা হবে
+        closeModal("auth-modal");
         requestRoleSwitch(currentUser.role);
     } else {
-        openModal("auth-modal"); // ডাটা না থাকলে পপআপ দেখাবে
+        openModal("auth-modal"); // সেশন না থাকলে সাথে সাথে লগইন পপআপ আসবে
     }
 
     filterProducts();
@@ -625,17 +625,17 @@ function requestRoleSwitch(role) {
 
     if (role === 'customer') {
         if (customerView) customerView.classList.remove("hidden");
-        currentUser.role = "customer";
-        if (statusText) statusText.innerHTML = `Active User: <strong>${currentUser.name} (Customer)</strong>`;
+        if (currentUser) currentUser.role = "customer";
+        if (statusText && currentUser) statusText.innerHTML = `Active User: <strong>${currentUser.name} (Customer)</strong>`;
         filterProducts();
     } else if (role === 'seller') {
         if (sellerView) sellerView.classList.remove("hidden");
-        currentUser.role = "seller";
+        if (currentUser) currentUser.role = "seller";
         if (statusText) statusText.innerHTML = `Active User: <strong>Store Seller</strong>`;
         renderSellerInventory();
     } else if (role === 'admin') {
         if (adminView) adminView.classList.remove("hidden");
-        currentUser.role = "admin";
+        if (currentUser) currentUser.role = "admin";
         if (statusText) statusText.innerHTML = `Active User: <strong>System Admin</strong>`;
         renderAdminStats();
     }
@@ -666,14 +666,14 @@ function handleCustomerAccess(event) {
     const nameInput = document.getElementById("guest-name");
     const name = nameInput && nameInput.value.trim() !== "" ? nameInput.value : "Customer";
     currentUser = { name: name, role: "customer" };
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
     closeModal("auth-modal");
     requestRoleSwitch("customer");
 }
 
 function enterAsGuest() {
     currentUser = { name: "Guest User", role: "customer" };
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
     closeModal("auth-modal");
     requestRoleSwitch("customer");
 }
@@ -683,16 +683,17 @@ function handleStaffAccess(event) {
     const roleSelect = document.getElementById("staff-role-select");
     const selectedRole = roleSelect ? roleSelect.value : 'seller';
     currentUser = { name: selectedRole === 'admin' ? "System Admin" : "Store Seller", role: selectedRole };
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
     closeModal("auth-modal");
     requestRoleSwitch(selectedRole);
 }
 
-// লগআউট করার জন্য ফাংশন
+// সঠিকভাবে কাজ করার জন্য আপডেটকৃত লগআউট ফাংশন
 function logout() {
+    sessionStorage.removeItem("currentUser");
     localStorage.removeItem("currentUser");
-    currentUser = { name: "Guest", role: "customer" };
-    openModal("auth-modal");
+    currentUser = null;
+    location.reload(); // পেজ রিফ্রেশ দিলে পুরোপুরি ক্লিন লগআউট হয়ে সরাসরি পপআপ আসবে
 }
 
 // --- MODAL CONTROL ---
@@ -716,13 +717,13 @@ function setCategoryFilter(cat) {
     selectedSubCategory = "ALL";
     const selectElem = document.getElementById("search-category-select");
     if (selectElem) selectElem.value = cat;
-    if (currentUser.role === "customer") requestRoleSwitch("customer");
+    if (currentUser && currentUser.role === "customer") requestRoleSwitch("customer");
     filterProducts();
 }
 
 function setSubCategoryFilter(subCat) {
     selectedSubCategory = subCat;
-    if (currentUser.role === "customer") requestRoleSwitch("customer");
+    if (currentUser && currentUser.role === "customer") requestRoleSwitch("customer");
     filterProducts();
 }
 
@@ -868,7 +869,7 @@ function addToCart(productId) {
         cart.push({ ...item, qty: 1 });
     }
     updateBadges();
-    alert(`"${item.title}" কার্ডে যোগ করা হয়েছে!`);
+    alert(`"${item.title}" কার্টে যোগ করা হয়েছে!`);
 }
 
 function updateCartQty(id, delta) {
@@ -965,33 +966,27 @@ function renderCart() {
                 <button onclick="updateCartQty(${item.id}, -1)" style="padding:2px 8px; border:1px solid #cbd5e1; border-radius:4px;">-</button>
                 <span>${item.qty}</span>
                 <button onclick="updateCartQty(${item.id}, 1)" style="padding:2px 8px; border:1px solid #cbd5e1; border-radius:4px;">+</button>
-                <button onclick="removeFromCart(${item.id})" style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:10px;"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="removeFromCart(${item.id})" style="padding:2px 8px; border:none; background:#fee2e2; color:#ef4444; border-radius:4px;"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>`;
     }).join('');
 
-    const discountAmount = Math.round((subtotal * appliedDiscount) / 100);
-    const grandTotal = subtotal - discountAmount;
+    const discount = (subtotal * appliedDiscount) / 100;
+    const grandTotal = subtotal - discount;
 
     if (subtotalElem) subtotalElem.innerText = subtotal.toLocaleString();
-    if (discountElem) discountElem.innerText = discountAmount.toLocaleString();
+    if (discountElem) discountElem.innerText = discount.toLocaleString();
     if (totalElem) totalElem.innerText = grandTotal.toLocaleString();
 }
 
-// --- COUPON APPLICATION & CHECKOUT ---
 function applyCoupon() {
-    const input = document.getElementById("coupon-code") || document.getElementById("coupon-input");
-    const code = input ? input.value.trim().toUpperCase() : "";
-
-    if (code === "SAMISA20") {
+    const code = document.getElementById("coupon-code")?.value.trim().toLowerCase();
+    if (code === "samisa20") {
         appliedDiscount = 20;
-        alert("🎉 অভিনন্দন! 'SAMISA20' কুপনে ২০% ডিসকাউন্ট প্রয়োগ করা হয়েছে!");
-    } else if (code === "PROMO10" || code === "DISCOUNT10") {
-        appliedDiscount = 10;
-        alert("🎉 ১০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
+        alert("অভিনন্দন! ২০% ডিসকাউন্ট যুক্ত করা হয়েছে।");
     } else {
         appliedDiscount = 0;
-        alert("❌ অবৈধ কুপন কোড! সঠিক কোড প্রয়োগ করুন।");
+        alert("ভুল কুপন কোড!");
     }
     renderCart();
 }
@@ -1001,186 +996,257 @@ function processCheckout() {
         alert("আপনার কার্ট খালি!");
         return;
     }
-    let subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
-    let discountAmount = Math.round((subtotal * appliedDiscount) / 100);
-    let grandTotal = subtotal - discountAmount;
 
-    const newOrder = {
-        id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
-        date: new Date().toLocaleDateString('bn-BD'),
+    const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+    const subtotal = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
+    const discount = (subtotal * appliedDiscount) / 100;
+    const totalAmount = subtotal - discount;
+
+    // স্টক কমানো
+    cart.forEach(c => {
+        const p = products.find(prod => prod.id === c.id);
+        if (p) p.stock -= c.qty;
+    });
+
+    orders.push({
+        id: orderId,
+        date: new Date().toLocaleDateString(),
         items: [...cart],
-        totalAmount: grandTotal,
+        total: totalAmount,
         status: "Processing"
-    };
-
-    orders.push(newOrder);
-
-    cart.forEach(cartItem => {
-        let prod = products.find(p => p.id === cartItem.id);
-        if (prod) prod.stock -= cartItem.qty;
     });
 
     cart = [];
     appliedDiscount = 0;
     updateBadges();
     closeModal("cart-modal");
-    alert(`✅ অর্ডার সফল হয়েছে! Order ID: ${newOrder.id}`);
-    filterProducts();
+    alert(`অর্ডার সফল হয়েছে! Order ID: ${orderId}`);
     renderAdminStats();
+    renderSellerInventory();
 }
 
-// --- WISHLIST, COMPARE & ORDERS RENDERERS ---
+// --- RENDER WISHLIST ---
 function renderWishlist() {
     const container = document.getElementById("wishlist-items-container");
     if (!container) return;
-    let wishProducts = products.filter(p => wishlist.includes(p.id));
-    if (wishProducts.length === 0) {
+
+    if (wishlist.length === 0) {
         container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Wishlist is empty.</p>";
         return;
     }
+
+    const wishProducts = products.filter(p => wishlist.includes(p.id));
     container.innerHTML = wishProducts.map(p => `
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
-            <div style="display:flex; align-items:center; gap:12px;">
-                <img src="${p.image}" alt="${p.title}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="${p.image}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;">
                 <div>
                     <h5 style="margin:0;">${p.title}</h5>
-                    <small style="color:#2563eb; font-weight:bold;">৳${p.price.toLocaleString()}</small>
+                    <small style="color:#2563eb;">৳${p.price.toLocaleString()}</small>
                 </div>
             </div>
-            <div style="display:flex; gap:8px;">
-                <button class="btn-primary" style="padding:4px 10px; font-size:12px;" onclick="addToCart(${p.id})">Add to Cart</button>
-                <button onclick="toggleWishlist(${p.id})" style="border:none; background:none; color:#ef4444; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+            <div style="display:flex; gap:6px;">
+                <button class="btn-primary" style="padding:4px 8px; font-size:12px;" onclick="addToCart(${p.id})">Add to Cart</button>
+                <button onclick="toggleWishlist(${p.id})" style="padding:4px 8px; border:none; background:#fee2e2; color:#ef4444; border-radius:4px;"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>
     `).join('');
 }
 
+// --- RENDER COMPARE ---
 function renderCompare() {
     const container = document.getElementById("compare-items-container");
     if (!container) return;
-    let compProducts = products.filter(p => compareList.includes(p.id));
-    if (compProducts.length === 0) {
+
+    if (compareList.length === 0) {
         container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No items selected for comparison.</p>";
         return;
     }
+
+    const compProducts = products.filter(p => compareList.includes(p.id));
     container.innerHTML = `
-        <div style="display:grid; grid-template-columns: repeat(${compProducts.length}, 1fr); gap:15px;">
-            ${compProducts.map(p => `
-                <div style="border:1px solid #cbd5e1; border-radius:8px; padding:10px; text-align:center;">
-                    <img src="${p.image}" style="width:100%; height:100px; object-fit:cover; border-radius:4px;">
-                    <h5 style="margin:8px 0 4px 0; font-size:13px;">${p.title}</h5>
-                    <p style="color:#2563eb; font-weight:bold; margin:0 0 8px 0;">৳${p.price.toLocaleString()}</p>
-                    <p style="font-size:11px; color:#64748b;">${p.specs}</p>
-                    <button onclick="toggleCompare(${p.id})" style="margin-top:8px; color:#ef4444; border:1px solid #fee2e2; background:#fff; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Remove</button>
-                </div>
-            `).join('')}
-        </div>
+        <table style="width:100%; border-collapse:collapse; margin-top:10px;">
+            <tr>
+                <th style="padding:8px; border:1px solid #cbd5e1; text-align:left;">Feature</th>
+                ${compProducts.map(p => `<th style="padding:8px; border:1px solid #cbd5e1; text-align:center;">${p.title}</th>`).join('')}
+            </tr>
+            <tr>
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:bold;">Image</td>
+                ${compProducts.map(p => `<td style="padding:8px; border:1px solid #cbd5e1; text-align:center;"><img src="${p.image}" style="width:60px; height:60px; object-fit:cover;"></td>`).join('')}
+            </tr>
+            <tr>
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:bold;">Price</td>
+                ${compProducts.map(p => `<td style="padding:8px; border:1px solid #cbd5e1; text-align:center; color:#2563eb; font-weight:bold;">৳${p.price.toLocaleString()}</td>`).join('')}
+            </tr>
+            <tr>
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:bold;">Specs</td>
+                ${compProducts.map(p => `<td style="padding:8px; border:1px solid #cbd5e1; text-align:center; font-size:12px;">${p.specs}</td>`).join('')}
+            </tr>
+            <tr>
+                <td style="padding:8px; border:1px solid #cbd5e1; font-weight:bold;">Action</td>
+                ${compProducts.map(p => `<td style="padding:8px; border:1px solid #cbd5e1; text-align:center;"><button onclick="toggleCompare(${p.id})" style="padding:4px 8px; background:#ef4444; color:white; border:none; border-radius:4px;">Remove</button></td>`).join('')}
+            </tr>
+        </table>
     `;
 }
 
+// --- RENDER ORDERS ---
 function renderOrders() {
     const container = document.getElementById("orders-items-container");
     if (!container) return;
+
     if (orders.length === 0) {
         container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No order history found.</p>";
         return;
     }
-    container.innerHTML = orders.map(ord => `
+
+    container.innerHTML = orders.map(o => `
         <div style="border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:10px; background:#f8fafc;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                <strong>${ord.id}</strong>
-                <span style="font-size:12px; color:#64748b;">${ord.date}</span>
+            <div style="display:flex; justify-content:space-between; border-bottom:1px solid #cbd5e1; padding-bottom:6px; margin-bottom:8px;">
+                <strong>ID: ${o.id}</strong>
+                <span style="color:#2563eb; font-weight:600;">Status: ${o.status}</span>
             </div>
-            <div style="font-size:13px; color:#475569;">
-                Items: ${ord.items.map(i => `${i.title} (x${i.qty})`).join(', ')}
-            </div>
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-weight:bold;">
-                <span>Total: ৳${ord.totalAmount.toLocaleString()}</span>
-                <span style="color:#16a34a; font-size:12px;">Status: ${ord.status}</span>
-            </div>
+            <p style="margin:2px 0; font-size:13px; color:#64748b;">Date: ${o.date}</p>
+            <p style="margin:2px 0; font-size:13px; font-weight:bold;">Total Amount: ৳${o.total.toLocaleString()}</p>
+            <small>Items: ${o.items.map(i => i.title + " (" + i.qty + ")").join(', ')}</small>
         </div>
     `).join('');
 }
 
-// --- SELLER & ADMIN DASHBOARD MANAGEMENT WITH AD CAMPAIGNS ---
+// --- SELLER DASHBOARD ---
 function renderSellerInventory() {
-    const container = document.getElementById("seller-inventory-table");
-    if (!container) return;
-    container.innerHTML = products.slice(0, 10).map(p => `
+    const table = document.getElementById("seller-inventory-table");
+    const totalSalesElem = document.getElementById("seller-total-sales");
+    const activeProductsElem = document.getElementById("seller-active-products");
+    const totalOrdersElem = document.getElementById("seller-total-orders");
+
+    if (activeProductsElem) activeProductsElem.innerText = products.length;
+    if (totalOrdersElem) totalOrdersElem.innerText = orders.length;
+
+    const totalSales = orders.reduce((acc, curr) => acc + curr.total, 0);
+    if (totalSalesElem) totalSalesElem.innerText = "৳ " + totalSales.toLocaleString();
+
+    if (!table) return;
+
+    table.innerHTML = products.map(p => `
         <tr>
-            <td>#${p.id}</td>
-            <td><strong>${p.title}</strong></td>
+            <td>${p.id}</td>
+            <td>${p.title}</td>
             <td>${p.category}</td>
+            <td>${p.brand}</td>
             <td>৳${p.price.toLocaleString()}</td>
-            <td>${p.stock}</td>
-            <td><span style="color:#16a34a; font-weight:600;">Active</span></td>
+            <td><strong style="color:${p.stock < 5 ? '#ef4444' : '#10b981'};">${p.stock}</strong></td>
+            <td><button class="btn-sm btn-danger" onclick="deleteProduct(${p.id})">Delete</button></td>
         </tr>
     `).join('');
 }
 
-function requestNewAdCampaign(storeName, slot, price) {
-    const newAd = {
+function saveProduct(event) {
+    if (event && event.preventDefault) event.preventDefault();
+
+    const name = document.getElementById("new-prod-name").value;
+    const cat = document.getElementById("new-prod-category").value;
+    const brand = document.getElementById("new-prod-brand").value;
+    const subcat = document.getElementById("new-prod-subcat").value;
+    const price = Number(document.getElementById("new-prod-price").value);
+    const stock = Number(document.getElementById("new-prod-stock").value);
+    const specs = document.getElementById("new-prod-spec").value;
+    const img = document.getElementById("new-prod-img").value;
+
+    const newProd = {
         id: Date.now(),
-        storeId: "STR-" + Math.floor(1000 + Math.random() * 9000),
-        storeName: storeName || "My Store",
-        ownerEmail: "seller@marketloop.com",
-        slot: slot || "Hero Main Banner",
-        price: price || 2000,
-        duration: "7 Days",
-        status: "PENDING"
+        title: name,
+        category: cat,
+        subCategory: subcat,
+        brand: brand,
+        price: price,
+        stock: stock,
+        specs: specs,
+        image: img
     };
-    ads.push(newAd);
-    alert("✅ আপনার অ্যাড প্রমোশন রিকোয়েস্ট সফলভাবে জমা দেওয়া হয়েছে! এডমিন অ্যাপ্রুভ করলে এটি চালু হবে।");
-    renderAdminStats();
+
+    products.unshift(newProd);
+    closeModal("product-modal");
+    document.getElementById("add-product-form").reset();
+    filterProducts();
+    renderSellerInventory();
+    alert("নতুন প্রোডাক্ট সফলভাবে যুক্ত হয়েছে!");
 }
 
+function deleteProduct(id) {
+    if (confirm("আপনি কি নিশ্চিত যে এই প্রোডাক্টটি মুছে ফেলতে চান?")) {
+        products = products.filter(p => p.id !== id);
+        filterProducts();
+        renderSellerInventory();
+    }
+}
+
+// --- ADMIN CONTROL ---
 function renderAdminStats() {
-    const revenueElem = document.getElementById("stat-gross-revenue");
-    const sellersElem = document.getElementById("stat-registered-sellers");
-    const ordersElem = document.getElementById("stat-platform-orders");
+    const grossRevenueElem = document.getElementById("stat-gross-revenue");
+    const platformOrdersElem = document.getElementById("stat-platform-orders");
     const adEarningsElem = document.getElementById("stat-ad-earnings");
+    const adsTable = document.getElementById("admin-ad-approvals-table");
 
-    let totalGrossRevenue = orders.reduce((acc, o) => acc + o.totalAmount, 0);
-    let totalAdRevenue = ads.filter(a => a.status === "APPROVED").reduce((acc, a) => acc + a.price, 0);
-    let activeAdsCount = ads.filter(a => a.status === 'APPROVED').length;
+    const gross = orders.reduce((acc, curr) => acc + curr.total, 0);
+    if (grossRevenueElem) grossRevenueElem.innerText = "৳ " + gross.toLocaleString();
+    if (platformOrdersElem) platformOrdersElem.innerText = orders.length;
 
-    if (revenueElem) revenueElem.innerText = "৳ " + totalGrossRevenue.toLocaleString();
-    if (sellersElem) sellersElem.innerText = "2 Active";
-    if (ordersElem) ordersElem.innerText = orders.length;
-    if (adEarningsElem) adEarningsElem.innerText = `৳ ${totalAdRevenue.toLocaleString()} (${activeAdsCount} Active)`;
+    const adTotal = ads.filter(a => a.status === "APPROVED").reduce((acc, curr) => acc + curr.price, 0);
+    if (adEarningsElem) adEarningsElem.innerText = "৳ " + adTotal.toLocaleString();
 
-    // Render Ad Approvals Table in Admin Dashboard
-    const adTableContainer = document.getElementById("admin-ad-approvals-table");
-    if (adTableContainer) {
-        adTableContainer.innerHTML = ads.map(ad => `
+    if (adsTable) {
+        adsTable.innerHTML = ads.map(a => `
             <tr>
-                <td>${ad.storeId}</td>
-                <td><strong>${ad.storeName}</strong></td>
-                <td>${ad.slot} (${ad.duration})</td>
-                <td>৳${ad.price.toLocaleString()}</td>
+                <td>${a.storeId}</td>
+                <td>${a.storeName}</td>
+                <td>${a.slot}</td>
+                <td>৳${a.price}</td>
+                <td><span class="tag ${a.status === 'APPROVED' ? 'tag-success' : 'tag-warning'}">${a.status}</span></td>
                 <td>
-                    <span style="padding:3px 8px; border-radius:4px; font-size:11px; font-weight:bold; 
-                        background:${ad.status === 'APPROVED' ? '#dcfce7' : ad.status === 'REJECTED' ? '#fee2e2' : '#fef3c7'}; 
-                        color:${ad.status === 'APPROVED' ? '#15803d' : ad.status === 'REJECTED' ? '#b91c1c' : '#b45309'};">
-                        ${ad.status}
-                    </span>
-                </td>
-                <td>
-                    ${ad.status === 'PENDING' ? `
-                        <button onclick="updateAdStatus(${ad.id}, 'APPROVED')" style="background:#22c55e; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Approve</button>
-                        <button onclick="updateAdStatus(${ad.id}, 'REJECTED')" style="background:#ef4444; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Reject</button>
-                    ` : `<span style="color:#64748b; font-size:12px;">Completed</span>`}
+                    ${a.status === 'PENDING' ? `
+                        <button class="btn-sm btn-success" onclick="approveAd(${a.id})">Approve</button>
+                        <button class="btn-sm btn-danger" onclick="rejectAd(${a.id})">Reject</button>
+                    ` : '<button class="btn-sm btn-disabled" disabled>Done</button>'}
                 </td>
             </tr>
         `).join('');
     }
 }
 
-function updateAdStatus(adId, status) {
-    const ad = ads.find(a => a.id === adId);
-    if (ad) {
-        ad.status = status;
-        alert(`অ্যাড প্রমোশন রিকোয়েস্ট ${status === 'APPROVED' ? 'অনুমোদন (Approve)' : 'বাতিল (Reject)'} করা হয়েছে!`);
-        renderAdminStats();
+function approveSeller(storeId) {
+    const statusElem = document.getElementById(`status-${storeId.toLowerCase()}`);
+    const actionElem = document.getElementById(`action-${storeId.toLowerCase()}`);
+    if (statusElem) {
+        statusElem.className = "tag tag-success";
+        statusElem.innerText = "VERIFIED";
     }
+    if (actionElem) {
+        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled>Approved</button>`;
+    }
+    alert(`Store ${storeId} approved successfully.`);
+}
+
+function rejectSeller(storeId) {
+    const statusElem = document.getElementById(`status-${storeId.toLowerCase()}`);
+    const actionElem = document.getElementById(`action-${storeId.toLowerCase()}`);
+    if (statusElem) {
+        statusElem.className = "tag tag-danger";
+        statusElem.innerText = "REJECTED";
+    }
+    if (actionElem) {
+        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled>Rejected</button>`;
+    }
+}
+
+function approveAd(id) {
+    const ad = ads.find(a => a.id === id);
+    if (ad) ad.status = "APPROVED";
+    renderAdminStats();
+}
+
+function rejectAd(id) {
+    const ad = ads.find(a => a.id === id);
+    if (ad) ad.status = "REJECTED";
+    renderAdminStats();
 }
