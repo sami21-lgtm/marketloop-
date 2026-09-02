@@ -1,4 +1,4 @@
-// FULL PRODUCT ECOSYSTEM DATASET
+// PRODUCT DATASET
 let products = [
     {
         id: 201,
@@ -21,7 +21,7 @@ let products = [
         price: 80000,
         stock: 8,
         seller: "MobileDokan BD",
-        spec: "8000mAh Battery, EMI 86Tk/Day",
+        spec: "8000mAh Battery, EMI Available",
         image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80"
     },
     {
@@ -44,7 +44,7 @@ let products = [
         brand: "Taaga",
         price: 12500,
         stock: 5,
-        seller: "Aarong Fashion Store",
+        seller: "Aarong Store",
         spec: "Handcrafted Premium Jamdani Cotton",
         image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80"
     },
@@ -56,7 +56,7 @@ let products = [
         brand: "Taaga",
         price: 3200,
         stock: 10,
-        seller: "Aarong Fashion Store",
+        seller: "Aarong Store",
         spec: "100% Fine Organic Cotton",
         image: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=600&q=80"
     },
@@ -68,7 +68,7 @@ let products = [
         brand: "Aarong Earth",
         price: 4800,
         stock: 4,
-        seller: "Aarong Fashion Store",
+        seller: "Aarong Store",
         spec: "Traditional Stitch Handmade Cotton",
         image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80"
     },
@@ -80,22 +80,20 @@ let products = [
         brand: "Aarong Earth",
         price: 450,
         stock: 30,
-        seller: "Aarong Fashion Store",
+        seller: "Aarong Store",
         spec: "100% Natural Glow Clay Mask",
         image: "https://images.unsplash.com/photo-1567928257400-f137810776b1?auto=format&fit=crop&w=600&q=80"
     }
 ];
 
-// SYSTEM USERS DATABASE (IN-MEMORY)
+// REGISTERED USERS SYSTEM
 let registeredUsers = [
     { name: "System Admin", email: "admin@marketloop.com", id: "admin", phone: "01700000000", pass: "admin123", role: "admin" },
     { name: "Demo Seller", email: "seller@marketloop.com", id: "seller", phone: "01800000000", pass: "seller123", role: "seller" },
-    { name: "Rahim Ahmed", email: "rahim@gmail.com", id: "01900000000", phone: "01900000000", pass: "123456", role: "customer" }
+    { name: "Customer User", email: "customer@gmail.com", id: "01900000000", phone: "01900000000", pass: "123456", role: "customer" }
 ];
 
-// CURRENT USER STATE
 let currentUser = null;
-
 let cart = [];
 let wishlist = [];
 let compareList = [];
@@ -114,7 +112,27 @@ document.addEventListener("DOMContentLoaded", () => {
     updateBadges();
 });
 
-// AUTHENTICATION LOGIC
+// PORTAL TAB SWITCHER (LIKE IMAGE UI)
+function switchPortalTab(tab) {
+    const guestBtn = document.getElementById("tab-guest-btn");
+    const staffBtn = document.getElementById("tab-staff-btn");
+    const guestContent = document.getElementById("guest-portal-content");
+    const staffContent = document.getElementById("staff-portal-content");
+
+    if (tab === 'guest') {
+        guestBtn.classList.add("active");
+        staffBtn.classList.remove("active");
+        guestContent.classList.remove("hidden");
+        staffContent.classList.add("hidden");
+    } else {
+        staffBtn.classList.add("active");
+        guestBtn.classList.remove("active");
+        staffContent.classList.remove("hidden");
+        guestContent.classList.add("hidden");
+    }
+}
+
+// ROLE ACCESS REQUEST
 function requestRoleSwitch(role) {
     if (role === 'customer') {
         switchRole('customer');
@@ -122,17 +140,16 @@ function requestRoleSwitch(role) {
     }
 
     if (!currentUser || currentUser.role !== role) {
-        document.getElementById("login-role-select").value = role;
-        toggleRoleHint();
+        switchPortalTab('staff');
+        document.getElementById("staff-role-select").value = role;
         openModal('auth-modal');
-        alert(`Authentication Required: Please login with ${role.toUpperCase()} credentials to access this area.`);
+        alert(`Authentication Required: Please login with ${role.toUpperCase()} credentials.`);
     } else {
         switchRole(role);
     }
 }
 
 function switchRole(role) {
-    document.getElementById("current-role-label").innerText = role.toUpperCase();
     document.querySelectorAll(".btn-role").forEach(btn => btn.classList.remove("active"));
     
     document.getElementById("customer-view").classList.add("hidden");
@@ -150,39 +167,33 @@ function switchRole(role) {
     }
 }
 
-function switchAuthTab(tab) {
-    const loginForm = document.getElementById("login-form");
-    const regForm = document.getElementById("register-form");
-    const tabBtns = document.querySelectorAll(".auth-tab-btn");
-
-    if (tab === 'login') {
-        loginForm.classList.remove("hidden");
-        regForm.classList.add("hidden");
-        tabBtns[0].classList.add("active");
-        tabBtns[1].classList.remove("active");
-    } else {
-        loginForm.classList.add("hidden");
-        regForm.classList.remove("hidden");
-        tabBtns[0].classList.remove("active");
-        tabBtns[1].classList.add("active");
-    }
-}
-
-function toggleRoleHint() {
-    const role = document.getElementById("login-role-select").value;
-    const hint = document.getElementById("admin-credentials-hint");
-    if (role === 'admin') {
-        hint.style.display = 'block';
-    } else {
-        hint.style.display = 'none';
-    }
-}
-
-function handleLogin(e) {
+// HANDLERS FOR PORTAL FORMS
+function handleCustomerAccess(e) {
     e.preventDefault();
-    const role = document.getElementById("login-role-select").value;
-    const idInput = document.getElementById("login-id").value.trim();
-    const passInput = document.getElementById("login-pass").value;
+    const name = document.getElementById("guest-name").value;
+    const email = document.getElementById("guest-email").value;
+    const phone = document.getElementById("guest-phone").value;
+    const pass = document.getElementById("guest-pass").value;
+
+    let user = registeredUsers.find(u => u.email === email || u.phone === phone);
+    
+    if (!user) {
+        user = { name, email, phone, id: phone, pass, role: "customer" };
+        registeredUsers.push(user);
+    }
+
+    currentUser = user;
+    updateUserStatus();
+    closeModal('auth-modal');
+    switchRole('customer');
+    alert(`Welcome to Customer Portal, ${user.name}!`);
+}
+
+function handleStaffAccess(e) {
+    e.preventDefault();
+    const role = document.getElementById("staff-role-select").value;
+    const idInput = document.getElementById("staff-id").value.trim();
+    const passInput = document.getElementById("staff-pass").value;
 
     const user = registeredUsers.find(u => 
         (u.email === idInput || u.phone === idInput || u.id === idInput) && 
@@ -192,54 +203,35 @@ function handleLogin(e) {
 
     if (user) {
         currentUser = user;
-        document.getElementById("user-status-text").innerHTML = `Logged as: <strong>${user.name} (${user.role.toUpperCase()})</strong>`;
-        document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> Logout`;
-        document.getElementById("auth-btn").onclick = handleLogout;
-        
+        updateUserStatus();
         closeModal('auth-modal');
         switchRole(role);
-        alert(`Welcome back, ${user.name}!`);
+        alert(`Logged in successfully as ${user.name} (${user.role.toUpperCase()})`);
     } else {
-        alert("Invalid credentials or role selection! Please check ID and Password.");
+        alert("Access Denied! Invalid Staff ID or Password.");
     }
 }
 
-function handleCustomerRegister(e) {
-    e.preventDefault();
-    const name = document.getElementById("reg-name").value;
-    const phone = document.getElementById("reg-phone").value;
-    const email = document.getElementById("reg-email").value;
-    const pass = document.getElementById("reg-pass").value;
-
-    const exists = registeredUsers.find(u => u.email === email || u.phone === phone);
-    if (exists) {
-        alert("Account with this Email or Phone already exists!");
-        return;
+function updateUserStatus() {
+    if (currentUser) {
+        document.getElementById("user-status-text").innerHTML = `Logged in: <strong>${currentUser.name} (${currentUser.role.toUpperCase()})</strong>`;
+        document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> Logout`;
+        document.getElementById("auth-btn").onclick = handleLogout;
+    } else {
+        document.getElementById("user-status-text").innerHTML = `Active User: <strong>Guest</strong>`;
+        document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-shield-halved"></i> Access Portal`;
+        document.getElementById("auth-btn").onclick = () => openModal('auth-modal');
     }
-
-    const newUser = { name, phone, email, id: phone, pass, role: "customer" };
-    registeredUsers.push(newUser);
-
-    currentUser = newUser;
-    document.getElementById("user-status-text").innerHTML = `Logged as: <strong>${newUser.name} (CUSTOMER)</strong>`;
-    document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> Logout`;
-    document.getElementById("auth-btn").onclick = handleLogout;
-
-    closeModal('auth-modal');
-    switchRole('customer');
-    alert("Registration Successful! You are now logged in.");
 }
 
 function handleLogout() {
     currentUser = null;
-    document.getElementById("user-status-text").innerHTML = `Active Role: <strong>GUEST</strong>`;
-    document.getElementById("auth-btn").innerHTML = `<i class="fa-solid fa-right-to-bracket"></i> Login / Register`;
-    document.getElementById("auth-btn").onclick = () => openModal('auth-modal');
+    updateUserStatus();
     switchRole('customer');
     alert("Logged out successfully.");
 }
 
-// FILTER LOGIC
+// PRODUCT FILTERS
 function setCategoryFilter(cat) {
     currentCategory = cat;
     currentSubCategory = "ALL";
@@ -300,7 +292,7 @@ function renderProducts(items) {
     grid.innerHTML = "";
 
     if (items.length === 0) {
-        grid.innerHTML = "<p style='grid-column: 1/-1; padding: 20px;'>No products matching your selected filters.</p>";
+        grid.innerHTML = "<p style='grid-column: 1/-1; padding: 20px;'>No products found matching your filters.</p>";
         return;
     }
 
@@ -326,7 +318,7 @@ function renderProducts(items) {
                         ${p.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
                     </button>
                     <label class="compare-check">
-                        <input type="checkbox" ${isCompared ? 'checked' : ''} onchange="toggleCompare(${p.id})"> Add to Compare
+                        <input type="checkbox" ${isCompared ? 'checked' : ''} onchange="toggleCompare(${p.id})"> Compare
                     </label>
                 </div>
             </div>
@@ -340,7 +332,7 @@ function toggleCompare(id) {
     if (idx > -1) compareList.splice(idx, 1);
     else {
         if (compareList.length >= 3) {
-            alert("You can compare up to 3 products at a time.");
+            alert("Maximum 3 products can be compared at once.");
             filterProducts();
             return;
         }
@@ -352,22 +344,20 @@ function toggleCompare(id) {
 function renderCompareModal() {
     const container = document.getElementById("compare-items-container");
     if (compareList.length === 0) {
-        container.innerHTML = "<p>No products selected for comparison. Select 'Add to Compare' on items.</p>";
+        container.innerHTML = "<p>No products selected for comparison.</p>";
         return;
     }
 
     const selectedProds = products.filter(p => compareList.includes(p.id));
-    let tableHTML = `<table class="data-table"><thead><tr><th>Feature</th>`;
+    let tableHTML = `<table class="data-table"><thead><tr><th>Specs</th>`;
     
-    selectedProds.forEach(p => {
-        tableHTML += `<th>${p.title}</th>`;
-    });
+    selectedProds.forEach(p => { tableHTML += `<th>${p.title}</th>`; });
     tableHTML += `</tr></thead><tbody>`;
 
     tableHTML += `<tr><td><strong>Price</strong></td>` + selectedProds.map(p => `<td>৳${p.price.toLocaleString()}</td>`).join('') + `</tr>`;
     tableHTML += `<tr><td><strong>Brand</strong></td>` + selectedProds.map(p => `<td>${p.brand}</td>`).join('') + `</tr>`;
     tableHTML += `<tr><td><strong>Subcategory</strong></td>` + selectedProds.map(p => `<td>${p.subcategory}</td>`).join('') + `</tr>`;
-    tableHTML += `<tr><td><strong>Specifications</strong></td>` + selectedProds.map(p => `<td>${p.spec}</td>`).join('') + `</tr>`;
+    tableHTML += `<tr><td><strong>Details</strong></td>` + selectedProds.map(p => `<td>${p.spec}</td>`).join('') + `</tr>`;
     tableHTML += `<tr><td><strong>Seller</strong></td>` + selectedProds.map(p => `<td>${p.seller}</td>`).join('') + `</tr>`;
 
     tableHTML += `</tbody></table>`;
@@ -381,12 +371,18 @@ function addToCart(id) {
 
     if (inCart) {
         if (inCart.qty < prod.stock) inCart.qty++;
-        else alert("Cannot add more than available stock!");
+        else alert("Stock limit reached!");
     } else {
         cart.push({ ...prod, qty: 1 });
     }
     updateBadges();
     alert(`${prod.title} added to cart!`);
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(c => c.id !== id);
+    updateBadges();
+    renderCart();
 }
 
 function toggleWishlist(id) {
@@ -409,16 +405,21 @@ function renderCart() {
     container.innerHTML = "";
     let subtotal = 0;
 
+    if (cart.length === 0) {
+        container.innerHTML = "<p>Your cart is empty.</p>";
+    }
+
     cart.forEach(item => {
         subtotal += item.price * item.qty;
         container.innerHTML += `
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
                 <div>
                     <strong>${item.title}</strong><br>
                     <small>৳${item.price.toLocaleString()} x ${item.qty}</small>
                 </div>
-                <div>
+                <div style="display:flex; align-items:center; gap:10px;">
                     <strong>৳${(item.price * item.qty).toLocaleString()}</strong>
+                    <button class="btn-sm btn-danger" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </div>
         `;
@@ -430,11 +431,34 @@ function renderCart() {
     document.getElementById("cart-grand-total").innerText = grand.toLocaleString();
 }
 
+function renderWishlist() {
+    const container = document.getElementById("wishlist-items-container");
+    container.innerHTML = "";
+
+    if (wishlist.length === 0) {
+        container.innerHTML = "<p>Wishlist is empty.</p>";
+        return;
+    }
+
+    const items = products.filter(p => wishlist.includes(p.id));
+    items.forEach(item => {
+        container.innerHTML += `
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
+                <div>
+                    <strong>${item.title}</strong><br>
+                    <small>৳${item.price.toLocaleString()}</small>
+                </div>
+                <button class="btn-primary btn-sm" onclick="addToCart(${item.id})">Add to Cart</button>
+            </div>
+        `;
+    });
+}
+
 function applyCoupon() {
     const code = document.getElementById("coupon-code").value.trim();
     if (code === "WELCOME20") {
         appliedDiscount = 500;
-        alert("Coupon Applied! Discount: ৳500");
+        alert("Coupon Applied! ৳500 Discount.");
     } else {
         alert("Invalid Coupon Code!");
         appliedDiscount = 0;
@@ -468,13 +492,13 @@ function checkout() {
     alert(`Order Placed Successfully! Order ID: ${orderId}`);
 }
 
-// ORDERS
+// ORDERS TRACKING
 function renderOrders() {
     const container = document.getElementById("orders-items-container");
     container.innerHTML = "";
 
     if (orders.length === 0) {
-        container.innerHTML = "<p>No active orders placed.</p>";
+        container.innerHTML = "<p>No orders placed yet.</p>";
         return;
     }
 
@@ -485,13 +509,14 @@ function renderOrders() {
                     <strong>Order ID: ${o.id}</strong>
                     <span class="tag tag-warning">${o.status}</span>
                 </div>
-                <p><small>Total Paid: ৳${o.total.toLocaleString()}</small></p>
+                <p><small>Total Items: ${o.items.length}</small></p>
+                <p><strong>Total Amount: ৳${o.total.toLocaleString()}</strong></p>
             </div>
         `;
     });
 }
 
-// SELLER & ADMIN
+// SELLER & ADMIN UTILS
 function renderSellerInventory() {
     const tbody = document.getElementById("seller-inventory-table");
     tbody.innerHTML = "";
@@ -507,13 +532,10 @@ function renderSellerInventory() {
                 <td>${p.id}</td>
                 <td>${p.title}</td>
                 <td>${p.category}</td>
-                <td>${p.subcategory}</td>
                 <td>${p.brand}</td>
                 <td>৳${p.price.toLocaleString()}</td>
                 <td>${p.stock}</td>
-                <td>
-                    <button class="btn-sm btn-danger" onclick="deleteProduct(${p.id})">Delete</button>
-                </td>
+                <td><button class="btn-sm btn-danger" onclick="deleteProduct(${p.id})">Delete</button></td>
             </tr>
         `;
     });
@@ -530,7 +552,7 @@ function saveProduct(e) {
         price: parseFloat(document.getElementById("new-prod-price").value),
         stock: parseInt(document.getElementById("new-prod-stock").value),
         spec: document.getElementById("new-prod-spec").value || "N/A",
-        seller: currentUser ? currentUser.name : "Active Vendor",
+        seller: currentUser ? currentUser.name : "Seller Store",
         image: document.getElementById("new-prod-img").value
     };
 
@@ -538,7 +560,7 @@ function saveProduct(e) {
     filterProducts();
     renderSellerInventory();
     closeModal('product-modal');
-    alert("New product published!");
+    alert("Product Added!");
 }
 
 function deleteProduct(id) {
@@ -565,9 +587,10 @@ function rejectSeller(id) {
     document.getElementById(`action-${id.toLowerCase()}`).innerHTML = `<button class="btn-sm btn-disabled" disabled>Rejected</button>`;
 }
 
-// MODAL UTILITIES
+// MODAL UTILS
 function openModal(id) {
     if (id === 'cart-modal') renderCart();
+    if (id === 'wishlist-modal') renderWishlist();
     if (id === 'orders-modal') renderOrders();
     if (id === 'compare-modal') renderCompareModal();
     document.getElementById(id).style.display = 'flex';
