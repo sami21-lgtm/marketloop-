@@ -555,10 +555,10 @@ let products = [
         title: "Xiaomi Redmi Note 13 Pro Max",
         category: "MOBILES",
         subCategory: "Best Camera",
-        brand: "Apple",
-        price: 110000,
+        brand: "Xiaomi",
+        price: 31350,
         stock: 13,
-        specs: "48MP Camera | 3,274 mAh Fast Charging",
+        specs:  "200MP Camera | 120W| 3,274 mAh Fast Charging",
         image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&q=80"
     },
 
@@ -567,10 +567,10 @@ let products = [
         title: "Iphone 15 Pro",
         category: "MOBILES",
         subCategory: "Best Camera",
-        brand: "Xiaomi",
-        price: 31350,
+        brand: "Apple",
+        price: 110000,
         stock: 13,
-        specs: "200MP Camera | 120W Fast Charging",
+        specs: "46MP Camera | 3,274 mAh Fast Charging",
         image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&q=80"
     }
 ];
