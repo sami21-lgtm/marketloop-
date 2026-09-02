@@ -595,12 +595,15 @@ let appliedDiscount = 0;
 
 // --- INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
-    const savedUser = sessionStorage.getItem("currentUser");
+    // localStorage ব্যবহার করে সেশন রিলোডে লগইন ধরে রাখা নিশ্চিত করা হলো
+    const savedUser = localStorage.getItem("currentUser");
+    
     if (savedUser) {
         currentUser = JSON.parse(savedUser);
+        closeModal("auth-modal"); // লগইন ডাটা থাকলে পপআপটি হাইড বা বন্ধ রাখা হবে
         requestRoleSwitch(currentUser.role);
     } else {
-        openModal("auth-modal");
+        openModal("auth-modal"); // ডাটা না থাকলে পপআপ দেখাবে
     }
 
     filterProducts();
@@ -663,14 +666,14 @@ function handleCustomerAccess(event) {
     const nameInput = document.getElementById("guest-name");
     const name = nameInput && nameInput.value.trim() !== "" ? nameInput.value : "Customer";
     currentUser = { name: name, role: "customer" };
-    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
     closeModal("auth-modal");
     requestRoleSwitch("customer");
 }
 
 function enterAsGuest() {
     currentUser = { name: "Guest User", role: "customer" };
-    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
     closeModal("auth-modal");
     requestRoleSwitch("customer");
 }
@@ -680,9 +683,16 @@ function handleStaffAccess(event) {
     const roleSelect = document.getElementById("staff-role-select");
     const selectedRole = roleSelect ? roleSelect.value : 'seller';
     currentUser = { name: selectedRole === 'admin' ? "System Admin" : "Store Seller", role: selectedRole };
-    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
     closeModal("auth-modal");
     requestRoleSwitch(selectedRole);
+}
+
+// লগআউট করার জন্য ফাংশন
+function logout() {
+    localStorage.removeItem("currentUser");
+    currentUser = { name: "Guest", role: "customer" };
+    openModal("auth-modal");
 }
 
 // --- MODAL CONTROL ---
