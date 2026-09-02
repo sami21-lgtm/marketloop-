@@ -324,6 +324,8 @@ function requestRoleSwitch(role) {
 
 function switchRole(role) {
     document.querySelectorAll(".btn-role").forEach(btn => btn.classList.remove("active"));
+    const activeRoleBtn = document.querySelector(`.btn-role[onclick*="${role}"]`);
+    if(activeRoleBtn) activeRoleBtn.classList.add("active");
     
     const custView = document.getElementById("customer-view");
     const sellView = document.getElementById("seller-view");
@@ -356,7 +358,7 @@ function handleCustomerAccess(e) {
     const pass = passInput ? passInput.value : "";
 
     if (!name || !phone || !pass) {
-        alert("দয়া করে নাম, ফোন নম্বর এবং পাসওয়ার্ড পূরণ করুন।");
+        alert("দয়া করে নাম, ফোন নম্বর এবং পাসওয়ার্ড পূরণ করুন।");
         return;
     }
 
@@ -377,9 +379,13 @@ function handleCustomerAccess(e) {
 // STAFF ACCESS (ADMIN / SELLER)
 function handleStaffAccess(e) {
     if(e) e.preventDefault();
-    const role = document.getElementById("staff-role-select").value;
-    const idInput = document.getElementById("staff-id").value.trim();
-    const passInput = document.getElementById("staff-pass").value;
+    const roleSelect = document.getElementById("staff-role-select");
+    const idSelect = document.getElementById("staff-id");
+    const passSelect = document.getElementById("staff-pass");
+
+    const role = roleSelect ? roleSelect.value : "";
+    const idInput = idSelect ? idSelect.value.trim() : "";
+    const passInput = passSelect ? passSelect.value : "";
 
     const user = registeredUsers.find(u => 
         (u.email === idInput || u.phone === idInput || u.id === idInput) && 
@@ -843,7 +849,7 @@ function rejectSeller(id) {
     }
 }
 
-// MODAL CONTROLLERS
+// MODAL CONTROLLERS (FIXED CSS CONFLICT)
 function openModal(id) {
     if (id === 'cart-modal') renderCart();
     if (id === 'wishlist-modal') renderWishlist();
@@ -851,10 +857,16 @@ function openModal(id) {
     if (id === 'compare-modal') renderCompareModal();
     
     const targetModal = document.getElementById(id);
-    if (targetModal) targetModal.style.display = 'flex';
+    if (targetModal) {
+        targetModal.style.display = 'flex';
+        targetModal.classList.add('active');
+    }
 }
 
 function closeModal(id) {
     const targetModal = document.getElementById(id);
-    if (targetModal) targetModal.style.display = 'none';
+    if (targetModal) {
+        targetModal.style.display = 'none';
+        targetModal.classList.remove('active');
+    }
 }
