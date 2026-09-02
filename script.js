@@ -561,6 +561,17 @@ let products = [
         specs: "200MP Camera | 120W Fast Charging",
         image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&q=80"
     }
+    {
+    id: 151,
+    title: "Apple iPhone 15",
+    category: "MOBILES",
+    subCategory: "5G Mobiles",
+    brand: "Apple",
+    price: 155000,
+    stock: 10,
+    specs: "128GB ROM | Dynamic Island | 48MP Main Camera",
+    image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&q=80"
+}
 ];
 
 let cart = [];
