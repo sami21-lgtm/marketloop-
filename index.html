@@ -6,216 +6,225 @@
     <title>MarketLoop - Premier E-Commerce Ecosystem</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* প্রথম লোডেই ওয়েবসাইট পুরো হাইড রাখার জন্য CSS */
+        #app-wrapper {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- TOP SYSTEM ROLE BAR -->
-    <div class="role-bar">
-        <div class="role-info">
-            <i class="fa-solid fa-crown"></i> MarketLoop Multi-Vendor Platform
+    <!-- MAIN APP WRAPPER (লগইনের আগে সম্পূর্ণ লুকানো থাকবে) -->
+    <div id="app-wrapper">
+
+        <!-- TOP SYSTEM ROLE BAR -->
+        <div class="role-bar">
+            <div class="role-info">
+                <i class="fa-solid fa-crown"></i> MarketLoop Multi-Vendor Platform
+            </div>
+            <div class="role-switcher">
+                <span id="user-status-text">Active User: <strong>Guest</strong></span>
+                <button id="auth-btn" onclick="openModal('auth-modal')" class="btn-role btn-accent">
+                    <i class="fa-solid fa-shield-halved"></i> Access Portal
+                </button>
+                <button onclick="requestRoleSwitch('customer')" class="btn-role"><i class="fa-solid fa-user"></i> Customer</button>
+                <button onclick="requestRoleSwitch('seller')" class="btn-role"><i class="fa-solid fa-store"></i> Seller</button>
+                <button onclick="requestRoleSwitch('admin')" class="btn-role"><i class="fa-solid fa-user-shield"></i> Admin</button>
+            </div>
         </div>
-        <div class="role-switcher">
-            <span id="user-status-text">Active User: <strong>Guest</strong></span>
-            <button id="auth-btn" onclick="openModal('auth-modal')" class="btn-role btn-accent">
-                <i class="fa-solid fa-shield-halved"></i> Access Portal
-            </button>
-            <button onclick="requestRoleSwitch('customer')" class="btn-role"><i class="fa-solid fa-user"></i> Customer</button>
-            <button onclick="requestRoleSwitch('seller')" class="btn-role"><i class="fa-solid fa-store"></i> Seller</button>
-            <button onclick="requestRoleSwitch('admin')" class="btn-role"><i class="fa-solid fa-user-shield"></i> Admin</button>
-        </div>
+
+        <!-- MAIN APP HEADER -->
+        <header class="main-header">
+            <div class="brand-logo" onclick="setCategoryFilter('ALL')">
+                <i class="fa-solid fa-crown"></i> MarketLoop
+            </div>
+            <div class="search-box">
+                <select id="search-category-select" onchange="filterProducts()">
+                    <option value="ALL">All Categories</option>
+                    <option value="MOBILES">Mobile Phones</option>
+                    <option value="WOMEN">Women</option>
+                    <option value="MEN">Men</option>
+                    <option value="HOME DÉCOR">Home Décor</option>
+                    <option value="SKIN & HAIR">Skin & Hair</option>
+                </select>
+                <input type="text" id="search-input" placeholder="Search products, brands, categories..." onkeyup="filterProducts()">
+                <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="header-actions">
+                <button class="action-btn" onclick="openModal('compare-modal')" title="Compare Products">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <span class="badge" id="compare-count">0</span>
+                </button>
+                <button class="action-btn" onclick="openModal('wishlist-modal')" title="Wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="badge" id="wishlist-count">0</span>
+                </button>
+                <button class="action-btn" onclick="openModal('cart-modal')" title="Shopping Cart">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="badge" id="cart-count">0</span>
+                </button>
+                <button class="action-btn" onclick="openModal('orders-modal')" title="My Orders">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span class="badge" id="orders-count">0</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- CATEGORY NAVIGATION -->
+        <nav class="category-nav">
+            <div class="nav-item"><a href="#" onclick="setCategoryFilter('ALL')">ALL CATEGORIES</a></div>
+            <div class="nav-item">
+                <a href="#" onclick="setCategoryFilter('MOBILES')">MOBILES & TABLETS</a>
+                <div class="dropdown-menu">
+                    <a href="#" onclick="setSubCategoryFilter('5G Mobiles')">5G Mobile Phones</a>
+                    <a href="#" onclick="setSubCategoryFilter('AI Smartphones')">AI Smartphones</a>
+                    <a href="#" onclick="setSubCategoryFilter('Best Camera')">Best Camera Mobiles</a>
+                    <a href="#" onclick="setSubCategoryFilter('Best Battery')">Best Battery Mobiles</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" onclick="setCategoryFilter('WOMEN')">WOMEN</a>
+                <div class="dropdown-menu">
+                    <a href="#" onclick="setSubCategoryFilter('Saree')">Saree (Jamdani, Silk)</a>
+                    <a href="#" onclick="setSubCategoryFilter('Shalwar Kameez')">Shalwar Kameez</a>
+                    <a href="#" onclick="setSubCategoryFilter('Kurta & Tops')">Kurta & Tops</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" onclick="setCategoryFilter('MEN')">MEN</a>
+                <div class="dropdown-menu">
+                    <a href="#" onclick="setSubCategoryFilter('Panjabi')">Panjabi (Cotton, Silk)</a>
+                    <a href="#" onclick="setSubCategoryFilter('Short Kurta')">Short Kurta & Shirts</a>
+                    <a href="#" onclick="setSubCategoryFilter('Trousers')">Trousers & Chinos</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" onclick="setCategoryFilter('HOME DÉCOR')">HOME DÉCOR</a>
+                <div class="dropdown-menu">
+                    <a href="#" onclick="setSubCategoryFilter('Bedcovers')">Bedcovers & Kantha</a>
+                    <a href="#" onclick="setSubCategoryFilter('Dining')">Dinnerware & Trays</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="#" onclick="setCategoryFilter('SKIN & HAIR')">SKIN & HAIR</a>
+                <div class="dropdown-menu">
+                    <a href="#" onclick="setSubCategoryFilter('Face Care')">Face Packs & Masks</a>
+                    <a href="#" onclick="setSubCategoryFilter('Hair Care')">Hair Oils & Shampoo</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTAINER -->
+        <main class="container">
+
+            <!-- 1. CUSTOMER STOREFRONT VIEW -->
+            <section id="customer-view" class="view-section">
+                <div class="filter-toolbar">
+                    <div class="price-pills">
+                        <span class="pill-label">Filter Price:</span>
+                        <button class="pill-btn active" onclick="setPriceRange(0, 999999)">All Prices</button>
+                        <button class="pill-btn" onclick="setPriceRange(0, 10000)">Under ৳10k</button>
+                        <button class="pill-btn" onclick="setPriceRange(10000, 30000)">৳10k - ৳30k</button>
+                        <button class="pill-btn" onclick="setPriceRange(30000, 60000)">৳30k - ৳60k</button>
+                        <button class="pill-btn" onclick="setPriceRange(60000, 999999)">৳60k+</button>
+                    </div>
+                    
+                    <div class="filter-controls">
+                        <select id="brand-select" onchange="filterProducts()">
+                            <option value="ALL">All Brands</option>
+                            <option value="Tecno">Tecno</option>
+                            <option value="Realme">Realme</option>
+                            <option value="Xiaomi">Xiaomi</option>
+                            <option value="Aarong Earth">Aarong Earth</option>
+                            <option value="Taaga">Taaga</option>
+                        </select>
+                        
+                        <div class="view-mode-toggle">
+                            <button id="grid-view-btn" class="active" onclick="setViewMode('grid')"><i class="fa-solid fa-border-all"></i></button>
+                            <button id="list-view-btn" onclick="setViewMode('list')"><i class="fa-solid fa-list"></i></button>
+                        </div>
+
+                        <select id="sort-select" onchange="filterProducts()">
+                            <option value="default">Sort by: Default</option>
+                            <option value="low-high">Price: Low to High</option>
+                            <option value="high-low">Price: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h3 id="current-filter-heading">Featured Marketplace Products</h3>
+                </div>
+
+                <div class="product-grid" id="product-grid">
+                    <!-- Products Render Dynamically -->
+                </div>
+            </section>
+
+            <!-- 2. SELLER DASHBOARD VIEW -->
+            <section id="seller-view" class="view-section hidden">
+                <div class="dashboard-header">
+                    <h2><i class="fa-solid fa-store"></i> Seller Central Dashboard</h2>
+                    <button class="btn-primary" onclick="openModal('product-modal')"><i class="fa-solid fa-plus"></i> Add New Product</button>
+                </div>
+                <div class="stats-cards">
+                    <div class="stat-card"><h4>Seller Revenue</h4><p id="seller-total-sales">৳ 0</p></div>
+                    <div class="stat-card"><h4>Active Listings</h4><p id="seller-active-products">0</p></div>
+                    <div class="stat-card"><h4>Received Orders</h4><p id="seller-total-orders">0</p></div>
+                </div>
+                <h3 class="sub-title">Inventory Control</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>ID</th><th>Title</th><th>Category</th><th>Brand</th><th>Price (৳)</th><th>Stock</th><th>Action</th></tr>
+                    </thead>
+                    <tbody id="seller-inventory-table"></tbody>
+                </table>
+            </section>
+
+            <!-- 3. ADMIN CONTROL VIEW -->
+            <section id="admin-view" class="view-section hidden">
+                <div class="dashboard-header">
+                    <h2><i class="fa-solid fa-user-shield"></i> Platform Governance Console</h2>
+                </div>
+                <div class="stats-cards">
+                    <div class="stat-card"><h4>Gross Revenue</h4><p id="admin-gross-revenue">৳ 0</p></div>
+                    <div class="stat-card"><h4>Registered Sellers</h4><p>2 Active</p></div>
+                    <div class="stat-card"><h4>Platform Orders</h4><p id="admin-platform-orders">0</p></div>
+                </div>
+                <h3 class="sub-title">Seller Approvals</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Store ID</th><th>Store Name</th><th>Owner Email</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>STR-801</td>
+                            <td>Aarong Fashion Store</td>
+                            <td>vendor1@aarong.com</td>
+                            <td><span class="tag tag-success">VERIFIED</span></td>
+                            <td><button class="btn-sm btn-disabled" disabled>Approved</button></td>
+                        </tr>
+                        <tr>
+                            <td>STR-802</td>
+                            <td>MobileDokan BD</td>
+                            <td>contact@mobiledokan.bd</td>
+                            <td><span class="tag tag-warning" id="status-str-802">PENDING</span></td>
+                            <td id="action-str-802">
+                                <button class="btn-sm btn-success" onclick="approveSeller('STR-802')">Approve</button>
+                                <button class="btn-sm btn-danger" onclick="rejectSeller('STR-802')">Reject</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
     </div>
 
-    <!-- MAIN APP HEADER -->
-    <header class="main-header">
-        <div class="brand-logo" onclick="setCategoryFilter('ALL')">
-            <i class="fa-solid fa-crown"></i> MarketLoop
-        </div>
-        <div class="search-box">
-            <select id="search-category-select" onchange="filterProducts()">
-                <option value="ALL">All Categories</option>
-                <option value="MOBILES">Mobile Phones</option>
-                <option value="WOMEN">Women</option>
-                <option value="MEN">Men</option>
-                <option value="HOME DÉCOR">Home Décor</option>
-                <option value="SKIN & HAIR">Skin & Hair</option>
-            </select>
-            <input type="text" id="search-input" placeholder="Search products, brands, categories..." onkeyup="filterProducts()">
-            <button><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-        <div class="header-actions">
-            <button class="action-btn" onclick="openModal('compare-modal')" title="Compare Products">
-                <i class="fa-solid fa-scale-balanced"></i>
-                <span class="badge" id="compare-count">0</span>
-            </button>
-            <button class="action-btn" onclick="openModal('wishlist-modal')" title="Wishlist">
-                <i class="fa-regular fa-heart"></i>
-                <span class="badge" id="wishlist-count">0</span>
-            </button>
-            <button class="action-btn" onclick="openModal('cart-modal')" title="Shopping Cart">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span class="badge" id="cart-count">0</span>
-            </button>
-            <button class="action-btn" onclick="openModal('orders-modal')" title="My Orders">
-                <i class="fa-solid fa-box-archive"></i>
-                <span class="badge" id="orders-count">0</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- CATEGORY NAVIGATION -->
-    <nav class="category-nav">
-        <div class="nav-item"><a href="#" onclick="setCategoryFilter('ALL')">ALL CATEGORIES</a></div>
-        <div class="nav-item">
-            <a href="#" onclick="setCategoryFilter('MOBILES')">MOBILES & TABLETS</a>
-            <div class="dropdown-menu">
-                <a href="#" onclick="setSubCategoryFilter('5G Mobiles')">5G Mobile Phones</a>
-                <a href="#" onclick="setSubCategoryFilter('AI Smartphones')">AI Smartphones</a>
-                <a href="#" onclick="setSubCategoryFilter('Best Camera')">Best Camera Mobiles</a>
-                <a href="#" onclick="setSubCategoryFilter('Best Battery')">Best Battery Mobiles</a>
-            </div>
-        </div>
-        <div class="nav-item">
-            <a href="#" onclick="setCategoryFilter('WOMEN')">WOMEN</a>
-            <div class="dropdown-menu">
-                <a href="#" onclick="setSubCategoryFilter('Saree')">Saree (Jamdani, Silk)</a>
-                <a href="#" onclick="setSubCategoryFilter('Shalwar Kameez')">Shalwar Kameez</a>
-                <a href="#" onclick="setSubCategoryFilter('Kurta & Tops')">Kurta & Tops</a>
-            </div>
-        </div>
-        <div class="nav-item">
-            <a href="#" onclick="setCategoryFilter('MEN')">MEN</a>
-            <div class="dropdown-menu">
-                <a href="#" onclick="setSubCategoryFilter('Panjabi')">Panjabi (Cotton, Silk)</a>
-                <a href="#" onclick="setSubCategoryFilter('Short Kurta')">Short Kurta & Shirts</a>
-                <a href="#" onclick="setSubCategoryFilter('Trousers')">Trousers & Chinos</a>
-            </div>
-        </div>
-        <div class="nav-item">
-            <a href="#" onclick="setCategoryFilter('HOME DÉCOR')">HOME DÉCOR</a>
-            <div class="dropdown-menu">
-                <a href="#" onclick="setSubCategoryFilter('Bedcovers')">Bedcovers & Kantha</a>
-                <a href="#" onclick="setSubCategoryFilter('Dining')">Dinnerware & Trays</a>
-            </div>
-        </div>
-        <div class="nav-item">
-            <a href="#" onclick="setCategoryFilter('SKIN & HAIR')">SKIN & HAIR</a>
-            <div class="dropdown-menu">
-                <a href="#" onclick="setSubCategoryFilter('Face Care')">Face Packs & Masks</a>
-                <a href="#" onclick="setSubCategoryFilter('Hair Care')">Hair Oils & Shampoo</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- MAIN CONTAINER -->
-    <main class="container">
-
-        <!-- 1. CUSTOMER STOREFRONT VIEW -->
-        <section id="customer-view" class="view-section">
-            <div class="filter-toolbar">
-                <div class="price-pills">
-                    <span class="pill-label">Filter Price:</span>
-                    <button class="pill-btn active" onclick="setPriceRange(0, 999999)">All Prices</button>
-                    <button class="pill-btn" onclick="setPriceRange(0, 10000)">Under ৳10k</button>
-                    <button class="pill-btn" onclick="setPriceRange(10000, 30000)">৳10k - ৳30k</button>
-                    <button class="pill-btn" onclick="setPriceRange(30000, 60000)">৳30k - ৳60k</button>
-                    <button class="pill-btn" onclick="setPriceRange(60000, 999999)">৳60k+</button>
-                </div>
-                
-                <div class="filter-controls">
-                    <select id="brand-select" onchange="filterProducts()">
-                        <option value="ALL">All Brands</option>
-                        <option value="Tecno">Tecno</option>
-                        <option value="Realme">Realme</option>
-                        <option value="Xiaomi">Xiaomi</option>
-                        <option value="Aarong Earth">Aarong Earth</option>
-                        <option value="Taaga">Taaga</option>
-                    </select>
-                    
-                    <div class="view-mode-toggle">
-                        <button id="grid-view-btn" class="active" onclick="setViewMode('grid')"><i class="fa-solid fa-border-all"></i></button>
-                        <button id="list-view-btn" onclick="setViewMode('list')"><i class="fa-solid fa-list"></i></button>
-                    </div>
-
-                    <select id="sort-select" onchange="filterProducts()">
-                        <option value="default">Sort by: Default</option>
-                        <option value="low-high">Price: Low to High</option>
-                        <option value="high-low">Price: High to Low</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="section-header">
-                <h3 id="current-filter-heading">Featured Marketplace Products</h3>
-            </div>
-
-            <div class="product-grid" id="product-grid">
-                <!-- Products Render Dynamically -->
-            </div>
-        </section>
-
-        <!-- 2. SELLER DASHBOARD VIEW -->
-        <section id="seller-view" class="view-section hidden">
-            <div class="dashboard-header">
-                <h2><i class="fa-solid fa-store"></i> Seller Central Dashboard</h2>
-                <button class="btn-primary" onclick="openModal('product-modal')"><i class="fa-solid fa-plus"></i> Add New Product</button>
-            </div>
-            <div class="stats-cards">
-                <div class="stat-card"><h4>Seller Revenue</h4><p id="seller-total-sales">৳ 0</p></div>
-                <div class="stat-card"><h4>Active Listings</h4><p id="seller-active-products">0</p></div>
-                <div class="stat-card"><h4>Received Orders</h4><p id="seller-total-orders">0</p></div>
-            </div>
-            <h3 class="sub-title">Inventory Control</h3>
-            <table class="data-table">
-                <thead>
-                    <tr><th>ID</th><th>Title</th><th>Category</th><th>Brand</th><th>Price (৳)</th><th>Stock</th><th>Action</th></tr>
-                </thead>
-                <tbody id="seller-inventory-table"></tbody>
-            </table>
-        </section>
-
-        <!-- 3. ADMIN CONTROL VIEW -->
-        <section id="admin-view" class="view-section hidden">
-            <div class="dashboard-header">
-                <h2><i class="fa-solid fa-user-shield"></i> Platform Governance Console</h2>
-            </div>
-            <div class="stats-cards">
-                <div class="stat-card"><h4>Gross Revenue</h4><p id="admin-gross-revenue">৳ 0</p></div>
-                <div class="stat-card"><h4>Registered Sellers</h4><p>2 Active</p></div>
-                <div class="stat-card"><h4>Platform Orders</h4><p id="admin-platform-orders">0</p></div>
-            </div>
-            <h3 class="sub-title">Seller Approvals</h3>
-            <table class="data-table">
-                <thead>
-                    <tr><th>Store ID</th><th>Store Name</th><th>Owner Email</th><th>Status</th><th>Actions</th></tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>STR-801</td>
-                        <td>Aarong Fashion Store</td>
-                        <td>vendor1@aarong.com</td>
-                        <td><span class="tag tag-success">VERIFIED</span></td>
-                        <td><button class="btn-sm btn-disabled" disabled>Approved</button></td>
-                    </tr>
-                    <tr>
-                        <td>STR-802</td>
-                        <td>MobileDokan BD</td>
-                        <td>contact@mobiledokan.bd</td>
-                        <td><span class="tag tag-warning" id="status-str-802">PENDING</span></td>
-                        <td id="action-str-802">
-                            <button class="btn-sm btn-success" onclick="approveSeller('STR-802')">Approve</button>
-                            <button class="btn-sm btn-danger" onclick="rejectSeller('STR-802')">Reject</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-    </main>
-
-    <!-- IMAGE-INSPIRED DUAL ACCESS MANAGEMENT MODAL -->
+    <!-- INITIAL ENTRY LOGIN PORTAL -->
     <div class="modal" id="auth-modal">
         <div class="portal-modal-box">
-            <span class="close-portal-btn" onclick="closeModal('auth-modal')">&times;</span>
             
             <div class="portal-header">
                 <div class="portal-logo"><i class="fa-solid fa-crown"></i></div>
@@ -223,43 +232,47 @@
                 <p>Access Management Portal</p>
             </div>
 
-            <!-- PILL TAB SWITCHER -->
+            <!-- TAB SWITCHER -->
             <div class="portal-tabs">
                 <button id="tab-guest-btn" class="portal-tab-btn active" onclick="switchPortalTab('guest')">
-                    <i class="fa-solid fa-user-large"></i> Guest Portal (Public)
+                    <i class="fa-solid fa-user-large"></i> Customer Login
                 </button>
                 <button id="tab-staff-btn" class="portal-tab-btn" onclick="switchPortalTab('staff')">
-                    <i class="fa-solid fa-shield-halved"></i> Staff Portal (Admin)
+                    <i class="fa-solid fa-shield-halved"></i> Staff Portal (Admin/Seller)
                 </button>
             </div>
 
-            <!-- TAB 1: GUEST / CUSTOMER PORTAL -->
+            <!-- TAB 1: CUSTOMER PORTAL LOGIN -->
             <div id="guest-portal-content" class="portal-tab-content">
                 <div class="portal-subhead">
-                    <h4>Customer Portal Access</h4>
-                    <p><i class="fa-solid fa-circle-check"></i> Direct Shopping & Product Browsing</p>
+                    <h4>Customer Access</h4>
+                    <p><i class="fa-solid fa-circle-check"></i> Enter credentials to explore products</p>
                 </div>
 
                 <form id="guest-access-form" onsubmit="handleCustomerAccess(event)">
                     <div class="portal-input-group">
-                        <input type="text" id="guest-name" placeholder="Enter Your Full Name *" required>
+                        <input type="text" id="guest-name" placeholder="Full Name *" required>
                     </div>
                     <div class="portal-input-group">
-                        <input type="email" id="guest-email" placeholder="Enter Your Email Address *" required>
+                        <input type="tel" id="guest-phone" placeholder="Phone Number *" required>
                     </div>
                     <div class="portal-input-group">
-                        <input type="tel" id="guest-phone" placeholder="Enter Your Phone Number *" required>
-                    </div>
-                    <div class="portal-input-group">
-                        <input type="password" id="guest-pass" placeholder="Enter Password *" required>
+                        <input type="password" id="guest-pass" placeholder="Password *" required>
                     </div>
                     <button type="submit" class="portal-submit-btn">
-                        <i class="fa-solid fa-right-to-bracket"></i> Continue to Guest Portal
+                        <i class="fa-solid fa-right-to-bracket"></i> Login & Start Shopping
                     </button>
                 </form>
+
+                <div style="text-align: center; margin-top: 15px;">
+                    <span style="font-size: 13px; color: #64748b;">Or browse without registration</span>
+                    <button type="button" class="portal-submit-btn" onclick="enterAsGuest()" style="background: #e2e8f0; color: #334155; margin-top: 8px;">
+                        <i class="fa-solid fa-user-clock"></i> Continue as Guest
+                    </button>
+                </div>
             </div>
 
-            <!-- TAB 2: STAFF / ADMIN PORTAL -->
+            <!-- TAB 2: STAFF / ADMIN / SELLER PORTAL -->
             <div id="staff-portal-content" class="portal-tab-content hidden">
                 <div class="portal-subhead">
                     <h4>Staff & Management Access</h4>
@@ -274,14 +287,15 @@
                         </select>
                     </div>
                     <div class="portal-input-group">
-                        <input type="text" id="staff-id" placeholder="Enter Staff ID or Email *" required>
+                        <input type="text" id="staff-id" placeholder="Staff ID / Phone / Email *" required>
                     </div>
                     <div class="portal-input-group">
-                        <input type="password" id="staff-pass" placeholder="Enter Security Password *" required>
+                        <input type="password" id="staff-pass" placeholder="Security Password *" required>
                     </div>
                     
                     <div class="staff-credential-box">
-                        <small>💡 <strong>Admin Credentials:</strong> ID: <code>admin@marketloop.com</code> | Pass: <code>admin123</code></small>
+                        <small>💡 <strong>Admin Credentials:</strong> ID: <code>admin@marketloop.com</code> | Pass: <code>admin123</code></small><br>
+                        <small>💡 <strong>Seller Credentials:</strong> ID: <code>seller@marketloop.com</code> | Pass: <code>seller123</code></small>
                     </div>
 
                     <button type="submit" class="portal-submit-btn">
