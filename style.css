@@ -24,7 +24,9 @@
 
 /* BACKGROUND PICTURE SETUP */
 body {
-    background-image: url('images (69).jpg'); 
+    
+    background-image: linear-gradient(rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.4)), 
+                      url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1920&auto=format&fit=crop'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -780,10 +782,135 @@ body {
     font-size: 11px;
 }
 
-.coupon-section { display: flex; gap: 10px; margin-bottom: 15px; }
-.coupon-section input { flex: 1; padding: 10px; border: 1px solid var(--border-color); border-radius: var(--radius); }
-.checkout-summary p { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; color: var(--text-muted); }
-.checkout-summary h4 { display: flex; justify-content: space-between; font-size: 17px; margin: 12px 0; color: var(--text-main); font-weight: 700; }
+/* =========================================================
+   UPDATED & BEAUTIFIED COUPON CODE & CHECKOUT SECTION
+   ========================================================= */
+.coupon-card-box {
+    background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+    border: 2px dashed #93c5fd;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+    position: relative;
+}
+
+.coupon-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e40af;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.coupon-section { 
+    display: flex; 
+    gap: 8px; 
+}
+
+.coupon-section input { 
+    flex: 1; 
+    padding: 10px 14px; 
+    border: 1.5px solid #bfdbfe; 
+    border-radius: var(--radius); 
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #ffffff;
+    color: var(--text-main);
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.coupon-section input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.coupon-section input::placeholder {
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: normal;
+    color: #94a3b8;
+}
+
+.coupon-section button {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.3);
+}
+
+.coupon-section button:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.4);
+}
+
+.coupon-promo-hint {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #dbeafe;
+    font-size: 12px;
+    color: #1e3a8a;
+    font-weight: 600;
+}
+
+.coupon-promo-hint span {
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+/* CHECKOUT SUMMARY ENHANCEMENTS */
+.checkout-summary {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px;
+}
+
+.checkout-summary p { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 14px; 
+    margin-bottom: 8px; 
+    color: var(--text-muted); 
+}
+
+.checkout-summary p span.discount-val {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+.checkout-summary h4 { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 18px; 
+    margin: 12px 0 0 0; 
+    padding-top: 10px;
+    border-top: 2px solid var(--border-color);
+    color: var(--text-main); 
+    font-weight: 800; 
+}
+
 .hidden { display: none !important; }
 
 /* RESPONSIVE BREAKPOINTS (MOBILE & TABLET) */
@@ -811,4 +938,6 @@ body {
     .product-grid { grid-template-columns: repeat(1, 1fr); }
     .portal-modal-box { padding: 18px 14px; width: 95%; max-height: 92vh; }
     .portal-tabs { flex-direction: column; gap: 6px; }
+    .coupon-section { flex-direction: column; }
+    .coupon-section button { width: 100%; }
 }
