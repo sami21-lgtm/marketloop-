@@ -558,7 +558,7 @@ let products = [
         brand: "Xiaomi",
         price: 31350,
         stock: 13,
-        specs:  "200MP Camera | 120W| 3,274 mAh Fast Charging",
+        specs:  "200MP Camera | 120W Fast Charging",
         image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&q=80"
     },
 
