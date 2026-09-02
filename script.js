@@ -659,25 +659,33 @@ function enterAsGuest() {
     requestRoleSwitch("customer");
 }
 
+// FIXED: Staff authentication logic matching HTML IDs
 function handleStaffAccess(event) {
     if (event && event.preventDefault) event.preventDefault();
+    
     const roleSelect = document.getElementById("staff-role-select");
-    const passInput = document.getElementById("staff-passkey");
+    const idInput = document.getElementById("staff-id");
+    const passInput = document.getElementById("staff-pass");
+
     const selectedRole = roleSelect ? roleSelect.value : 'seller';
+    const staffId = idInput ? idInput.value.trim() : '';
     const password = passInput ? passInput.value.trim() : '';
 
-    // Passkey verification
-    if (selectedRole === 'admin' && password !== 'admin123') {
-        alert("ভুল এডমিন পাসওয়ার্ড! (Default: admin123)");
-        return;
+    if (selectedRole === 'admin') {
+        if (staffId === 'admin@marketloop.com' && password === 'admin123') {
+            closeModal("auth-modal");
+            requestRoleSwitch('admin');
+        } else {
+            alert("ভুল এডমিন আইডি বা পাসওয়ার্ড! (Default ID: admin@marketloop.com | Pass: admin123)");
+        }
+    } else if (selectedRole === 'seller') {
+        if (staffId === 'seller@marketloop.com' && password === 'seller123') {
+            closeModal("auth-modal");
+            requestRoleSwitch('seller');
+        } else {
+            alert("ভুল সেলার আইডি বা পাসওয়ার্ড! (Default ID: seller@marketloop.com | Pass: seller123)");
+        }
     }
-    if (selectedRole === 'seller' && password !== '' && password !== 'seller123') {
-        alert("ভুল স্টাফ পাসওয়ার্ড! (Default: seller123)");
-        return;
-    }
-
-    closeModal("auth-modal");
-    requestRoleSwitch(selectedRole);
 }
 
 // --- MODAL CONTROL ---
@@ -907,88 +915,141 @@ function toggleCompare(id) {
 function updateBadges() {
     const cartBadge = document.getElementById("cart-count");
     const wishBadge = document.getElementById("wishlist-count");
+    const compBadge = document.getElementById("compare-count");
+    const ordBadge = document.getElementById("orders-count");
+
     if (cartBadge) cartBadge.innerText = cart.reduce((sum, item) => sum + item.qty, 0);
     if (wishBadge) wishBadge.innerText = wishlist.length;
+    if (compBadge) compBadge.innerText = compareList.length;
+    if (ordBadge) ordBadge.innerText = orders.length;
 }
 
 // --- RENDER MODALS ---
 function renderCart() {
     const container = document.getElementById("cart-items-container");
-    const totalElem = document.getElementById("cart-total-price");
     if (!container) return;
 
     if (cart.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px;'>আপনার কার্ট খালি!</p>";
-        if (totalElem) totalElem.innerText = "৳0";
+        container.innerHTML = `<p style="text-align:center; color:#64748b; padding:20px;">আপনার শপিং কার্ট খালি!</p>`;
+        document.getElementById("cart-subtotal").innerText = "0";
+        document.getElementById("cart-discount").innerText = "0";
+        document.getElementById("cart-grand-total").innerText = "0";
         return;
     }
 
-    let total = 0;
+    let subtotal = 0;
     container.innerHTML = cart.map(item => {
         const itemTotal = item.price * item.qty;
-        total += itemTotal;
+        subtotal += itemTotal;
         return `
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; border-bottom:1px solid #eee; padding-bottom:8px;">
-            <div style="flex:1;">
-                <strong>${item.title}</strong>
-                <div style="color:#64748b; font-size:13px;">৳${item.price.toLocaleString()} x ${item.qty} = ৳${itemTotal.toLocaleString()}</div>
+        <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #e2e8f0;">
+            <div>
+                <h5 style="margin:0;">${item.title}</h5>
+                <small style="color:#64748b;">৳${item.price.toLocaleString()} x ${item.qty}</small>
             </div>
             <div style="display:flex; align-items:center; gap:8px;">
                 <button onclick="updateCartQty(${item.id}, -1)" style="padding:2px 8px;">-</button>
                 <span>${item.qty}</span>
                 <button onclick="updateCartQty(${item.id}, 1)" style="padding:2px 8px;">+</button>
-                <button onclick="removeFromCart(${item.id})" style="color:red; background:none; border:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="removeFromCart(${item.id})" style="color:#ef4444; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>`;
     }).join('');
 
-    if (totalElem) totalElem.innerText = `৳${Math.max(0, total - appliedDiscount).toLocaleString()}`;
+    const discountAmount = (subtotal * appliedDiscount) / 100;
+    const grandTotal = subtotal - discountAmount;
+
+    document.getElementById("cart-subtotal").innerText = subtotal.toLocaleString();
+    document.getElementById("cart-discount").innerText = discountAmount.toLocaleString();
+    document.getElementById("cart-grand-total").innerText = grandTotal.toLocaleString();
+}
+
+function applyCoupon() {
+    const code = document.getElementById("coupon-code")?.value.trim().toUpperCase();
+    if (code === "WELCOME20") {
+        appliedDiscount = 20;
+        alert("কুপন সফলভাবে প্রয়োগ করা হয়েছে! ২০% ছাড় পাবেন।");
+    } else {
+        alert("অবৈধ কুপন কোড! (চেষ্টা করুন: WELCOME20)");
+    }
+    renderCart();
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert("আপনার কার্ট খালি!");
+        return;
+    }
+
+    // Deduct Stock
+    cart.forEach(c => {
+        const p = products.find(prod => prod.id === c.id);
+        if (p) p.stock -= c.qty;
+    });
+
+    const newOrder = {
+        id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
+        items: [...cart],
+        date: new Date().toLocaleDateString(),
+        total: document.getElementById("cart-grand-total").innerText
+    };
+
+    orders.push(newOrder);
+    cart = [];
+    appliedDiscount = 0;
+
+    updateBadges();
+    renderSellerInventory();
+    renderAdminStats();
+    closeModal("cart-modal");
+
+    alert(`অর্ডার সফলভাবে সম্পন্ন হয়েছে! আপনার Order ID: ${newOrder.id}`);
 }
 
 function renderWishlist() {
     const container = document.getElementById("wishlist-items-container");
     if (!container) return;
 
-    const items = products.filter(p => wishlist.includes(p.id));
-    if (items.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px;'>উইশলিস্ট খালি!</p>";
+    const wishProducts = products.filter(p => wishlist.includes(p.id));
+
+    if (wishProducts.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:#64748b; padding:20px;">উইশলিস্টে কোনো প্রোডাক্ট নেই!</p>`;
         return;
     }
 
-    container.innerHTML = items.map(p => `
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid #eee; padding-bottom:8px;">
-            <div>
-                <strong>${p.title}</strong>
-                <div style="color:#2563eb;">৳${p.price.toLocaleString()}</div>
-            </div>
-            <div>
-                <button class="btn-primary" onclick="addToCart(${p.id})">Add to Cart</button>
-                <button onclick="toggleWishlist(${p.id})" style="color:red; background:none; border:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
-            </div>
+    container.innerHTML = wishProducts.map(p => `
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #e2e8f0;">
+        <div>
+            <h5 style="margin:0;">${p.title}</h5>
+            <small style="color:#2563eb; font-weight:bold;">৳${p.price.toLocaleString()}</small>
         </div>
-    `).join('');
+        <div>
+            <button class="btn-primary" onclick="addToCart(${p.id})">Add to Cart</button>
+            <button onclick="toggleWishlist(${p.id})" style="color:#ef4444; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+        </div>
+    </div>`).join('');
 }
 
 function renderCompare() {
     const container = document.getElementById("compare-items-container");
     if (!container) return;
 
-    const items = products.filter(p => compareList.includes(p.id));
-    if (items.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px;'>তুলনা করার জন্য কোনো প্রোডাক্ট নির্বাচন করা হয়নি!</p>";
+    const compProducts = products.filter(p => compareList.includes(p.id));
+
+    if (compProducts.length === 0) {
+        container.innerHTML = `<p style="text-align:center; color:#64748b; padding:20px;">তুলনা করার জন্য প্রোডাক্ট সিলেক্ট করুন!</p>`;
         return;
     }
 
     container.innerHTML = `
-    <div style="display:grid; grid-template-columns: repeat(${items.length}, 1fr); gap:15px;">
-        ${items.map(p => `
-            <div style="border:1px solid #ccc; padding:10px; border-radius:6px; background:#fff;">
-                <img src="${p.image}" style="width:100%; height:120px; object-fit:cover;">
-                <h4 style="margin:8px 0;">${p.title}</h4>
-                <p><strong>Price:</strong> ৳${p.price.toLocaleString()}</p>
-                <p><strong>Brand:</strong> ${p.brand}</p>
-                <p style="font-size:12px;"><strong>Specs:</strong> ${p.specs}</p>
-                <button onclick="toggleCompare(${p.id})" style="color:red; margin-top:10px; cursor:pointer;">Remove</button>
+    <div style="display:grid; grid-template-columns: repeat(${compProducts.length}, 1fr); gap:15px;">
+        ${compProducts.map(p => `
+            <div style="border:1px solid #cbd5e1; padding:15px; border-radius:8px; text-align:center;">
+                <img src="${p.image}" style="width:100%; height:120px; object-fit:cover; border-radius:6px;">
+                <h4 style="margin:10px 0 5px 0;">${p.title}</h4>
+                <p style="color:#2563eb; font-weight:bold;">৳${p.price.toLocaleString()}</p>
+                <p style="font-size:12px; color:#64748b;">${p.specs}</p>
+                <button onclick="toggleCompare(${p.id})" class="btn-sm btn-danger" style="margin-top:10px;">Remove</button>
             </div>
         `).join('')}
     </div>`;
@@ -999,102 +1060,123 @@ function renderOrders() {
     if (!container) return;
 
     if (orders.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px;'>আপনার কোনো অর্ডার রেকর্ড নেই!</p>";
+        container.innerHTML = `<p style="text-align:center; color:#64748b; padding:20px;">আপনার কোনো পূর্ববর্তী অর্ডার নেই!</p>`;
         return;
     }
 
-    container.innerHTML = orders.map((o, index) => `
-        <div style="border:1px solid #ddd; border-radius:6px; padding:12px; margin-bottom:10px; background:#f9fafb;">
-            <div style="display:flex; justify-content:space-between;">
-                <strong>Order #${1001 + index}</strong>
-                <span style="color:#16a34a; font-weight:bold;">${o.status}</span>
-            </div>
-            <p style="margin:5px 0; font-size:13px; color:#64748b;">Items: ${o.items.map(i => i.title + " (x" + i.qty + ")").join(', ')}</p>
-            <div>Total: <strong>৳${o.total.toLocaleString()}</strong></div>
+    container.innerHTML = orders.map(ord => `
+    <div style="border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <strong>${ord.id}</strong>
+            <span style="color:#64748b; font-size:12px;">${ord.date}</span>
         </div>
-    `).join('');
+        <div style="font-size:13px; color:#475569;">
+            ${ord.items.map(i => `${i.title} (x${i.qty})`).join(', ')}
+        </div>
+        <div style="text-align:right; margin-top:8px; font-weight:bold; color:#166534;">
+            Total: ৳${ord.total}
+        </div>
+    </div>`).join('');
 }
 
-// --- STAFF (SELLER) & ADMIN PANELS ---
+// --- SELLER INVENTORY ACTIONS ---
 function renderSellerInventory() {
-    const container = document.getElementById("seller-inventory-container");
-    if (!container) return;
+    const table = document.getElementById("seller-inventory-table");
+    if (!table) return;
 
-    container.innerHTML = `
-    <div style="padding:15px; background:#fff; border-radius:8px;">
-        <h3>Store Inventory Management</h3>
-        <table style="width:100%; border-collapse:collapse; margin-top:10px;" border="1" cellpadding="8">
-            <thead>
-                <tr style="background:#f1f5f9;">
-                    <th>ID</th>
-                    <th>Product Title</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock Quantity</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${products.map(p => `
-                    <tr>
-                        <td>${p.id}</td>
-                        <td>${p.title}</td>
-                        <td>${p.category}</td>
-                        <td>৳${p.price.toLocaleString()}</td>
-                        <td>
-                            <input type="number" value="${p.stock}" min="0" onchange="updateStock(${p.id}, this.value)" style="width:70px; padding:4px;">
-                        </td>
-                        <td>
-                            <button onclick="deleteProduct(${p.id})" style="color:red; cursor:pointer; padding:4px 8px;">Delete</button>
-                        </td>
-                    </tr>
-                `).join('')}
-            </tbody>
-        </table>
-    </div>`;
+    table.innerHTML = products.map(p => `
+        <tr>
+            <td>#${p.id}</td>
+            <td><strong>${p.title}</strong></td>
+            <td>${p.category}</td>
+            <td>${p.brand}</td>
+            <td>৳${p.price.toLocaleString()}</td>
+            <td>${p.stock}</td>
+            <td>
+                <button class="btn-sm btn-danger" onclick="deleteSellerProduct(${p.id})">Delete</button>
+            </td>
+        </tr>
+    `).join('');
+
+    const sales = orders.reduce((total, ord) => total + parseInt(ord.total.replace(/,/g, '') || 0), 0);
+    
+    document.getElementById("seller-total-sales").innerText = `৳ ${sales.toLocaleString()}`;
+    document.getElementById("seller-active-products").innerText = products.length;
+    document.getElementById("seller-total-orders").innerText = orders.length;
 }
 
-function renderAdminStats() {
-    const container = document.getElementById("admin-stats-container");
-    if (!container) return;
+function saveProduct(e) {
+    e.preventDefault();
+    const name = document.getElementById("new-prod-name").value;
+    const cat = document.getElementById("new-prod-category").value;
+    const brand = document.getElementById("new-prod-brand").value;
+    const subcat = document.getElementById("new-prod-subcat").value;
+    const price = parseInt(document.getElementById("new-prod-price").value);
+    const stock = parseInt(document.getElementById("new-prod-stock").value);
+    const spec = document.getElementById("new-prod-spec").value;
+    const img = document.getElementById("new-prod-img").value;
 
-    const totalProducts = products.length;
-    const totalStock = products.reduce((sum, p) => sum + p.stock, 0);
-    const totalValue = products.reduce((sum, p) => sum + (p.price * p.stock), 0);
+    const newProd = {
+        id: Math.floor(150 + Math.random() * 850),
+        title: name,
+        category: cat,
+        subCategory: subcat,
+        brand: brand,
+        price: price,
+        stock: stock,
+        specs: spec,
+        image: img
+    };
 
-    container.innerHTML = `
-    <div style="padding:15px; background:#fff; border-radius:8px;">
-        <h3>Admin System Dashboard</h3>
-        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:15px; margin-top:15px;">
-            <div style="background:#dbeafe; padding:15px; border-radius:8px; text-align:center;">
-                <small style="color:#1e40af; font-weight:bold;">Total Active Products</small>
-                <h2 style="margin:5px 0; color:#1e3a8a;">${totalProducts}</h2>
-            </div>
-            <div style="background:#dcfce7; padding:15px; border-radius:8px; text-align:center;">
-                <small style="color:#166534; font-weight:bold;">Total Inventory Units</small>
-                <h2 style="margin:5px 0; color:#14532d;">${totalStock} pcs</h2>
-            </div>
-            <div style="background:#fef3c7; padding:15px; border-radius:8px; text-align:center;">
-                <small style="color:#92400e; font-weight:bold;">Total Asset Valuation</small>
-                <h2 style="margin:5px 0; color:#78350f;">৳${totalValue.toLocaleString()}</h2>
-            </div>
-        </div>
-    </div>`;
+    products.unshift(newProd);
+    renderSellerInventory();
+    filterProducts();
+    closeModal("product-modal");
+    document.getElementById("add-product-form").reset();
+    alert("নতুন প্রোডাক্ট সফলভাবে ইনভেন্টরিতে যোগ করা হয়েছে!");
 }
 
-function updateStock(id, newStock) {
-    const p = products.find(item => item.id === id);
-    if (p) {
-        p.stock = parseInt(newStock) || 0;
+function deleteSellerProduct(id) {
+    if (confirm("আপনি কি নিশ্চিত যে এই প্রোডাক্টটি মুছে ফেলতে চান?")) {
+        products = products.filter(p => p.id !== id);
+        renderSellerInventory();
         filterProducts();
     }
 }
 
-function deleteProduct(id) {
-    if (confirm("আপনি কি নিশ্চিত এই প্রোডাক্টটি তালিকা থেকে মুছে ফেলতে চান?")) {
-        products = products.filter(p => p.id !== id);
-        renderSellerInventory();
-        renderAdminStats();
-        filterProducts();
+// --- ADMIN MANAGEMENT ---
+function renderAdminStats() {
+    const revenue = orders.reduce((total, ord) => total + parseInt(ord.total.replace(/,/g, '') || 0), 0);
+    const grossElement = document.getElementById("admin-gross-revenue");
+    const ordersElement = document.getElementById("admin-platform-orders");
+
+    if (grossElement) grossElement.innerText = `৳ ${revenue.toLocaleString()}`;
+    if (ordersElement) ordersElement.innerText = orders.length;
+}
+
+function approveSeller(storeId) {
+    const statusElem = document.getElementById(`status-${storeId.toLowerCase()}`);
+    const actionElem = document.getElementById(`action-${storeId.toLowerCase()}`);
+
+    if (statusElem) {
+        statusElem.className = "tag tag-success";
+        statusElem.innerText = "VERIFIED";
+    }
+    if (actionElem) {
+        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled>Approved</button>`;
+    }
+    alert(`Store ${storeId} Approvals Complete!`);
+}
+
+function rejectSeller(storeId) {
+    const statusElem = document.getElementById(`status-${storeId.toLowerCase()}`);
+    const actionElem = document.getElementById(`action-${storeId.toLowerCase()}`);
+
+    if (statusElem) {
+        statusElem.className = "tag tag-danger";
+        statusElem.innerText = "REJECTED";
+    }
+    if (actionElem) {
+        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled>Rejected</button>`;
     }
 }
