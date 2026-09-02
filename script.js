@@ -1,872 +1,1140 @@
-// EXPANDED PRODUCT DATASET (25 PRODUCTS WITH ACCURATE IMAGES)
+// --- INITIAL STATE & 50 DIVERSE PRODUCTS DATA ---
 let products = [
-    // --- MOBILES & TABLETS ---
-    {
-        id: 201,
-        title: "Tecno Camon Slim 5G",
-        category: "MOBILES",
-        subcategory: "5G Mobiles",
-        brand: "Tecno",
-        price: 59999,
-        stock: 12,
-        seller: "MobileDokan BD",
-        spec: "Ultra Slim, Dimensity 8020 5G, 64MP OIS Camera",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 202,
-        title: "Realme C100x Power",
-        category: "MOBILES",
-        subcategory: "Best Battery",
-        brand: "Realme",
-        price: 28500,
-        stock: 8,
-        seller: "MobileDokan BD",
-        spec: "8000mAh Monster Battery, 67W Fast Charging",
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 203,
-        title: "Xiaomi AI Pro 5G",
-        category: "MOBILES",
-        subcategory: "AI Smartphones",
-        brand: "Xiaomi",
-        price: 42000,
-        stock: 15,
-        seller: "MobileDokan BD",
-        spec: "AI Quad Camera System, 120Hz AMOLED Display",
-        image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 204,
-        title: "Samsung Galaxy S24 Ultra",
-        category: "MOBILES",
-        subcategory: "Best Camera",
-        brand: "Samsung",
-        price: 135000,
-        stock: 6,
-        seller: "Gadget Central BD",
-        spec: "200MP Zoom Camera, Snapdragon 8 Gen 3, S-Pen",
-        image: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 205,
-        title: "iPhone 15 Pro Max Titanium",
-        category: "MOBILES",
-        subcategory: "5G Mobiles",
-        brand: "Apple",
-        price: 165000,
-        stock: 5,
-        seller: "Apple Gadgets BD",
-        spec: "A17 Pro Chip, Titanium Body, 5x Optical Zoom",
-        image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=600&q=80"
-    },
-
-    // --- WOMEN'S FASHION ---
+    // --- MOBILES & TABLETS (14 Items) ---
     {
         id: 101,
-        title: "Traditional Handcrafted Jamdani Saree",
-        category: "WOMEN",
-        subcategory: "Saree",
-        brand: "Taaga",
-        price: 12500,
-        stock: 5,
-        seller: "Aarong Store",
-        spec: "Pure Cotton Handloom Weave, Red & Gold Border",
-        image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=600&q=80"
+        title: "Tecno Camon 30 Pro 5G",
+        category: "MOBILES",
+        subCategory: "5G Mobiles",
+        brand: "Tecno",
+        price: 32990,
+        stock: 12,
+        specs: "12GB RAM | 256GB ROM | 50MP OIS Camera",
+        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80"
     },
     {
         id: 102,
-        title: "Royal Silk Banarasi Saree",
-        category: "WOMEN",
-        subcategory: "Saree",
-        brand: "Taaga",
-        price: 18900,
-        stock: 4,
-        seller: "Aarong Store",
-        spec: "Pure Silk Fabric, Intricate Zari Embroidery",
-        image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?auto=format&fit=crop&w=600&q=80"
+        title: "Realme GT 6 AI Smartphone",
+        category: "MOBILES",
+        subCategory: "AI Smartphones",
+        brand: "Realme",
+        price: 54999,
+        stock: 19,
+        specs: "Snapdragon 8s Gen 3 | 120Hz AMOLED",
+        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80"
     },
     {
         id: 103,
-        title: "Embroidered Cotton Shalwar Kameez",
-        category: "WOMEN",
-        subcategory: "Shalwar Kameez",
-        brand: "Taaga",
-        price: 6500,
-        stock: 10,
-        seller: "Aarong Store",
-        spec: "3-Piece Outfit, Chiffon Dupatta, Organic Cotton",
-        image: "https://images.unsplash.com/photo-1583391733956-6c78276477e2?auto=format&fit=crop&w=600&q=80"
+        title: "Xiaomi Redmi Note 13 Pro",
+        category: "MOBILES",
+        subCategory: "Best Camera",
+        brand: "Xiaomi",
+        price: 28500,
+        stock: 14,
+        specs: "200MP OIS Camera | 67W Turbo Charge",
+        image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=400&q=80"
     },
     {
         id: 104,
-        title: "Printed Summer Kurta & Top",
-        category: "WOMEN",
-        subcategory: "Kurta & Tops",
-        brand: "Taaga",
-        price: 2450,
-        stock: 14,
-        seller: "Aarong Store",
-        spec: "Breathable Lawn Cotton, Casual Floral Print",
-        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=600&q=80"
+        title: "Samsung Galaxy A55 5G",
+        category: "MOBILES",
+        subCategory: "5G Mobiles",
+        brand: "Samsung",
+        price: 48999,
+        stock: 21,
+        specs: "Exynos 1480 | IP67 Water Resistance",
+        image: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=400&q=80"
+    },
+    {
+        id: 105,
+        title: "Tecno Pova 6 Pro 5G",
+        category: "MOBILES",
+        subCategory: "Best Battery",
+        brand: "Tecno",
+        price: 24990,
+        stock: 16,
+        specs: "6000mAh Battery | 70W Ultra Charge",
+        image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400&q=80"
+    },
+    {
+        id: 106,
+        title: "Realme C67 4G",
+        category: "MOBILES",
+        subCategory: "Best Camera",
+        brand: "Realme",
+        price: 18999,
+        stock: 11,
+        specs: "108MP 3X In-sensor Zoom | Snapdragon 685",
+        image: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400&q=80"
+    },
+    {
+        id: 107,
+        title: "Xiaomi Poco X6 Pro 5G",
+        category: "MOBILES",
+        subCategory: "5G Mobiles",
+        brand: "Xiaomi",
+        price: 36999,
+        stock: 18,
+        specs: "Dimensity 8300-Ultra | 120Hz FiFlow AMOLED",
+        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80"
+    },
+    {
+        id: 108,
+        title: "Vivo V30 5G AI Phone",
+        category: "MOBILES",
+        subCategory: "AI Smartphones",
+        brand: "Vivo",
+        price: 45999,
+        stock: 13,
+        specs: "Aura Light Portrait | Snapdragon 7 Gen 3",
+        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80"
+    },
+    {
+        id: 109,
+        title: "Samsung Galaxy M15 5G",
+        category: "MOBILES",
+        subCategory: "Best Battery",
+        brand: "Samsung",
+        price: 19999,
+        stock: 20,
+        specs: "6000mAh Battery | Super AMOLED Display",
+        image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=400&q=80"
+    },
+    {
+        id: 110,
+        title: "Tecno Spark 20 Pro+",
+        category: "MOBILES",
+        subCategory: "Best Camera",
+        brand: "Tecno",
+        price: 21500,
+        stock: 15,
+        specs: "108MP Camera | Curved 120Hz AMOLED",
+        image: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=400&q=80"
+    },
+    {
+        id: 111,
+        title: "Realme 12 Pro+ 5G",
+        category: "MOBILES",
+        subCategory: "Best Camera",
+        brand: "Realme",
+        price: 42999,
+        stock: 10,
+        specs: "64MP Periscope Telephoto | Luxury Watch Design",
+        image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400&q=80"
+    },
+    {
+        id: 112,
+        title: "Xiaomi Redmi 13C",
+        category: "MOBILES",
+        subCategory: "Best Battery",
+        brand: "Xiaomi",
+        price: 14499,
+        stock: 17,
+        specs: "5000mAh | 50MP AI Dual Camera",
+        image: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400&q=80"
+    },
+    {
+        id: 113,
+        title: "Google Pixel 8a AI Phone",
+        category: "MOBILES",
+        subCategory: "AI Smartphones",
+        brand: "Google",
+        price: 64999,
+        stock: 12,
+        specs: "Tensor G3 | Gemini AI Integrated",
+        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80"
+    },
+    {
+        id: 114,
+        title: "OnePlus Nord CE 4 5G",
+        category: "MOBILES",
+        subCategory: "5G Mobiles",
+        brand: "OnePlus",
+        price: 34999,
+        stock: 19,
+        specs: "Snapdragon 7 Gen 3 | 100W SUPERVOOC",
+        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80"
     },
 
-    // --- MEN'S FASHION ---
+    // --- WOMEN FASHION (10 Items) ---
     {
-        id: 301,
-        title: "Men's Designer Silk Panjabi",
-        category: "MEN",
-        subcategory: "Panjabi",
+        id: 115,
+        title: "Handloom Pure Cotton Jamdani Saree",
+        category: "WOMEN",
+        subCategory: "Saree",
+        brand: "Aarong Earth",
+        price: 8500,
+        stock: 14,
+        specs: "Traditional Handloom | Pure Cotton Thread Work",
+        image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=80"
+    },
+    {
+        id: 116,
+        title: "Embroidered Silk Shalwar Kameez Set",
+        category: "WOMEN",
+        subCategory: "Shalwar Kameez",
         brand: "Taaga",
-        price: 4500,
+        price: 4200,
+        stock: 21,
+        specs: "Fine Silk Fabric | Elegant Necklines & Dupatta",
+        image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&q=80"
+    },
+    {
+        id: 117,
+        title: "Designer Muslin Silk Saree",
+        category: "WOMEN",
+        subCategory: "Saree",
+        brand: "Aarong Earth",
+        price: 14500,
+        stock: 16,
+        specs: "Handpainted Floral Pattern | Pure Muslin",
+        image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&q=80"
+    },
+    {
+        id: 118,
+        title: "Cotton Casual Kurti & Pants",
+        category: "WOMEN",
+        subCategory: "Kurta & Tops",
+        brand: "Taaga",
+        price: 2800,
+        stock: 11,
+        specs: "Breathable Cotton | Block Print Work",
+        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80"
+    },
+    {
+        id: 119,
+        title: "Dhakai Half-Silk Jamdani Saree",
+        category: "WOMEN",
+        subCategory: "Saree",
+        brand: "Anokhi",
+        price: 6500,
+        stock: 18,
+        specs: "Intricate Geometric Weave | Festive Collection",
+        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80"
+    },
+    {
+        id: 120,
+        title: "Georgette Printed Shalwar Kameez",
+        category: "WOMEN",
+        subCategory: "Shalwar Kameez",
+        brand: "Sailor",
+        price: 3800,
+        stock: 13,
+        specs: "3-Piece Premium Lawn & Georgette Dupatta",
+        image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=80"
+    },
+    {
+        id: 121,
+        title: "Handcrafted Katan Silk Saree",
+        category: "WOMEN",
+        subCategory: "Saree",
+        brand: "Monipuri",
+        price: 18500,
+        stock: 20,
+        specs: "Zari Embroidery | Traditional Festive Wear",
+        image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&q=80"
+    },
+    {
+        id: 122,
+        title: "Linen Printed Tunic Top",
+        category: "WOMEN",
+        subCategory: "Kurta & Tops",
+        brand: "Taaga",
+        price: 2200,
+        stock: 15,
+        specs: "Comfortable Summer Fit | Contemporary Cut",
+        image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&q=80"
+    },
+    {
+        id: 123,
+        title: "Organza Designer Party Kameez",
+        category: "WOMEN",
+        subCategory: "Shalwar Kameez",
+        brand: "Cats Eye",
+        price: 5500,
         stock: 10,
-        seller: "Aarong Store",
-        spec: "Premium Raw Silk Blend, Mandarin Collar",
-        image: "https://images.unsplash.com/photo-1597983073493-88cd35cf93b0?auto=format&fit=crop&w=600&q=80"
+        specs: "Heavy Stone & Zari Embroidery",
+        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80"
     },
     {
-        id: 302,
-        title: "Cotton Slim-Fit Kabli Panjabi",
-        category: "MEN",
-        subcategory: "Panjabi",
-        brand: "Taaga",
+        id: 124,
+        title: "Tangail Soft Cotton Saree",
+        category: "WOMEN",
+        subCategory: "Saree",
+        brand: "Aarong Earth",
         price: 3200,
-        stock: 8,
-        seller: "Aarong Store",
-        spec: "100% Breathable Cotton, Modern Cut",
-        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=80"
+        stock: 17,
+        specs: "100% Handloom Cotton | Daily Wear",
+        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80"
+    },
+
+    // --- MEN FASHION (9 Items) ---
+    {
+        id: 125,
+        title: "Premium Handcrafted Cotton Panjabi",
+        category: "MEN",
+        subCategory: "Panjabi",
+        brand: "Taaga",
+        price: 3500,
+        stock: 12,
+        specs: "100% Organic Cotton | Slim Fit | Designer Buttons",
+        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80"
     },
     {
-        id: 303,
-        title: "Casual Short Kurta Shirt",
+        id: 126,
+        title: "Semi-Kabli Silk Panjabi Set",
         category: "MEN",
-        subcategory: "Short Kurta",
+        subCategory: "Panjabi",
+        brand: "Aarong Earth",
+        price: 4800,
+        stock: 19,
+        specs: "Jacquard Weave Silk | Matching Pajama",
+        image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80"
+    },
+    {
+        id: 127,
+        title: "Casual Printed Short Kurta",
+        category: "MEN",
+        subCategory: "Short Kurta",
+        brand: "Sailor",
+        price: 1950,
+        stock: 14,
+        specs: "Breathable Cotton | Mandarin Collar",
+        image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&q=80"
+    },
+    {
+        id: 128,
+        title: "Slim Fit Chino Trousers",
+        category: "MEN",
+        subCategory: "Trousers",
+        brand: "Cats Eye",
+        price: 2450,
+        stock: 21,
+        specs: "Stretchable Cotton Twill | Smart Casual",
+        image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&q=80"
+    },
+    {
+        id: 129,
+        title: "Royal Velvet Embroidered Panjabi",
+        category: "MEN",
+        subCategory: "Panjabi",
+        brand: "Illiyeen",
+        price: 8900,
+        stock: 16,
+        specs: "Luxury Velvet Trim | Wedding Special",
+        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80"
+    },
+    {
+        id: 130,
+        title: "Formal Executive Shirt",
+        category: "MEN",
+        subCategory: "Short Kurta",
+        brand: "Richman",
+        price: 2200,
+        stock: 11,
+        specs: "100% Egyptian Cotton | Easy Iron",
+        image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80"
+    },
+    {
+        id: 131,
+        title: "Casual Denim Jeans Pant",
+        category: "MEN",
+        subCategory: "Trousers",
+        brand: "Sailor",
+        price: 2800,
+        stock: 18,
+        specs: "Stretch Denim | Modern Tapered Fit",
+        image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&q=80"
+    },
+    {
+        id: 132,
+        title: "Handloom Cotton Panjabi",
+        category: "MEN",
+        subCategory: "Panjabi",
+        brand: "Yellow",
+        price: 2990,
+        stock: 13,
+        specs: "Traditional Crafting | Breathable Fit",
+        image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&q=80"
+    },
+    {
+        id: 133,
+        title: "Regular Fit Linen Short Shirt",
+        category: "MEN",
+        subCategory: "Short Kurta",
         brand: "Taaga",
         price: 1850,
         stock: 20,
-        seller: "Aarong Store",
-        spec: "Full Sleeve Cotton Short Kurta",
-        image: "https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=600&q=80"
+        specs: "Pure Linen | Lightweight Summer Style",
+        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80"
     },
+
+    // --- HOME DÉCOR (7 Items) ---
     {
-        id: 304,
-        title: "Stretch Cotton Chino Trousers",
-        category: "MEN",
-        subcategory: "Trousers",
-        brand: "Taaga",
-        price: 2600,
+        id: 134,
+        title: "Traditional Nokshi Kantha Bedcover Set",
+        category: "HOME DÉCOR",
+        subCategory: "Bedcovers",
+        brand: "Aarong Earth",
+        price: 2800,
         stock: 15,
-        seller: "Aarong Store",
-        spec: "Slim Fit Twill Cotton Chino Pants",
-        image: "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=600&q=80"
-    },
-
-    // --- HOME DÉCOR ---
-    {
-        id: 401,
-        title: "Quilted Nakshi Kantha Bedcover",
-        category: "HOME DÉCOR",
-        subcategory: "Bedcovers",
-        brand: "Aarong Earth",
-        price: 5800,
-        stock: 6,
-        seller: "Aarong Store",
-        spec: "Traditional Stitch Handmade Cotton Spread",
-        image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=600&q=80"
+        specs: "King Size | Hand Stitched | Premium Fabric",
+        image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80"
     },
     {
-        id: 402,
-        title: "Luxury Ceramic Dinnerware Set (24 Pcs)",
+        id: 135,
+        title: "Handcrafted Brass Dinnerware Set (6 Person)",
         category: "HOME DÉCOR",
-        subcategory: "Dining",
+        subCategory: "Dining",
         brand: "Aarong Earth",
-        price: 8900,
-        stock: 3,
-        seller: "Aarong Store",
-        spec: "Microwave Safe Stoneware Dinner Plates & Bowls",
-        image: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=600&q=80"
+        price: 12500,
+        stock: 10,
+        specs: "Pure Brass | Antique Bengali Craftsmanship",
+        image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=400&q=80"
     },
     {
-        id: 403,
-        title: "Handcrafted Wooden Serving Tray Set",
+        id: 136,
+        title: "Ceramic Tea Set & Wooden Serving Tray",
         category: "HOME DÉCOR",
-        subcategory: "Dining",
-        brand: "Aarong Earth",
-        price: 2100,
+        subCategory: "Dining",
+        brand: "Clay Station",
+        price: 3400,
+        stock: 17,
+        specs: "6 Cups & Teapot | Eco-friendly Tray",
+        image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400&q=80"
+    },
+    {
+        id: 137,
+        title: "Printed Cotton Double King Bed Sheet",
+        category: "HOME DÉCOR",
+        subCategory: "Bedcovers",
+        brand: "Home Tex",
+        price: 1850,
         stock: 12,
-        seller: "Aarong Store",
-        spec: "Solid Teak Wood Trays with Brass Handles",
-        image: "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80"
+        specs: "100% Cotton | Includes 2 Pillow Covers",
+        image: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400&q=80"
+    },
+    {
+        id: 138,
+        title: "Handwoven Jute Table Runner & Mats",
+        category: "HOME DÉCOR",
+        subCategory: "Dining",
+        brand: "Aarong Earth",
+        price: 1400,
+        stock: 19,
+        specs: "Natural Jute Fiber | Eco-Friendly",
+        image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80"
+    },
+    {
+        id: 139,
+        title: "Porcelain Dinner Set 32 Pieces",
+        category: "HOME DÉCOR",
+        subCategory: "Dining",
+        brand: "Shinepukur",
+        price: 8900,
+        stock: 14,
+        specs: "Scratch Resistant | Microwave Safe",
+        image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=400&q=80"
+    },
+    {
+        id: 140,
+        title: "Quilted Cotton Kantha Throw Pillow Cases",
+        category: "HOME DÉCOR",
+        subCategory: "Bedcovers",
+        brand: "Kothon",
+        price: 1200,
+        stock: 21,
+        specs: "Set of 4 | Colorful Patchwork",
+        image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400&q=80"
     },
 
-    // --- SKIN & HAIR ---
+    // --- SKIN & HAIR (7 Items) ---
     {
-        id: 501,
-        title: "Aarong Earth Orange Peel Face Pack",
+        id: 141,
+        title: "Organic Glow Face Mask & Herbal Pack",
         category: "SKIN & HAIR",
-        subcategory: "Face Care",
-        brand: "Aarong Earth",
-        price: 450,
-        stock: 30,
-        seller: "Aarong Store",
-        spec: "100% Natural Organic Clay Brightening Mask",
-        image: "https://images.unsplash.com/photo-1567928257400-f137810776b1?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 502,
-        title: "Cold-Pressed Herbal Hair Growth Oil",
-        category: "SKIN & HAIR",
-        subcategory: "Hair Care",
-        brand: "Aarong Earth",
-        price: 780,
-        stock: 25,
-        seller: "Aarong Store",
-        spec: "Amla, Bhringraj & Coconut Blend (200ml)",
-        image: "https://images.unsplash.com/photo-1608248597261-833244675b1d?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 503,
-        title: "Vitamin C Radiance Glowing Serum",
-        category: "SKIN & HAIR",
-        subcategory: "Face Care",
-        brand: "Aarong Earth",
-        price: 1250,
-        stock: 18,
-        seller: "Aarong Store",
-        spec: "15% Pure Vitamin C + Hyaluronic Acid Formula",
-        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
-    },
-    {
-        id: 504,
-        title: "Nourishing Argan Oil Shampoo",
-        category: "SKIN & HAIR",
-        subcategory: "Hair Care",
+        subCategory: "Face Care",
         brand: "Aarong Earth",
         price: 950,
-        stock: 22,
-        seller: "Aarong Store",
-        spec: "Sulfate-Free Hair Repairing Shampoo (350ml)",
-        image: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?auto=format&fit=crop&w=600&q=80"
+        stock: 16,
+        specs: "100% Natural Turmeric & Neem Formulation",
+        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80"
+    },
+    {
+        id: 142,
+        title: "Pure Cold Pressed Coconut Hair Oil (250ml)",
+        category: "SKIN & HAIR",
+        subCategory: "Hair Care",
+        brand: "Aarong Earth",
+        price: 450,
+        stock: 11,
+        specs: "Deep Root Nourishment | Organic",
+        image: "https://images.unsplash.com/photo-1608248597261-833257647009?w=400&q=80"
+    },
+    {
+        id: 143,
+        title: "Herbal Anti-Dandruff Shampoo (300ml)",
+        category: "SKIN & HAIR",
+        subCategory: "Hair Care",
+        brand: "Kumarika",
+        price: 380,
+        stock: 18,
+        specs: "Enriched with Aloe Vera & Tea Tree",
+        image: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=400&q=80"
+    },
+    {
+        id: 144,
+        title: "Saffron & Sandalwood Brightening Cream",
+        category: "SKIN & HAIR",
+        subCategory: "Face Care",
+        brand: "Bio-Xin",
+        price: 1450,
+        stock: 13,
+        specs: "Dermatologically Tested | Skin Hydration",
+        image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&q=80"
+    },
+    {
+        id: 145,
+        title: "Pure Raw Honey & Oat Face Scrub",
+        category: "SKIN & HAIR",
+        subCategory: "Face Care",
+        brand: "Ribana",
+        price: 850,
+        stock: 20,
+        specs: "Exfoliating & Deep Cleansing",
+        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80"
+    },
+    {
+        id: 146,
+        title: "Natural Herbal Hair Fall Solution Oil",
+        category: "SKIN & HAIR",
+        subCategory: "Hair Care",
+        brand: "Parachute",
+        price: 520,
+        stock: 15,
+        specs: "Onion & Hibiscus Infused Extract",
+        image: "https://images.unsplash.com/photo-1608248597261-833257647009?w=400&q=80"
+    },
+    {
+        id: 147,
+        title: "Rose Water & Aloe Facial Toner",
+        category: "SKIN & HAIR",
+        subCategory: "Face Care",
+        brand: "Aarong Earth",
+        price: 650,
+        stock: 10,
+        specs: "Hydrating Mist | 100% Organic",
+        image: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=400&q=80"
+    },
+
+    // --- ADDITIONAL VARIATIONS (To complete 50 unique listings) ---
+    {
+        id: 148,
+        title: "Tecno Camon 30 Ultra 5G",
+        category: "MOBILES",
+        subCategory: "5G Mobiles",
+        brand: "Tecno",
+        price: 36289,
+        stock: 7,
+        specs: "12GB RAM | 512GB ROM | 50MP OIS Camera",
+        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80"
+    },
+    {
+        id: 149,
+        title: "Realme GT 6 Master Edition",
+        category: "MOBILES",
+        subCategory: "AI Smartphones",
+        brand: "Realme",
+        price: 60498,
+        stock: 10,
+        specs: "Snapdragon 8 Gen 3 | 120Hz Curved Display",
+        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80"
+    },
+    {
+        id: 150,
+        title: "Xiaomi Redmi Note 13 Pro Max",
+        category: "MOBILES",
+        subCategory: "Best Camera",
+        brand: "Xiaomi",
+        price: 31350,
+        stock: 13,
+        specs: "200MP Camera | 120W Fast Charging",
+        image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=400&q=80"
     }
 ];
 
-// REGISTERED USERS SYSTEM
-let registeredUsers = [
-    { name: "System Admin", email: "admin@marketloop.com", id: "admin", phone: "01700000000", pass: "admin123", role: "admin" },
-    { name: "Demo Seller", email: "seller@marketloop.com", id: "seller", phone: "01800000000", pass: "seller123", role: "seller" },
-    { name: "Customer User", email: "customer@gmail.com", id: "01900000000", phone: "01900000000", pass: "123456", role: "customer" }
-];
-
-let currentUser = null;
 let cart = [];
 let wishlist = [];
 let compareList = [];
 let orders = [];
-let appliedDiscount = 0;
 
-let currentCategory = "ALL";
-let currentSubCategory = "ALL";
+let currentUser = { name: "Guest", role: "customer" };
+let selectedCategory = "ALL";
+let selectedSubCategory = "ALL";
 let minPrice = 0;
 let maxPrice = 999999;
-let currentViewMode = "grid";
+let viewMode = "grid";
+let appliedDiscount = 0;
 
-// SAFE INITIALIZATION (FIXED BLANK SCREEN BUG)
+// --- INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
     filterProducts();
     updateBadges();
-    updateUserStatus();
+    renderSellerInventory();
+    renderAdminStats();
 });
 
-// UI VISIBILITY CONTROL
-function showMainApp() {
-    const appWrapper = document.getElementById("app-wrapper");
-    if (appWrapper) appWrapper.style.display = "block";
-}
-
-// PORTAL TAB SWITCHER
-function switchPortalTab(tab) {
-    const guestBtn = document.getElementById("tab-guest-btn");
-    const staffBtn = document.getElementById("tab-staff-btn");
-    const guestContent = document.getElementById("guest-portal-content");
-    const staffContent = document.getElementById("staff-portal-content");
-
-    if (tab === 'guest') {
-        if(guestBtn) guestBtn.classList.add("active");
-        if(staffBtn) staffBtn.classList.remove("active");
-        if(guestContent) guestContent.classList.remove("hidden");
-        if(staffContent) staffContent.classList.add("hidden");
-    } else {
-        if(staffBtn) staffBtn.classList.add("active");
-        if(guestBtn) guestBtn.classList.remove("active");
-        if(staffContent) staffContent.classList.remove("hidden");
-        if(guestContent) guestContent.classList.add("hidden");
-    }
-}
-
-// ROLE ACCESS REQUEST
+// --- ROLE & VIEW MANAGEMENT ---
 function requestRoleSwitch(role) {
-    if (role === 'customer') {
-        switchRole('customer');
-        return;
-    }
-
-    if (!currentUser || currentUser.role !== role) {
-        switchPortalTab('staff');
-        const roleSelect = document.getElementById("staff-role-select");
-        if(roleSelect) roleSelect.value = role;
-        openModal('auth-modal');
-        alert(`Authentication Required: Please login with ${role.toUpperCase()} credentials.`);
-    } else {
-        switchRole(role);
-    }
-}
-
-function switchRole(role) {
-    document.querySelectorAll(".btn-role").forEach(btn => btn.classList.remove("active"));
-    const activeRoleBtn = document.querySelector(`.btn-role[onclick*="${role}"]`);
-    if(activeRoleBtn) activeRoleBtn.classList.add("active");
-    
-    const custView = document.getElementById("customer-view");
-    const sellView = document.getElementById("seller-view");
+    const customerView = document.getElementById("customer-view");
+    const sellerView = document.getElementById("seller-view");
     const adminView = document.getElementById("admin-view");
 
-    if (custView) custView.classList.add("hidden");
-    if (sellView) sellView.classList.add("hidden");
-    if (adminView) adminView.classList.add("hidden");
+    if (!customerView || !sellerView || !adminView) return;
 
-    if (role === 'customer' && custView) custView.classList.remove("hidden");
-    if (role === 'seller' && sellView) {
-        sellView.classList.remove("hidden");
+    customerView.classList.add("hidden");
+    sellerView.classList.add("hidden");
+    adminView.classList.add("hidden");
+
+    if (role === 'customer') {
+        customerView.classList.remove("hidden");
+        currentUser.role = "customer";
+        document.getElementById("user-status-text").innerHTML = `Active User: <strong>${currentUser.name} (Customer)</strong>`;
+        filterProducts();
+    } else if (role === 'seller') {
+        sellerView.classList.remove("hidden");
+        currentUser.role = "seller";
+        document.getElementById("user-status-text").innerHTML = `Active User: <strong>Store Seller</strong>`;
         renderSellerInventory();
-    }
-    if (role === 'admin' && adminView) {
+    } else if (role === 'admin') {
         adminView.classList.remove("hidden");
-        updateAdminStats();
+        currentUser.role = "admin";
+        document.getElementById("user-status-text").innerHTML = `Active User: <strong>System Admin</strong>`;
+        renderAdminStats();
     }
 }
 
-// CUSTOMER ACCESS
-function handleCustomerAccess(e) {
-    if(e) e.preventDefault();
-    const nameInput = document.getElementById("guest-name");
-    const phoneInput = document.getElementById("guest-phone");
-    const passInput = document.getElementById("guest-pass");
+// --- PORTAL MODAL TAB SWITCHING & AUTH ---
+function switchPortalTab(tab) {
+    const guestTab = document.getElementById("guest-portal-content");
+    const staffTab = document.getElementById("staff-portal-content");
+    const guestBtn = document.getElementById("tab-guest-btn");
+    const staffBtn = document.getElementById("tab-staff-btn");
 
-    const name = nameInput ? nameInput.value.trim() : "";
-    const phone = phoneInput ? phoneInput.value.trim() : "";
-    const pass = passInput ? passInput.value : "";
-
-    if (!name || !phone || !pass) {
-        alert("দয়া করে নাম, ফোন নম্বর এবং পাসওয়ার্ড পূরণ করুন।");
-        return;
-    }
-
-    let user = registeredUsers.find(u => u.phone === phone);
-    
-    if (!user) {
-        user = { name, email: "", phone, id: phone, pass, role: "customer" };
-        registeredUsers.push(user);
-    }
-
-    currentUser = user;
-    updateUserStatus();
-    closeModal('auth-modal');
-    switchRole('customer');
-    alert(`স্বাগতম, ${user.name}!`);
-}
-
-// STAFF ACCESS (ADMIN / SELLER)
-function handleStaffAccess(e) {
-    if(e) e.preventDefault();
-    const roleSelect = document.getElementById("staff-role-select");
-    const idSelect = document.getElementById("staff-id");
-    const passSelect = document.getElementById("staff-pass");
-
-    const role = roleSelect ? roleSelect.value : "";
-    const idInput = idSelect ? idSelect.value.trim() : "";
-    const passInput = passSelect ? passSelect.value : "";
-
-    const user = registeredUsers.find(u => 
-        (u.email === idInput || u.phone === idInput || u.id === idInput) && 
-        u.pass === passInput && 
-        u.role === role
-    );
-
-    if (user) {
-        currentUser = user;
-        updateUserStatus();
-        closeModal('auth-modal');
-        switchRole(role);
-        alert(`Logged in successfully as ${user.name} (${user.role.toUpperCase()})`);
+    if (tab === 'guest') {
+        if(guestTab) guestTab.classList.remove("hidden");
+        if(staffTab) staffTab.classList.add("hidden");
+        if(guestBtn) guestBtn.classList.add("active");
+        if(staffBtn) staffBtn.classList.remove("active");
     } else {
-        alert("Access Denied! Invalid Staff ID or Password.");
+        if(guestTab) guestTab.classList.add("hidden");
+        if(staffTab) staffTab.classList.remove("hidden");
+        if(guestBtn) guestBtn.classList.remove("active");
+        if(staffBtn) staffBtn.classList.add("active");
     }
+}
+
+function handleCustomerAccess(event) {
+    event.preventDefault();
+    const nameInput = document.getElementById("guest-name");
+    const name = nameInput ? nameInput.value : "Customer";
+    currentUser = { name: name, role: "customer" };
+    closeModal("auth-modal");
+    requestRoleSwitch("customer");
 }
 
 function enterAsGuest() {
-    currentUser = null;
-    updateUserStatus();
-    closeModal('auth-modal');
-    switchRole('customer');
+    currentUser = { name: "Guest User", role: "customer" };
+    closeModal("auth-modal");
+    requestRoleSwitch("customer");
 }
 
-function updateUserStatus() {
-    const statusText = document.getElementById("user-status-text");
-    const authBtn = document.getElementById("auth-btn");
-
-    if (currentUser) {
-        if(statusText) statusText.innerHTML = `Logged in: <strong>${currentUser.name} (${currentUser.role.toUpperCase()})</strong>`;
-        if(authBtn) {
-            authBtn.innerHTML = `<i class="fa-solid fa-right-from-bracket"></i> Logout`;
-            authBtn.onclick = handleLogout;
-        }
-    } else {
-        if(statusText) statusText.innerHTML = `Active User: <strong>Guest</strong>`;
-        if(authBtn) {
-            authBtn.innerHTML = `<i class="fa-solid fa-shield-halved"></i> Access Portal`;
-            authBtn.onclick = () => openModal('auth-modal');
-        }
-    }
+function handleStaffAccess(event) {
+    event.preventDefault();
+    const roleSelect = document.getElementById("staff-role-select").value;
+    closeModal("auth-modal");
+    requestRoleSwitch(roleSelect);
 }
 
-function handleLogout() {
-    currentUser = null;
-    updateUserStatus();
-    switchRole('customer');
-    alert("Logged out successfully.");
+// --- MODAL CONTROL ---
+function openModal(modalId) {
+    const elem = document.getElementById(modalId);
+    if (elem) elem.classList.add("active");
+    if (modalId === 'cart-modal') renderCart();
+    if (modalId === 'wishlist-modal') renderWishlist();
+    if (modalId === 'compare-modal') renderCompare();
+    if (modalId === 'orders-modal') renderOrders();
 }
 
-// PRODUCT FILTERS
+function closeModal(modalId) {
+    const elem = document.getElementById(modalId);
+    if (elem) elem.classList.remove("active");
+}
+
+// --- PRODUCT FILTERING & RENDERING ---
 function setCategoryFilter(cat) {
-    currentCategory = cat;
-    currentSubCategory = "ALL";
-    const catSelect = document.getElementById("search-category-select");
-    if(catSelect) catSelect.value = cat;
-    const heading = document.getElementById("current-filter-heading");
-    if(heading) heading.innerText = `Products: ${cat}`;
+    selectedCategory = cat;
+    selectedSubCategory = "ALL";
+    const selectElem = document.getElementById("search-category-select");
+    if (selectElem) selectElem.value = cat;
+    requestRoleSwitch("customer");
     filterProducts();
 }
 
-function setSubCategoryFilter(subcat) {
-    currentSubCategory = subcat;
-    const heading = document.getElementById("current-filter-heading");
-    if(heading) heading.innerText = `Category: ${subcat}`;
+function setSubCategoryFilter(subCat) {
+    selectedSubCategory = subCat;
+    requestRoleSwitch("customer");
     filterProducts();
 }
 
 function setPriceRange(min, max) {
     minPrice = min;
     maxPrice = max;
-    document.querySelectorAll(".pill-btn").forEach(btn => btn.classList.remove("active"));
-    if(window.event && window.event.target) window.event.target.classList.add("active");
+    
+    document.querySelectorAll(".price-pills .pill-btn").forEach(btn => btn.classList.remove("active"));
+    if (window.event && window.event.target) window.event.target.classList.add("active");
+    
     filterProducts();
 }
 
 function setViewMode(mode) {
-    currentViewMode = mode;
+    viewMode = mode;
     const gridBtn = document.getElementById("grid-view-btn");
     const listBtn = document.getElementById("list-view-btn");
-    if(gridBtn) gridBtn.classList.toggle("active", mode === 'grid');
-    if(listBtn) listBtn.classList.toggle("active", mode === 'list');
-    
-    const grid = document.getElementById("product-grid");
-    if (grid) {
-        if (mode === 'list') grid.classList.add("list-view");
-        else grid.classList.remove("list-view");
-    }
+    if (gridBtn) gridBtn.classList.toggle("active", mode === 'grid');
+    if (listBtn) listBtn.classList.toggle("active", mode === 'list');
+    filterProducts();
 }
 
 function filterProducts() {
-    const queryEl = document.getElementById("search-input");
-    const catEl = document.getElementById("search-category-select");
-    const brandEl = document.getElementById("brand-select");
-    const sortEl = document.getElementById("sort-select");
+    const searchVal = (document.getElementById("search-input")?.value || "").toLowerCase();
+    const catVal = document.getElementById("search-category-select")?.value || "ALL";
+    const brandVal = document.getElementById("brand-select")?.value || "ALL";
+    const sortVal = document.getElementById("sort-select")?.value || "default";
 
-    const query = queryEl ? queryEl.value.toLowerCase() : "";
-    const selectCat = catEl ? catEl.value : "ALL";
-    const brand = brandEl ? brandEl.value : "ALL";
-    const sort = sortEl ? sortEl.value : "default";
+    if (catVal !== "ALL") selectedCategory = catVal;
 
     let filtered = products.filter(p => {
-        const matchesQuery = p.title.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query);
-        const matchesCat = (selectCat === "ALL" && currentCategory === "ALL") || p.category === selectCat || p.category === currentCategory;
-        const matchesSub = currentSubCategory === "ALL" || p.subcategory.toLowerCase().includes(currentSubCategory.toLowerCase());
-        const matchesBrand = brand === "ALL" || p.brand === brand;
+        const matchesCategory = selectedCategory === "ALL" || p.category === selectedCategory;
+        const matchesSubCat = selectedSubCategory === "ALL" || p.subCategory === selectedSubCategory;
+        const matchesBrand = brandVal === "ALL" || p.brand === brandVal;
         const matchesPrice = p.price >= minPrice && p.price <= maxPrice;
+        const matchesSearch = p.title.toLowerCase().includes(searchVal) || 
+                              p.brand.toLowerCase().includes(searchVal) ||
+                              p.specs.toLowerCase().includes(searchVal);
 
-        return matchesQuery && matchesCat && matchesSub && matchesBrand && matchesPrice;
+        return matchesCategory && matchesSubCat && matchesBrand && matchesPrice && matchesSearch;
     });
 
-    if (sort === "low-high") filtered.sort((a,b) => a.price - b.price);
-    if (sort === "high-low") filtered.sort((a,b) => b.price - a.price);
+    if (sortVal === "low-high") {
+        filtered.sort((a, b) => a.price - b.price);
+    } else if (sortVal === "high-low") {
+        filtered.sort((a, b) => b.price - a.price);
+    }
+
+    const heading = document.getElementById("current-filter-heading");
+    if (heading) {
+        let label = `Products (${filtered.length})`;
+        if (selectedCategory !== "ALL") label = `${selectedCategory} ${selectedSubCategory !== "ALL" ? '> ' + selectedSubCategory : ''} (${filtered.length})`;
+        heading.innerText = label;
+    }
 
     renderProducts(filtered);
 }
 
-// RENDER PRODUCTS
 function renderProducts(items) {
-    const grid = document.getElementById("product-grid");
-    if(!grid) return;
-    
-    grid.innerHTML = "";
+    const container = document.getElementById("product-grid");
+    if (!container) return;
 
     if (items.length === 0) {
-        grid.innerHTML = "<p style='grid-column: 1/-1; padding: 30px; text-align:center;'>No products found matching your filters.</p>";
+        container.innerHTML = `
+        <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #64748b;">
+            <i class="fa-solid fa-box-open" style="font-size: 48px; margin-bottom: 12px;"></i>
+            <h3>No products found matching your filters</h3>
+        </div>`;
         return;
     }
 
-    items.forEach(p => {
-        const isWish = wishlist.includes(p.id);
-        const isCompared = compareList.includes(p.id);
+    container.style.display = viewMode === "grid" ? "grid" : "block";
 
-        grid.innerHTML += `
-            <div class="product-card">
-                <span class="wishlist-icon" onclick="toggleWishlist(${p.id})">
-                    <i class="${isWish ? 'fa-solid' : 'fa-regular'} fa-heart" style="color: ${isWish ? '#ef4444' : '#64748b'}"></i>
-                </span>
-                <img src="${p.image}" alt="${p.title}" loading="lazy">
-                <div class="product-details">
-                    <span class="product-cat">${p.brand} • ${p.subcategory}</span>
-                    <h4 class="product-title">${p.title}</h4>
-                    <p class="product-spec">${p.spec}</p>
-                    <div class="product-meta">
-                        <span class="price">৳${p.price.toLocaleString()}</span>
-                        <span class="stock-tag">${p.stock > 0 ? 'Stock: ' + p.stock : 'Out of Stock'}</span>
+    container.innerHTML = items.map(p => {
+        const isWish = wishlist.includes(p.id);
+        const isComp = compareList.includes(p.id);
+
+        if (viewMode === "grid") {
+            return `
+            <div class="product-card" style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; background: #fff; display:flex; flex-direction:column; justify-between;">
+                <img src="${p.image}" alt="${p.title}" style="width:100%; height:180px; object-fit:cover; border-radius:6px;">
+                <div style="margin-top:10px; flex:1;">
+                    <small style="color:#64748b; font-weight:600; text-transform:uppercase;">${p.brand} | ${p.category}</small>
+                    <h4 style="margin: 5px 0; font-size:15px; color:#1e293b;">${p.title}</h4>
+                    <p style="font-size:12px; color:#64748b; min-height:34px; margin-bottom:10px;">${p.specs}</p>
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-weight:bold; font-size:17px; color:#2563eb;">৳${p.price.toLocaleString()}</span>
+                        <span style="font-size:11px; font-weight:600; padding:2px 6px; border-radius:4px; background:${p.stock > 0 ? '#dcfce7' : '#fee2e2'}; color:${p.stock > 0 ? '#166534' : '#991b1b'};">
+                            ${p.stock > 0 ? 'Stock: ' + p.stock : 'Stock Out'}
+                        </span>
                     </div>
-                    <button class="btn-primary full-width" ${p.stock <= 0 ? 'disabled' : ''} onclick="addToCart(${p.id})">
-                        ${p.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
-                    </button>
-                    <label class="compare-check">
-                        <input type="checkbox" ${isCompared ? 'checked' : ''} onchange="toggleCompare(${p.id})"> Compare Specs
-                    </label>
                 </div>
-            </div>
-        `;
-    });
+                <div style="margin-top:12px; display:flex; gap:6px;">
+                    <button class="btn-primary" style="flex:1; padding:8px 10px; font-size:13px;" onclick="addToCart(${p.id})">
+                        <i class="fa-solid fa-cart-plus"></i> Add
+                    </button>
+                    <button onclick="toggleWishlist(${p.id})" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:4px; background:${isWish ? '#fee2e2' : '#fff'}; cursor:pointer;">
+                        <i class="${isWish ? 'fa-solid' : 'fa-regular'} fa-heart" style="color:${isWish ? '#ef4444' : '#64748b'};"></i>
+                    </button>
+                    <button onclick="toggleCompare(${p.id})" style="padding:8px 12px; border:1px solid #cbd5e1; border-radius:4px; background:${isComp ? '#dbeafe' : '#fff'}; cursor:pointer;">
+                        <i class="fa-solid fa-scale-balanced" style="color:${isComp ? '#2563eb' : '#64748b'};"></i>
+                    </button>
+                </div>
+            </div>`;
+        } else {
+            return `
+            <div class="product-card-list" style="display:flex; gap:20px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; background: #fff; margin-bottom:12px; align-items:center;">
+                <img src="${p.image}" alt="${p.title}" style="width:120px; height:100px; object-fit:cover; border-radius:6px;">
+                <div style="flex:1;">
+                    <small style="color:#64748b; font-weight:600;">${p.brand} | ${p.category}</small>
+                    <h4 style="margin: 2px 0;">${p.title}</h4>
+                    <p style="font-size:13px; color:#475569;">${p.specs}</p>
+                </div>
+                <div style="text-align:right;">
+                    <h3 style="color:#2563eb; margin:0 0 10px 0;">৳${p.price.toLocaleString()}</h3>
+                    <div style="display:flex; gap:6px;">
+                        <button class="btn-primary" onclick="addToCart(${p.id})">Add to Cart</button>
+                        <button onclick="toggleWishlist(${p.id})" style="padding:8px; border:1px solid #cbd5e1; border-radius:4px;"><i class="${isWish ? 'fa-solid' : 'fa-regular'} fa-heart" style="color:${isWish ? '#ef4444' : '#64748b'}"></i></button>
+                    </div>
+                </div>
+            </div>`;
+        }
+    }).join('');
 }
 
-// COMPARE FEATURE
+// --- CART & WISHLIST & COMPARE ACTIONS ---
+function addToCart(productId) {
+    const item = products.find(p => p.id === productId);
+    if (!item) return;
+
+    const existing = cart.find(c => c.id === productId);
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ ...item, qty: 1 });
+    }
+    updateBadges();
+    alert(`"${item.title}" cart-এ যোগ করা হয়েছে!`);
+}
+
+function updateCartQty(id, delta) {
+    const item = cart.find(c => c.id === id);
+    if (item) {
+        item.qty += delta;
+        if (item.qty <= 0) {
+            cart = cart.filter(c => c.id !== id);
+        }
+    }
+    renderCart();
+    updateBadges();
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(c => c.id !== id);
+    renderCart();
+    updateBadges();
+}
+
+function toggleWishlist(id) {
+    if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(item => item !== id);
+    } else {
+        wishlist.push(id);
+    }
+    updateBadges();
+    filterProducts();
+}
+
 function toggleCompare(id) {
-    const idx = compareList.indexOf(id);
-    if (idx > -1) compareList.splice(idx, 1);
-    else {
+    if (compareList.includes(id)) {
+        compareList = compareList.filter(item => item !== id);
+    } else {
         if (compareList.length >= 3) {
-            alert("Maximum 3 products can be compared at once.");
-            filterProducts();
+            alert("সর্বোচ্চ ৩টি প্রোডাক্ট তুলনা করা যাবে।");
             return;
         }
         compareList.push(id);
     }
     updateBadges();
-}
-
-function renderCompareModal() {
-    const container = document.getElementById("compare-items-container");
-    if(!container) return;
-    
-    if (compareList.length === 0) {
-        container.innerHTML = "<p>No products selected for comparison.</p>";
-        return;
-    }
-
-    const selectedProds = products.filter(p => compareList.includes(p.id));
-    let tableHTML = `<table class="data-table"><thead><tr><th>Specs</th>`;
-    
-    selectedProds.forEach(p => { tableHTML += `<th>${p.title}</th>`; });
-    tableHTML += `</tr></thead><tbody>`;
-
-    tableHTML += `<tr><td><strong>Price</strong></td>` + selectedProds.map(p => `<td>৳${p.price.toLocaleString()}</td>`).join('') + `</tr>`;
-    tableHTML += `<tr><td><strong>Brand</strong></td>` + selectedProds.map(p => `<td>${p.brand}</td>`).join('') + `</tr>`;
-    tableHTML += `<tr><td><strong>Category</strong></td>` + selectedProds.map(p => `<td>${p.category} (${p.subcategory})</td>`).join('') + `</tr>`;
-    tableHTML += `<tr><td><strong>Specifications</strong></td>` + selectedProds.map(p => `<td>${p.spec}</td>`).join('') + `</tr>`;
-    tableHTML += `<tr><td><strong>Seller Store</strong></td>` + selectedProds.map(p => `<td>${p.seller}</td>`).join('') + `</tr>`;
-
-    tableHTML += `</tbody></table>`;
-    container.innerHTML = tableHTML;
-}
-
-// CART & WISHLIST SYSTEM
-function addToCart(id) {
-    const prod = products.find(p => p.id === id);
-    const inCart = cart.find(c => c.id === id);
-
-    if (inCart) {
-        if (inCart.qty < prod.stock) inCart.qty++;
-        else alert("Stock limit reached!");
-    } else {
-        cart.push({ ...prod, qty: 1 });
-    }
-    updateBadges();
-    alert(`${prod.title} added to shopping cart!`);
-}
-
-function removeFromCart(id) {
-    cart = cart.filter(c => c.id !== id);
-    updateBadges();
-    renderCart();
-}
-
-function toggleWishlist(id) {
-    const index = wishlist.indexOf(id);
-    if (index > -1) wishlist.splice(index, 1);
-    else wishlist.push(id);
-    updateBadges();
     filterProducts();
 }
 
 function updateBadges() {
-    const cartEl = document.getElementById("cart-count");
-    const wishEl = document.getElementById("wishlist-count");
-    const compEl = document.getElementById("compare-count");
-    const ordEl = document.getElementById("orders-count");
+    const cartBadge = document.getElementById("cart-count");
+    const wishBadge = document.getElementById("wishlist-count");
+    const compBadge = document.getElementById("compare-count");
+    const orderBadge = document.getElementById("orders-count");
 
-    if(cartEl) cartEl.innerText = cart.reduce((s, i) => s + i.qty, 0);
-    if(wishEl) wishEl.innerText = wishlist.length;
-    if(compEl) compEl.innerText = compareList.length;
-    if(ordEl) ordEl.innerText = orders.length;
+    if (cartBadge) cartBadge.innerText = cart.reduce((acc, curr) => acc + curr.qty, 0);
+    if (wishBadge) wishBadge.innerText = wishlist.length;
+    if (compBadge) compBadge.innerText = compareList.length;
+    if (orderBadge) orderBadge.innerText = orders.length;
 }
 
+// --- RENDER MODALS DATA ---
 function renderCart() {
     const container = document.getElementById("cart-items-container");
-    if(!container) return;
-    
-    container.innerHTML = "";
-    let subtotal = 0;
+    if (!container) return;
 
     if (cart.length === 0) {
-        container.innerHTML = "<p>Your shopping cart is currently empty.</p>";
-    }
-
-    cart.forEach(item => {
-        subtotal += item.price * item.qty;
-        container.innerHTML += `
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
-                <div>
-                    <strong>${item.title}</strong><br>
-                    <small>৳${item.price.toLocaleString()} x ${item.qty}</small>
-                </div>
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <strong>৳${(item.price * item.qty).toLocaleString()}</strong>
-                    <button class="btn-sm btn-danger" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            </div>
-        `;
-    });
-
-    const subEl = document.getElementById("cart-subtotal");
-    const discEl = document.getElementById("cart-discount");
-    const grandEl = document.getElementById("cart-grand-total");
-
-    const grand = Math.max(0, subtotal - appliedDiscount);
-    if(subEl) subEl.innerText = subtotal.toLocaleString();
-    if(discEl) discEl.innerText = appliedDiscount.toLocaleString();
-    if(grandEl) grandEl.innerText = grand.toLocaleString();
-}
-
-function renderWishlist() {
-    const container = document.getElementById("wishlist-items-container");
-    if(!container) return;
-    
-    container.innerHTML = "";
-
-    if (wishlist.length === 0) {
-        container.innerHTML = "<p>Your wishlist is empty.</p>";
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Your cart is empty.</p>";
+        document.getElementById("cart-subtotal").innerText = "0";
+        document.getElementById("cart-discount").innerText = "0";
+        document.getElementById("cart-grand-total").innerText = "0";
         return;
     }
 
-    const items = products.filter(p => wishlist.includes(p.id));
-    items.forEach(item => {
-        container.innerHTML += `
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #f1f5f9; padding-bottom:8px;">
-                <div>
-                    <strong>${item.title}</strong><br>
-                    <small>৳${item.price.toLocaleString()}</small>
-                </div>
-                <button class="btn-primary btn-sm" onclick="addToCart(${item.id})">Add to Cart</button>
+    let subtotal = 0;
+    container.innerHTML = cart.map(item => {
+        const total = item.price * item.qty;
+        subtotal += total;
+        return `
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
+            <div>
+                <strong>${item.title}</strong><br>
+                <small style="color:#64748b;">৳${item.price.toLocaleString()} x ${item.qty}</small>
             </div>
-        `;
-    });
+            <div style="display:flex; align-items:center;">
+                <button style="padding:2px 8px;" onclick="updateCartQty(${item.id}, -1)">-</button>
+                <span style="margin:0 8px; font-weight:bold;">${item.qty}</span>
+                <button style="padding:2px 8px;" onclick="updateCartQty(${item.id}, 1)">+</button>
+                <button onclick="removeFromCart(${item.id})" style="margin-left:12px; color:#ef4444; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>`;
+    }).join('');
+
+    const discountAmount = (subtotal * appliedDiscount) / 100;
+    const grandTotal = subtotal - discountAmount;
+
+    document.getElementById("cart-subtotal").innerText = subtotal.toLocaleString();
+    document.getElementById("cart-discount").innerText = discountAmount.toLocaleString();
+    document.getElementById("cart-grand-total").innerText = grandTotal.toLocaleString();
 }
 
 function applyCoupon() {
-    const codeEl = document.getElementById("coupon-code");
-    const code = codeEl ? codeEl.value.trim() : "";
-
+    const input = document.getElementById("coupon-code");
+    const code = input ? input.value.trim().toUpperCase() : "";
     if (code === "WELCOME20") {
-        appliedDiscount = 500;
-        alert("Coupon Applied! ৳500 Discount.");
+        appliedDiscount = 20;
+        alert("কুপন সফলভাবে প্রয়োগ হয়েছে! ২০% ডিসকাউন্ট যোগ করা হলো।");
     } else {
-        alert("Invalid Coupon Code!");
-        appliedDiscount = 0;
+        alert("অবৈধ কুপন কোড! চেষ্টা করুন: WELCOME20");
     }
     renderCart();
 }
 
 function checkout() {
-    if (cart.length === 0) return alert("Your cart is empty!");
+    if (cart.length === 0) {
+        alert("কার্ট খালি!");
+        return;
+    }
 
-    cart.forEach(c => {
-        const p = products.find(prod => prod.id === c.id);
-        if (p) p.stock -= c.qty;
-    });
-
-    const orderTotal = Math.max(0, cart.reduce((s, i) => s + (i.price * i.qty), 0) - appliedDiscount);
-    const orderId = 'ORD-' + Math.floor(1000 + Math.random() * 9000);
-
+    const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+    const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    
     orders.push({
         id: orderId,
         items: [...cart],
-        total: orderTotal,
-        status: 'Processing'
+        amount: totalAmount,
+        status: "Processing",
+        date: new Date().toLocaleDateString()
     });
 
     cart = [];
     appliedDiscount = 0;
     updateBadges();
-    filterProducts();
-    closeModal('cart-modal');
-    alert(`Order Placed Successfully! Order ID: ${orderId}`);
+    closeModal("cart-modal");
+    alert(`অর্ডার সফলভাবে সম্পন্ন হয়েছে! আপনার Order ID: ${orderId}`);
+    renderAdminStats();
+    renderSellerInventory();
 }
 
-// ORDERS TRACKING
-function renderOrders() {
-    const container = document.getElementById("orders-items-container");
-    if(!container) return;
-    
-    container.innerHTML = "";
+function renderWishlist() {
+    const container = document.getElementById("wishlist-items-container");
+    if (!container) return;
 
-    if (orders.length === 0) {
-        container.innerHTML = "<p>No orders placed yet.</p>";
+    const items = products.filter(p => wishlist.includes(p.id));
+
+    if (items.length === 0) {
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Wishlist is empty.</p>";
         return;
     }
 
-    orders.forEach(o => {
-        container.innerHTML += `
-            <div style="border: 1px solid #e2e8f0; padding:15px; border-radius:8px; margin-bottom:12px;">
-                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                    <strong>Order ID: ${o.id}</strong>
-                    <span class="tag tag-warning">${o.status}</span>
-                </div>
-                <p><small>Total Items: ${o.items.length}</small></p>
-                <p><strong>Total Amount: ৳${o.total.toLocaleString()}</strong></p>
-            </div>
-        `;
-    });
+    container.innerHTML = items.map(p => `
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #e2e8f0;">
+        <span>${p.title} - <strong>৳${p.price.toLocaleString()}</strong></span>
+        <div>
+            <button class="btn-sm btn-primary" onclick="addToCart(${p.id})">Add to Cart</button>
+            <button onclick="toggleWishlist(${p.id})" style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:8px;"><i class="fa-solid fa-trash"></i></button>
+        </div>
+    </div>`).join('');
 }
 
-// SELLER & ADMIN UTILS
+function renderCompare() {
+    const container = document.getElementById("compare-items-container");
+    if (!container) return;
+
+    const items = products.filter(p => compareList.includes(p.id));
+
+    if (items.length === 0) {
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No items selected for comparison.</p>";
+        return;
+    }
+
+    container.innerHTML = `
+    <table style="width:100%; border-collapse:collapse; text-align:left; font-size:14px;">
+        <thead>
+            <tr style="border-bottom:2px solid #cbd5e1; background:#f8fafc;">
+                <th style="padding:8px;">Feature</th>
+                ${items.map(p => `<th style="padding:8px;">${p.title}</th>`).join('')}
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:8px;"><strong>Price</strong></td>
+                ${items.map(p => `<td style="padding:8px; color:#2563eb; font-weight:bold;">৳${p.price.toLocaleString()}</td>`).join('')}
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:8px;"><strong>Brand</strong></td>
+                ${items.map(p => `<td style="padding:8px;">${p.brand}</td>`).join('')}
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0;">
+                <td style="padding:8px;"><strong>Category</strong></td>
+                ${items.map(p => `<td style="padding:8px;">${p.category}</td>`).join('')}
+            </tr>
+            <tr>
+                <td style="padding:8px;"><strong>Specs</strong></td>
+                ${items.map(p => `<td style="padding:8px; font-size:12px; color:#475569;">${p.specs}</td>`).join('')}
+            </tr>
+        </tbody>
+    </table>`;
+}
+
+function renderOrders() {
+    const container = document.getElementById("orders-items-container");
+    if (!container) return;
+
+    if (orders.length === 0) {
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No orders placed yet.</p>";
+        return;
+    }
+
+    container.innerHTML = orders.map(o => `
+    <div style="border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:10px; background:#fff;">
+        <div style="display:flex; justify-content:space-between; font-weight:bold;">
+            <span>Order ID: ${o.id}</span>
+            <span style="color:#2563eb;">${o.status}</span>
+        </div>
+        <small style="color:#64748b;">Date: ${o.date}</small>
+        <hr style="margin:8px 0; border:none; border-top:1px solid #e2e8f0;">
+        <div>Total Amount: <strong>৳${o.amount.toLocaleString()}</strong></div>
+    </div>`).join('');
+}
+
+// --- SELLER DASHBOARD LOGIC ---
 function renderSellerInventory() {
     const tbody = document.getElementById("seller-inventory-table");
-    if(!tbody) return;
-    
-    tbody.innerHTML = "";
-    
-    let totalSales = orders.reduce((s, o) => s + o.total, 0);
-    const salesEl = document.getElementById("seller-total-sales");
-    const activeEl = document.getElementById("seller-active-products");
-    const ordersEl = document.getElementById("seller-total-orders");
+    if (!tbody) return;
 
-    if(salesEl) salesEl.innerText = `৳ ${totalSales.toLocaleString()}`;
-    if(activeEl) activeEl.innerText = products.length;
-    if(ordersEl) ordersEl.innerText = orders.length;
+    tbody.innerHTML = products.map(p => `
+    <tr>
+        <td>#${p.id}</td>
+        <td><strong>${p.title}</strong></td>
+        <td>${p.category}</td>
+        <td>${p.brand}</td>
+        <td>৳${p.price.toLocaleString()}</td>
+        <td>${p.stock}</td>
+        <td><button class="btn-sm btn-danger" onclick="deleteProduct(${p.id})" style="padding:4px 8px; border-radius:4px; border:none; background:#ef4444; color:#fff; cursor:pointer;">Delete</button></td>
+    </tr>`).join('');
 
-    products.forEach(p => {
-        tbody.innerHTML += `
-            <tr>
-                <td>${p.id}</td>
-                <td>${p.title}</td>
-                <td>${p.category}</td>
-                <td>${p.brand}</td>
-                <td>৳${p.price.toLocaleString()}</td>
-                <td>${p.stock}</td>
-                <td><button class="btn-sm btn-danger" onclick="deleteProduct(${p.id})">Delete</button></td>
-            </tr>
-        `;
-    });
+    const sellerSalesTotal = orders.reduce((sum, o) => sum + o.amount, 0);
+    const totalSalesElem = document.getElementById("seller-total-sales");
+    const activeProductsElem = document.getElementById("seller-active-products");
+    const totalOrdersElem = document.getElementById("seller-total-orders");
+
+    if (totalSalesElem) totalSalesElem.innerText = `৳ ${sellerSalesTotal.toLocaleString()}`;
+    if (activeProductsElem) activeProductsElem.innerText = products.length;
+    if (totalOrdersElem) totalOrdersElem.innerText = orders.length;
 }
 
-function saveProduct(e) {
-    if(e) e.preventDefault();
+function saveProduct(event) {
+    event.preventDefault();
+    const name = document.getElementById("new-prod-name")?.value;
+    const cat = document.getElementById("new-prod-category")?.value;
+    const brand = document.getElementById("new-prod-brand")?.value;
+    const subcat = document.getElementById("new-prod-subcat")?.value;
+    const price = parseFloat(document.getElementById("new-prod-price")?.value || 0);
+    const stock = parseInt(document.getElementById("new-prod-stock")?.value || 0);
+    const spec = document.getElementById("new-prod-spec")?.value || "";
+    const img = document.getElementById("new-prod-img")?.value;
+
     const newProd = {
         id: Date.now(),
-        title: document.getElementById("new-prod-name").value,
-        category: document.getElementById("new-prod-category").value,
-        brand: document.getElementById("new-prod-brand").value,
-        subcategory: document.getElementById("new-prod-subcat").value,
-        price: parseFloat(document.getElementById("new-prod-price").value),
-        stock: parseInt(document.getElementById("new-prod-stock").value),
-        spec: document.getElementById("new-prod-spec").value || "N/A",
-        seller: currentUser ? currentUser.name : "Seller Store",
-        image: document.getElementById("new-prod-img").value
+        title: name,
+        category: cat,
+        subCategory: subcat,
+        brand: brand,
+        price: price,
+        stock: stock,
+        specs: spec,
+        image: img || "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&q=80"
     };
 
-    products.push(newProd);
-    filterProducts();
+    products.unshift(newProd);
+    closeModal("product-modal");
+    document.getElementById("add-product-form")?.reset();
     renderSellerInventory();
-    closeModal('product-modal');
-    alert("New product published successfully!");
+    filterProducts();
+    alert("নতুন প্রোডাক্ট সফলভাবে ইনভেন্টরিতে যুক্ত হয়েছে!");
 }
 
 function deleteProduct(id) {
     products = products.filter(p => p.id !== id);
-    filterProducts();
     renderSellerInventory();
+    filterProducts();
 }
 
-function updateAdminStats() {
-    const rev = orders.reduce((s, o) => s + o.total, 0);
-    const revEl = document.getElementById("admin-gross-revenue");
-    const ordEl = document.getElementById("admin-platform-orders");
+// --- ADMIN DASHBOARD LOGIC ---
+function renderAdminStats() {
+    const gross = orders.reduce((sum, o) => sum + o.amount, 0);
+    const grossElem = document.getElementById("admin-gross-revenue");
+    const ordersElem = document.getElementById("admin-platform-orders");
 
-    if(revEl) revEl.innerText = `৳ ${rev.toLocaleString()}`;
-    if(ordEl) ordEl.innerText = orders.length;
+    if (grossElem) grossElem.innerText = `৳ ${gross.toLocaleString()}`;
+    if (ordersElem) ordersElem.innerText = orders.length;
 }
 
-function approveSeller(id) {
-    const statusEl = document.getElementById(`status-${id.toLowerCase()}`);
-    const actionEl = document.getElementById(`action-${id.toLowerCase()}`);
+function approveSeller(storeId) {
+    const target = storeId.toLowerCase();
+    const statusElem = document.getElementById(`status-${target}`);
+    const actionElem = document.getElementById(`action-${target}`);
 
-    if(statusEl) {
-        statusEl.className = "tag tag-success";
-        statusEl.innerText = "VERIFIED";
+    if (statusElem) {
+        statusElem.className = "tag tag-success";
+        statusElem.innerText = "VERIFIED";
     }
-    if(actionEl) {
-        actionEl.innerHTML = `<button class="btn-sm btn-disabled" disabled>Approved</button>`;
-    }
-}
-
-function rejectSeller(id) {
-    const statusEl = document.getElementById(`status-${id.toLowerCase()}`);
-    const actionEl = document.getElementById(`action-${id.toLowerCase()}`);
-
-    if(statusEl) {
-        statusEl.className = "tag tag-danger";
-        statusEl.innerText = "REJECTED";
-    }
-    if(actionEl) {
-        actionEl.innerHTML = `<button class="btn-sm btn-disabled" disabled>Rejected</button>`;
+    if (actionElem) {
+        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled style="padding:4px 8px; border-radius:4px; border:none; background:#cbd5e1;">Approved</button>`;
     }
 }
 
-// MODAL CONTROLLERS (FIXED CSS CONFLICT)
-function openModal(id) {
-    if (id === 'cart-modal') renderCart();
-    if (id === 'wishlist-modal') renderWishlist();
-    if (id === 'orders-modal') renderOrders();
-    if (id === 'compare-modal') renderCompareModal();
-    
-    const targetModal = document.getElementById(id);
-    if (targetModal) {
-        targetModal.style.display = 'flex';
-        targetModal.classList.add('active');
-    }
-}
+function rejectSeller(storeId) {
+    const target = storeId.toLowerCase();
+    const statusElem = document.getElementById(`status-${target}`);
+    const actionElem = document.getElementById(`action-${target}`);
 
-function closeModal(id) {
-    const targetModal = document.getElementById(id);
-    if (targetModal) {
-        targetModal.style.display = 'none';
-        targetModal.classList.remove('active');
+    if (statusElem) {
+        statusElem.className = "tag tag-danger";
+        statusElem.innerText = "REJECTED";
+    }
+    if (actionElem) {
+        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled style="padding:4px 8px; border-radius:4px; border:none; background:#cbd5e1;">Rejected</button>`;
     }
 }
