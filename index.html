@@ -15,16 +15,17 @@
             <i class="fa-solid fa-layer-group"></i> MarketLoop Multi-Vendor Sandbox
         </div>
         <div class="role-switcher">
-            <span>Active Role: <strong id="current-role-label">CUSTOMER</strong></span>
-            <button onclick="switchRole('customer')" class="btn-role active"><i class="fa-solid fa-user"></i> Customer</button>
-            <button onclick="switchRole('seller')" class="btn-role"><i class="fa-solid fa-store"></i> Seller Portal</button>
-            <button onclick="switchRole('admin')" class="btn-role"><i class="fa-solid fa-user-shield"></i> Admin Control</button>
+            <span id="user-status-text">Active Role: <strong id="current-role-label">GUEST</strong></span>
+            <button onclick="requestRoleSwitch('customer')" class="btn-role active"><i class="fa-solid fa-user"></i> Customer</button>
+            <button onclick="requestRoleSwitch('seller')" class="btn-role"><i class="fa-solid fa-store"></i> Seller Portal</button>
+            <button onclick="requestRoleSwitch('admin')" class="btn-role"><i class="fa-solid fa-user-shield"></i> Admin Control</button>
+            <button id="auth-btn" onclick="openModal('auth-modal')" class="btn-role btn-accent"><i class="fa-solid fa-right-to-bracket"></i> Login / Register</button>
         </div>
     </div>
 
     <!-- MAIN APP HEADER -->
     <header class="main-header">
-        <div class="brand-logo" onclick="switchRole('customer')">
+        <div class="brand-logo" onclick="requestRoleSwitch('customer')">
             <i class="fa-solid fa-arrows-spin"></i> MarketLoop
         </div>
         <div class="search-box">
@@ -115,8 +116,6 @@
 
         <!-- 1. CUSTOMER STOREFRONT VIEW -->
         <section id="customer-view" class="view-section">
-            
-            <!-- PRICE & BRAND QUICK FILTER BAR -->
             <div class="filter-toolbar">
                 <div class="price-pills">
                     <span class="pill-label">Price Range:</span>
@@ -154,9 +153,8 @@
                 <h3 id="current-filter-heading">Explore Marketplace Products</h3>
             </div>
 
-            <!-- DYNAMIC PRODUCT GRID/LIST -->
             <div class="product-grid" id="product-grid">
-                <!-- Rendered dynamically -->
+                <!-- Dynamic Products -->
             </div>
         </section>
 
@@ -258,6 +256,67 @@
 
     </main>
 
+    <!-- MODAL: AUTHENTICATION / LOGIN PORTAL -->
+    <div class="modal" id="auth-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="auth-modal-title"><i class="fa-solid fa-shield-halved"></i> Security Portal Login</h3>
+                <span class="close-btn" onclick="closeModal('auth-modal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab-btn active" onclick="switchAuthTab('login')">Login</button>
+                    <button class="auth-tab-btn" onclick="switchAuthTab('register')">Register Customer</button>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Login As</label>
+                        <select id="login-role-select" onchange="toggleRoleHint()">
+                            <option value="customer">Customer</option>
+                            <option value="seller">Seller</option>
+                            <option value="admin">Administrator</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Email / User ID / Phone</label>
+                        <input type="text" id="login-id" placeholder="Enter ID or Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="login-pass" placeholder="Enter Password" required>
+                    </div>
+                    <p id="admin-credentials-hint" class="hint-text" style="display:none; color: #2563eb; font-size: 12px; margin-bottom: 10px;">
+                        💡 <strong>Admin Credentials:</strong> ID: <code>admin@marketloop.com</code> | Pass: <code>admin123</code>
+                    </p>
+                    <button type="submit" class="btn-primary full-width">Sign In</button>
+                </form>
+
+                <!-- CUSTOMER REGISTER FORM -->
+                <form id="register-form" class="hidden" onsubmit="handleCustomerRegister(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="reg-name" placeholder="e.g. Rahat Ahmed" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="reg-phone" placeholder="e.g. 01700000000" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" id="reg-email" placeholder="name@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Create Password</label>
+                        <input type="password" id="reg-pass" placeholder="Minimum 6 characters" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Create Account</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL: COMPARE PRODUCTS -->
     <div class="modal" id="compare-modal">
         <div class="modal-box wide">
@@ -265,9 +324,7 @@
                 <h3><i class="fa-solid fa-scale-balanced"></i> Product Specification Comparison</h3>
                 <span class="close-btn" onclick="closeModal('compare-modal')">&times;</span>
             </div>
-            <div class="modal-body" id="compare-items-container">
-                <!-- Dynamic Comparison Table -->
-            </div>
+            <div class="modal-body" id="compare-items-container"></div>
         </div>
     </div>
 
@@ -278,9 +335,7 @@
                 <h3>Shopping Cart 🛒</h3>
                 <span class="close-btn" onclick="closeModal('cart-modal')">&times;</span>
             </div>
-            <div class="modal-body" id="cart-items-container">
-                <!-- Dynamic Cart Items -->
-            </div>
+            <div class="modal-body" id="cart-items-container"></div>
             <div class="modal-footer">
                 <div class="coupon-section">
                     <input type="text" id="coupon-code" placeholder="Coupon Code (e.g. WELCOME20)">
@@ -303,9 +358,7 @@
                 <h3>My Orders & Tracking 📦</h3>
                 <span class="close-btn" onclick="closeModal('orders-modal')">&times;</span>
             </div>
-            <div class="modal-body" id="orders-items-container">
-                <!-- Dynamic Orders -->
-            </div>
+            <div class="modal-body" id="orders-items-container"></div>
         </div>
     </div>
 
@@ -316,9 +369,7 @@
                 <h3>My Wishlist ❤️</h3>
                 <span class="close-btn" onclick="closeModal('wishlist-modal')">&times;</span>
             </div>
-            <div class="modal-body" id="wishlist-items-container">
-                <!-- Dynamic Wishlist Items -->
-            </div>
+            <div class="modal-body" id="wishlist-items-container"></div>
         </div>
     </div>
 
