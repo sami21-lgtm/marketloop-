@@ -118,7 +118,7 @@
                 <!-- WELCOME COUPON BANNER -->
                 <div class="welcome-coupon-banner" style="background: linear-gradient(90deg, #2563eb, #1d4ed8); color: #ffffff; text-align: center; padding: 10px 15px; font-weight: 600; border-radius: 6px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <i class="fa-solid fa-gift"></i>
-                    <span>বিশেষ অফার! ব্যবহার করুন ওয়েলকাম কুপন: <strong style="background: #ffffff; color: #2563eb; padding: 2px 8px; border-radius: 4px; font-family: monospace;">samisa20</strong> এবং পান ২০% ফ্ল্যাট ডিসকাউন্ট!</span>
+                    <span>বিশেষ অফার! ব্যবহার করুন ওয়েলকাম কুপন: <strong style="background: #ffffff; color: #2563eb; padding: 2px 8px; border-radius: 4px; font-family: monospace;">samisa20</strong> এবং পান ২০% ফ্ল্যাট ডিসকাউন্ট!</span>
                 </div>
 
                 <div class="filter-toolbar">
@@ -189,10 +189,12 @@
                     <h2><i class="fa-solid fa-user-shield"></i> Platform Governance Console</h2>
                 </div>
                 <div class="stats-cards">
-                    <div class="stat-card"><h4>Gross Revenue</h4><p id="admin-gross-revenue">৳ 0</p></div>
-                    <div class="stat-card"><h4>Registered Sellers</h4><p>2 Active</p></div>
-                    <div class="stat-card"><h4>Platform Orders</h4><p id="admin-platform-orders">0</p></div>
+                    <div class="stat-card"><h4>Gross Revenue</h4><p id="stat-gross-revenue">৳ 0</p></div>
+                    <div class="stat-card"><h4>Registered Sellers</h4><p id="stat-registered-sellers">2 Active</p></div>
+                    <div class="stat-card"><h4>Platform Orders</h4><p id="stat-platform-orders">0</p></div>
+                    <div class="stat-card"><h4>Ad Earnings</h4><p id="stat-ad-earnings">৳ 0</p></div>
                 </div>
+
                 <h3 class="sub-title">Seller Approvals</h3>
                 <table class="data-table">
                     <thead>
@@ -217,6 +219,14 @@
                             </td>
                         </tr>
                     </tbody>
+                </table>
+
+                <h3 class="sub-title" style="margin-top: 30px;">Ad Campaign Approvals</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Store ID</th><th>Store Name</th><th>Slot</th><th>Price</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="admin-ad-approvals-table"></tbody>
                 </table>
             </section>
 
@@ -335,7 +345,7 @@
                     <p>Subtotal: ৳<span id="cart-subtotal">0</span></p>
                     <p>Discount: -৳<span id="cart-discount">0</span></p>
                     <h4>Grand Total: ৳<span id="cart-grand-total">0</span></h4>
-                    <button class="btn-primary full-width" onclick="checkout()">Proceed to Checkout</button>
+                    <button class="btn-primary full-width" onclick="processCheckout()">Proceed to Checkout</button>
                 </div>
             </div>
         </div>
