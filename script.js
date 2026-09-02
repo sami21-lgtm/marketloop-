@@ -621,15 +621,15 @@ function switchPortalTab(tab) {
     const staffBtn = document.getElementById("tab-staff-btn");
 
     if (tab === 'guest') {
-        if(guestTab) guestTab.classList.remove("hidden");
-        if(staffTab) staffTab.classList.add("hidden");
-        if(guestBtn) guestBtn.classList.add("active");
-        if(staffBtn) staffBtn.classList.remove("active");
+        if (guestTab) guestTab.classList.remove("hidden");
+        if (staffTab) staffTab.classList.add("hidden");
+        if (guestBtn) guestBtn.classList.add("active");
+        if (staffBtn) staffBtn.classList.remove("active");
     } else {
-        if(guestTab) guestTab.classList.add("hidden");
-        if(staffTab) staffTab.classList.remove("hidden");
-        if(guestBtn) guestBtn.classList.remove("active");
-        if(staffBtn) staffBtn.classList.add("active");
+        if (guestTab) guestTab.classList.add("hidden");
+        if (staffTab) staffTab.classList.remove("hidden");
+        if (guestBtn) guestBtn.classList.remove("active");
+        if (staffBtn) staffBtn.classList.add("active");
     }
 }
 
@@ -986,40 +986,77 @@ function renderOrders() {
     `).join('');
 }
 
-// --- SELLER MANAGEMENT ---
+// --- SELLER MANAGEMENT (FULL-WIDTH MODERN UI RENDERER) ---
 function renderSellerInventory() {
     const container = document.getElementById("seller-inventory-table") || document.getElementById("seller-products");
     if (!container) return;
 
-    let html = `
-    <table style="width:100%; border-collapse:collapse; margin-top:15px; background:#fff; border:1px solid #e2e8f0;">
-        <thead>
-            <tr style="background:#f1f5f9; text-align:left;">
-                <th style="padding:10px; border:1px solid #e2e8f0;">Image</th>
-                <th style="padding:10px; border:1px solid #e2e8f0;">Title</th>
-                <th style="padding:10px; border:1px solid #e2e8f0;">Category</th>
-                <th style="padding:10px; border:1px solid #e2e8f0;">Price (৳)</th>
-                <th style="padding:10px; border:1px solid #e2e8f0;">Stock</th>
-                <th style="padding:10px; border:1px solid #e2e8f0;">Action</th>
+    // Check if the container itself is a <tbody> element
+    if (container.tagName.toLowerCase() === 'tbody') {
+        container.innerHTML = products.map(p => `
+            <tr style="border-bottom: 1px solid #e2e8f0; hover: background-color: #f8fafc;">
+                <td style="padding:12px; font-weight:600; color:#64748b;">#${p.id}</td>
+                <td style="padding:12px;"><img src="${p.image}" alt="${p.title}" style="width:48px; height:48px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0;"></td>
+                <td style="padding:12px; font-weight:600; color:#1e293b;">${p.title}</td>
+                <td style="padding:12px; color:#475569;"><span style="background:#f1f5f9; padding:3px 8px; border-radius:4px; font-size:12px; font-weight:500;">${p.category}</span></td>
+                <td style="padding:12px; color:#475569;">${p.brand}</td>
+                <td style="padding:12px; font-weight:700; color:#2563eb;">৳${p.price.toLocaleString()}</td>
+                <td style="padding:12px;">
+                    <span style="padding:4px 10px; border-radius:12px; font-size:12px; font-weight:600; background:${p.stock > 5 ? '#dcfce7' : (p.stock > 0 ? '#fef3c7' : '#fee2e2')}; color:${p.stock > 5 ? '#15803d' : (p.stock > 0 ? '#b45309' : '#b91c1c')};">
+                        ${p.stock} units
+                    </span>
+                </td>
+                <td style="padding:12px; text-align:center;">
+                    <button onclick="deleteProduct(${p.id})" style="background:#ef4444; color:#fff; border:none; padding:6px 14px; border-radius:6px; cursor:pointer; font-weight:500; display:inline-flex; align-items:center; gap:6px;">
+                        <i class="fa-solid fa-trash"></i> Delete
+                    </button>
+                </td>
             </tr>
-        </thead>
-        <tbody>`;
+        `).join('');
+        return;
+    }
+
+    // Modern 100% full-width dynamic dashboard layout table for container elements
+    let html = `
+    <div style="width:100%; overflow-x:auto; background:#ffffff; border-radius:10px; border:1px solid #e2e8f0; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+        <table style="width:100%; border-collapse:collapse; text-align:left; font-size:14px;">
+            <thead>
+                <tr style="background:#f8fafc; border-bottom:2px solid #e2e8f0; color:#475569; font-weight:600;">
+                    <th style="padding:14px 16px;">ID</th>
+                    <th style="padding:14px 16px;">Image</th>
+                    <th style="padding:14px 16px;">Product Title</th>
+                    <th style="padding:14px 16px;">Category</th>
+                    <th style="padding:14px 16px;">Brand</th>
+                    <th style="padding:14px 16px;">Price (৳)</th>
+                    <th style="padding:14px 16px;">Stock</th>
+                    <th style="padding:14px 16px; text-align:center;">Action</th>
+                </tr>
+            </thead>
+            <tbody>`;
 
     products.forEach(p => {
         html += `
-        <tr>
-            <td style="padding:8px; border:1px solid #e2e8f0;"><img src="${p.image}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;"></td>
-            <td style="padding:8px; border:1px solid #e2e8f0;"><strong>${p.title}</strong></td>
-            <td style="padding:8px; border:1px solid #e2e8f0;">${p.category}</td>
-            <td style="padding:8px; border:1px solid #e2e8f0;">৳${p.price.toLocaleString()}</td>
-            <td style="padding:8px; border:1px solid #e2e8f0;">${p.stock}</td>
-            <td style="padding:8px; border:1px solid #e2e8f0;">
-                <button onclick="deleteProduct(${p.id})" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Delete</button>
+        <tr style="border-bottom:1px solid #f1f5f9;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+            <td style="padding:12px 16px; font-weight:600; color:#64748b;">#${p.id}</td>
+            <td style="padding:12px 16px;"><img src="${p.image}" alt="${p.title}" style="width:46px; height:46px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0;"></td>
+            <td style="padding:12px 16px; font-weight:600; color:#0f172a;">${p.title}</td>
+            <td style="padding:12px 16px;"><span style="background:#eff6ff; color:#1d4ed8; padding:4px 8px; border-radius:4px; font-size:12px; font-weight:500;">${p.category}</span></td>
+            <td style="padding:12px 16px; color:#475569; font-weight:500;">${p.brand}</td>
+            <td style="padding:12px 16px; font-weight:700; color:#166534;">৳${p.price.toLocaleString()}</td>
+            <td style="padding:12px 16px;">
+                <span style="padding:4px 10px; border-radius:12px; font-size:12px; font-weight:600; background:${p.stock > 5 ? '#dcfce7' : (p.stock > 0 ? '#fef3c7' : '#fee2e2')}; color:${p.stock > 5 ? '#15803d' : (p.stock > 0 ? '#b45309' : '#b91c1c')};">
+                    ${p.stock > 0 ? p.stock + ' in stock' : 'Out of stock'}
+                </span>
+            </td>
+            <td style="padding:12px 16px; text-align:center;">
+                <button onclick="deleteProduct(${p.id})" style="background:#ef4444; color:#fff; border:none; padding:7px 14px; border-radius:6px; cursor:pointer; font-weight:500; font-size:13px;" onmouseover="this.style.background='#dc2626'" onmouseout="this.style.background='#ef4444'">
+                    <i class="fa-solid fa-trash-can"></i> Delete
+                </button>
             </td>
         </tr>`;
     });
 
-    html += `</tbody></table>`;
+    html += `</tbody></table></div>`;
     container.innerHTML = html;
 }
 
