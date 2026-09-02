@@ -76,7 +76,7 @@ let products = [
         price: 36999,
         stock: 18,
         specs: "Dimensity 8300-Ultra | 120Hz FiFlow AMOLED",
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=400&q=80"
     },
     {
         id: 108,
@@ -87,7 +87,7 @@ let products = [
         price: 45999,
         stock: 13,
         specs: "Aura Light Portrait | Snapdragon 7 Gen 3",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=400&q=80"
     },
     {
         id: 109,
@@ -98,7 +98,7 @@ let products = [
         price: 19999,
         stock: 20,
         specs: "6000mAh Battery | Super AMOLED Display",
-        image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=400&q=80"
     },
     {
         id: 110,
@@ -109,7 +109,7 @@ let products = [
         price: 21500,
         stock: 15,
         specs: "108MP Camera | Curved 120Hz AMOLED",
-        image: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=400&q=80"
     },
     {
         id: 111,
@@ -120,7 +120,7 @@ let products = [
         price: 42999,
         stock: 10,
         specs: "64MP Periscope Telephoto | Luxury Watch Design",
-        image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1533228876829-65c94e7b5025?w=400&q=80"
     },
     {
         id: 112,
@@ -131,7 +131,7 @@ let products = [
         price: 14499,
         stock: 17,
         specs: "5000mAh | 50MP AI Dual Camera",
-        image: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&q=80"
     },
     {
         id: 113,
@@ -142,7 +142,7 @@ let products = [
         price: 64999,
         stock: 12,
         specs: "Tensor G3 | Gemini AI Integrated",
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1598327105854-c8674fabbf79?w=400&q=80"
     },
     {
         id: 114,
@@ -153,7 +153,7 @@ let products = [
         price: 34999,
         stock: 19,
         specs: "Snapdragon 7 Gen 3 | 100W SUPERVOOC",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400&q=80"
     },
 
     // --- WOMEN FASHION (10 Items) ---
@@ -221,7 +221,7 @@ let products = [
         price: 3800,
         stock: 13,
         specs: "3-Piece Premium Lawn & Georgette Dupatta",
-        image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80"
     },
     {
         id: 121,
@@ -232,7 +232,7 @@ let products = [
         price: 18500,
         stock: 20,
         specs: "Zari Embroidery | Traditional Festive Wear",
-        image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1610030469668-96542795c375?w=400&q=80"
     },
     {
         id: 122,
@@ -243,7 +243,7 @@ let products = [
         price: 2200,
         stock: 15,
         specs: "Comfortable Summer Fit | Contemporary Cut",
-        image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80"
     },
     {
         id: 123,
@@ -254,7 +254,7 @@ let products = [
         price: 5500,
         stock: 10,
         specs: "Heavy Stone & Zari Embroidery",
-        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80"
     },
     {
         id: 124,
@@ -265,7 +265,7 @@ let products = [
         price: 3200,
         stock: 17,
         specs: "100% Handloom Cotton | Daily Wear",
-        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=400&q=80"
     },
 
     // --- MEN FASHION (9 Items) ---
@@ -322,7 +322,7 @@ let products = [
         price: 8900,
         stock: 16,
         specs: "Luxury Velvet Trim | Wedding Special",
-        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=400&q=80"
     },
     {
         id: 130,
@@ -333,7 +333,7 @@ let products = [
         price: 2200,
         stock: 11,
         specs: "100% Egyptian Cotton | Easy Iron",
-        image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=400&q=80"
     },
     {
         id: 131,
@@ -344,7 +344,7 @@ let products = [
         price: 2800,
         stock: 18,
         specs: "Stretch Denim | Modern Tapered Fit",
-        image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1542272604-780c36856d60?w=400&q=80"
     },
     {
         id: 132,
@@ -355,7 +355,7 @@ let products = [
         price: 2990,
         stock: 13,
         specs: "Traditional Crafting | Breathable Fit",
-        image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1618886614638-80e3c103d31a?w=400&q=80"
     },
     {
         id: 133,
@@ -366,7 +366,7 @@ let products = [
         price: 1850,
         stock: 20,
         specs: "Pure Linen | Lightweight Summer Style",
-        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&q=80"
     },
 
     // --- HOME DÉCOR (7 Items) ---
@@ -423,7 +423,7 @@ let products = [
         price: 1400,
         stock: 19,
         specs: "Natural Jute Fiber | Eco-Friendly",
-        image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=400&q=80"
     },
     {
         id: 139,
@@ -434,7 +434,7 @@ let products = [
         price: 8900,
         stock: 14,
         specs: "Scratch Resistant | Microwave Safe",
-        image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1577937927133-66ef06acdf18?w=400&q=80"
     },
     {
         id: 140,
@@ -445,7 +445,7 @@ let products = [
         price: 1200,
         stock: 21,
         specs: "Set of 4 | Colorful Patchwork",
-        image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&q=80"
     },
 
     // --- SKIN & HAIR (7 Items) ---
@@ -502,7 +502,7 @@ let products = [
         price: 850,
         stock: 20,
         specs: "Exfoliating & Deep Cleansing",
-        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1567928269937-ae146e45b428?w=400&q=80"
     },
     {
         id: 146,
@@ -513,7 +513,7 @@ let products = [
         price: 520,
         stock: 15,
         specs: "Onion & Hibiscus Infused Extract",
-        image: "https://images.unsplash.com/photo-1608248597261-833257647009?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1608248548823-8a931726168a?w=400&q=80"
     },
     {
         id: 147,
@@ -524,10 +524,10 @@ let products = [
         price: 650,
         stock: 10,
         specs: "Hydrating Mist | 100% Organic",
-        image: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
     },
 
-    // --- ADDITIONAL VARIATIONS ---
+    // --- ADDITIONAL VARIATIONS (3 Items) ---
     {
         id: 148,
         title: "Tecno Camon 30 Ultra 5G",
@@ -537,7 +537,7 @@ let products = [
         price: 36289,
         stock: 7,
         specs: "12GB RAM | 512GB ROM | 50MP OIS Camera",
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&q=80"
     },
     {
         id: 149,
@@ -548,7 +548,7 @@ let products = [
         price: 60498,
         stock: 10,
         specs: "Snapdragon 8 Gen 3 | 120Hz Curved Display",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&q=80"
     },
     {
         id: 150,
@@ -559,7 +559,7 @@ let products = [
         price: 31350,
         stock: 13,
         specs: "200MP Camera | 120W Fast Charging",
-        image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=400&q=80"
+        image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&q=80"
     }
 ];
 
@@ -812,19 +812,35 @@ function addToCart(productId) {
     const item = products.find(p => p.id === productId);
     if (!item) return;
 
+    if (item.stock <= 0) {
+        alert("দুঃখিত, এই প্রোডাক্টটি বর্তমানে স্টক আউট!");
+        return;
+    }
+
     const existing = cart.find(c => c.id === productId);
     if (existing) {
-        existing.qty++;
+        if (existing.qty < item.stock) {
+            existing.qty++;
+        } else {
+            alert(`স্টকে শুধুমাত্র ${item.stock} টি আইটেম উপলব্ধ আছে।`);
+            return;
+        }
     } else {
         cart.push({ ...item, qty: 1 });
     }
     updateBadges();
-    alert(`"${item.title}" cart-এ যোগ করা হয়েছে!`);
+    alert(`"${item.title}" কার্ডে যোগ করা হয়েছে!`);
 }
 
 function updateCartQty(id, delta) {
     const item = cart.find(c => c.id === id);
+    const prod = products.find(p => p.id === id);
+
     if (item) {
+        if (delta > 0 && item.qty >= prod.stock) {
+            alert(`স্টকে সর্বমোট ${prod.stock} টি প্রোডাক্ট রয়েছে।`);
+            return;
+        }
         item.qty += delta;
         if (item.qty <= 0) {
             cart = cart.filter(c => c.id !== id);
@@ -876,90 +892,153 @@ function updateBadges() {
     if (orderBadge) orderBadge.innerText = orders.length;
 }
 
-// --- RENDER MODALS & SELLER / ADMIN DATA ---
+// --- RENDER CART MODAL & CHECKOUT ---
 function renderCart() {
     const container = document.getElementById("cart-items-container");
+    const subtotalElem = document.getElementById("cart-subtotal");
+    const discountElem = document.getElementById("cart-discount");
+    const totalElem = document.getElementById("cart-grand-total");
+
     if (!container) return;
 
     if (cart.length === 0) {
         container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Your cart is empty.</p>";
-        if (document.getElementById("cart-subtotal")) document.getElementById("cart-subtotal").innerText = "0";
-        if (document.getElementById("cart-discount")) document.getElementById("cart-discount").innerText = "0";
-        if (document.getElementById("cart-grand-total")) document.getElementById("cart-grand-total").innerText = "0";
+        if (subtotalElem) subtotalElem.innerText = "৳0";
+        if (discountElem) discountElem.innerText = "৳0";
+        if (totalElem) totalElem.innerText = "৳0";
         return;
     }
 
     let subtotal = 0;
     container.innerHTML = cart.map(item => {
-        const total = item.price * item.qty;
-        subtotal += total;
+        const itemTotal = item.price * item.qty;
+        subtotal += itemTotal;
         return `
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
-            <div>
-                <strong>${item.title}</strong><br>
-                <small style="color:#64748b;">৳${item.price.toLocaleString()} x ${item.qty}</small>
+            <div style="display:flex; align-items:center; gap:12px;">
+                <img src="${item.image}" alt="${item.title}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+                <div>
+                    <h5 style="margin:0; font-size:14px;">${item.title}</h5>
+                    <small style="color:#64748b;">৳${item.price.toLocaleString()} x ${item.qty}</small>
+                </div>
             </div>
             <div style="display:flex; align-items:center; gap:8px;">
-                <button style="padding:2px 8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer;" onclick="updateCartQty(${item.id}, -1)">-</button>
+                <button onclick="updateCartQty(${item.id}, -1)" style="padding:2px 8px; border:1px solid #cbd5e1; border-radius:4px;">-</button>
                 <span>${item.qty}</span>
-                <button style="padding:2px 8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer;" onclick="updateCartQty(${item.id}, 1)">+</button>
-                <button style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:10px;" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="updateCartQty(${item.id}, 1)" style="padding:2px 8px; border:1px solid #cbd5e1; border-radius:4px;">+</button>
+                <button onclick="removeFromCart(${item.id})" style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:10px;"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>`;
     }).join('');
 
-    const grandTotal = Math.max(0, subtotal - appliedDiscount);
-    if (document.getElementById("cart-subtotal")) document.getElementById("cart-subtotal").innerText = subtotal.toLocaleString();
-    if (document.getElementById("cart-discount")) document.getElementById("cart-discount").innerText = appliedDiscount.toLocaleString();
-    if (document.getElementById("cart-grand-total")) document.getElementById("cart-grand-total").innerText = grandTotal.toLocaleString();
+    const discountAmount = Math.round((subtotal * appliedDiscount) / 100);
+    const grandTotal = subtotal - discountAmount;
+
+    if (subtotalElem) subtotalElem.innerText = `৳${subtotal.toLocaleString()}`;
+    if (discountElem) discountElem.innerText = `-৳${discountAmount.toLocaleString()}`;
+    if (totalElem) totalElem.innerText = `৳${grandTotal.toLocaleString()}`;
 }
 
-function renderWishlist() {
-    const container = document.getElementById("wishlist-items-container");
-    if (!container) return;
-    const wishItems = products.filter(p => wishlist.includes(p.id));
+function applyCoupon() {
+    const input = document.getElementById("coupon-input");
+    const code = input ? input.value.trim().toUpperCase() : "";
 
-    if (wishItems.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Wishlist is empty.</p>";
+    if (code === "PROMO10" || code === "DISCOUNT10") {
+        appliedDiscount = 10;
+        alert("১০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
+    } else if (code === "PROMO20") {
+        appliedDiscount = 20;
+        alert("২০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
+    } else {
+        alert("অবৈধ কুপন কোড! (চেষ্টা করুন: PROMO10 অথবা PROMO20)");
+        appliedDiscount = 0;
+    }
+    renderCart();
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert("আপনার কার্ট খালি!");
         return;
     }
 
-    container.innerHTML = wishItems.map(p => `
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
-            <div style="display:flex; align-items:center; gap:10px;">
-                <img src="${p.image}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
-                <div>
-                    <strong>${p.title}</strong><br>
-                    <span style="color:#2563eb;">৳${p.price.toLocaleString()}</span>
-                </div>
-            </div>
+    let subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
+    let discount = Math.round((subtotal * appliedDiscount) / 100);
+    let grandTotal = subtotal - discount;
+
+    const newOrder = {
+        orderId: "ORD-" + Math.floor(100000 + Math.random() * 900000),
+        user: currentUser.name,
+        date: new Date().toLocaleDateString('bn-BD'),
+        items: [...cart],
+        totalAmount: grandTotal,
+        status: "Processing"
+    };
+
+    // stock update
+    cart.forEach(cartItem => {
+        const prod = products.find(p => p.id === cartItem.id);
+        if (prod) prod.stock -= cartItem.qty;
+    });
+
+    orders.push(newOrder);
+    cart = [];
+    appliedDiscount = 0;
+
+    updateBadges();
+    closeModal("cart-modal");
+    filterProducts();
+    alert(`অর্ডার সফল হয়েছে! অর্ডার আইডি: ${newOrder.orderId}`);
+}
+
+// --- RENDER WISHLIST & COMPARE & ORDERS ---
+function renderWishlist() {
+    const container = document.getElementById("wishlist-items-container");
+    if (!container) return;
+
+    const wishProducts = products.filter(p => wishlist.includes(p.id));
+
+    if (wishProducts.length === 0) {
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>আপনার উইশলিস্টে কোনো আইটেম নেই।</p>";
+        return;
+    }
+
+    container.innerHTML = wishProducts.map(p => `
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <img src="${p.image}" alt="${p.title}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
             <div>
-                <button class="btn-primary" style="padding:4px 8px; font-size:12px;" onclick="addToCart(${p.id})">Add to Cart</button>
-                <button style="padding:4px 8px; color:#ef4444; border:none; background:none; cursor:pointer;" onclick="toggleWishlist(${p.id})"><i class="fa-solid fa-trash"></i></button>
+                <h5 style="margin:0;">${p.title}</h5>
+                <strong style="color:#2563eb;">৳${p.price.toLocaleString()}</strong>
             </div>
         </div>
-    `).join('');
+        <div>
+            <button class="btn-primary" style="padding:6px 12px; font-size:12px;" onclick="addToCart(${p.id})">Add to Cart</button>
+            <button onclick="toggleWishlist(${p.id})" style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:8px;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+    </div>`).join('');
 }
 
 function renderCompare() {
     const container = document.getElementById("compare-items-container");
     if (!container) return;
-    const compItems = products.filter(p => compareList.includes(p.id));
 
-    if (compItems.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No products selected for comparison.</p>";
+    const compProducts = products.filter(p => compareList.includes(p.id));
+
+    if (compProducts.length === 0) {
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>তুলনা করার জন্য কোনো প্রোডাক্ট নির্বাচন করা হয়নি।</p>";
         return;
     }
 
     container.innerHTML = `
-    <div style="display:flex; gap:15px; overflow-x:auto;">
-        ${compItems.map(p => `
-            <div style="flex:1; min-width:180px; border:1px solid #e2e8f0; padding:10px; border-radius:6px; text-align:center;">
-                <img src="${p.image}" style="width:100%; height:100px; object-fit:cover; border-radius:4px;">
-                <h4>${p.title}</h4>
-                <p style="color:#2563eb; font-weight:bold;">৳${p.price.toLocaleString()}</p>
-                <p style="font-size:12px; color:#64748b;">${p.specs}</p>
-                <button style="color:#ef4444; border:1px solid #ef4444; background:#fff; padding:4px 8px; border-radius:4px; margin-top:5px; cursor:pointer;" onclick="toggleCompare(${p.id})">Remove</button>
+    <div style="display:grid; grid-template-columns: repeat(${compProducts.length}, 1fr); gap:15px;">
+        ${compProducts.map(p => `
+            <div style="border:1px solid #cbd5e1; border-radius:6px; padding:12px; text-align:center;">
+                <img src="${p.image}" style="width:100%; height:120px; object-fit:cover; border-radius:4px; margin-bottom:8px;">
+                <h5 style="margin:5px 0;">${p.title}</h5>
+                <h4 style="color:#2563eb; margin:5px 0;">৳${p.price.toLocaleString()}</h4>
+                <p style="font-size:12px; color:#64748b; margin:10px 0;">${p.specs}</p>
+                <button onclick="toggleCompare(${p.id})" style="color:#ef4444; border:1px solid #fee2e2; background:#fff1f2; padding:4px 8px; border-radius:4px; font-size:12px; cursor:pointer;">Remove</button>
             </div>
         `).join('')}
     </div>`;
@@ -970,115 +1049,96 @@ function renderOrders() {
     if (!container) return;
 
     if (orders.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No orders placed yet.</p>";
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>এখনো কোনো অর্ডার সম্পন্ন হয়নি।</p>";
         return;
     }
 
-    container.innerHTML = orders.map(o => `
-        <div style="border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:10px;">
-            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                <strong>Order #${o.id}</strong>
-                <span style="color:#166534; font-weight:bold;">${o.status}</span>
-            </div>
-            <p style="font-size:13px; color:#64748b; margin:0;">Items: ${o.items.map(i => i.title).join(', ')}</p>
-            <p style="font-size:14px; font-weight:bold; margin-top:5px;">Total: ৳${o.total.toLocaleString()}</p>
+    container.innerHTML = orders.map(ord => `
+    <div style="border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:12px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <strong>${ord.orderId}</strong>
+            <span style="font-size:12px; background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:4px;">${ord.status}</span>
         </div>
-    `).join('');
+        <small style="color:#64748b;">তারিখ: ${ord.date} | গ্রাহক: ${ord.user}</small>
+        <div style="margin:8px 0; font-size:13px;">
+            ${ord.items.map(i => `${i.title} (${i.qty}x)`).join(', ')}
+        </div>
+        <div style="text-align:right; font-weight:bold; color:#166534;">
+            মোট মূল্য: ৳${ord.totalAmount.toLocaleString()}
+        </div>
+    </div>`).join('');
 }
 
-// --- SELLER MANAGEMENT (FULL-WIDTH MODERN UI RENDERER) ---
+// --- SELLER INVENTORY MANAGEMENT ---
 function renderSellerInventory() {
-    const container = document.getElementById("seller-inventory-table") || document.getElementById("seller-products");
-    if (!container) return;
+    const tableBody = document.getElementById("seller-inventory-table");
+    if (!tableBody) return;
 
-    // Check if the container itself is a <tbody> element
-    if (container.tagName.toLowerCase() === 'tbody') {
-        container.innerHTML = products.map(p => `
-            <tr style="border-bottom: 1px solid #e2e8f0; hover: background-color: #f8fafc;">
-                <td style="padding:12px; font-weight:600; color:#64748b;">#${p.id}</td>
-                <td style="padding:12px;"><img src="${p.image}" alt="${p.title}" style="width:48px; height:48px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0;"></td>
-                <td style="padding:12px; font-weight:600; color:#1e293b;">${p.title}</td>
-                <td style="padding:12px; color:#475569;"><span style="background:#f1f5f9; padding:3px 8px; border-radius:4px; font-size:12px; font-weight:500;">${p.category}</span></td>
-                <td style="padding:12px; color:#475569;">${p.brand}</td>
-                <td style="padding:12px; font-weight:700; color:#2563eb;">৳${p.price.toLocaleString()}</td>
-                <td style="padding:12px;">
-                    <span style="padding:4px 10px; border-radius:12px; font-size:12px; font-weight:600; background:${p.stock > 5 ? '#dcfce7' : (p.stock > 0 ? '#fef3c7' : '#fee2e2')}; color:${p.stock > 5 ? '#15803d' : (p.stock > 0 ? '#b45309' : '#b91c1c')};">
-                        ${p.stock} units
-                    </span>
-                </td>
-                <td style="padding:12px; text-align:center;">
-                    <button onclick="deleteProduct(${p.id})" style="background:#ef4444; color:#fff; border:none; padding:6px 14px; border-radius:6px; cursor:pointer; font-weight:500; display:inline-flex; align-items:center; gap:6px;">
-                        <i class="fa-solid fa-trash"></i> Delete
-                    </button>
-                </td>
-            </tr>
-        `).join('');
-        return;
-    }
+    tableBody.innerHTML = products.map((p, idx) => `
+    <tr>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.id}</td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0;"><img src="${p.image}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;"></td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.title}</td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.category}</td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">৳${p.price.toLocaleString()}</td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.stock}</td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">
+            <button onclick="deleteProduct(${p.id})" style="color:#ef4444; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+        </td>
+    </tr>`).join('');
+}
 
-    // Modern 100% full-width dynamic dashboard layout table for container elements
-    let html = `
-    <div style="width:100%; overflow-x:auto; background:#ffffff; border-radius:10px; border:1px solid #e2e8f0; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
-        <table style="width:100%; border-collapse:collapse; text-align:left; font-size:14px;">
-            <thead>
-                <tr style="background:#f8fafc; border-bottom:2px solid #e2e8f0; color:#475569; font-weight:600;">
-                    <th style="padding:14px 16px;">ID</th>
-                    <th style="padding:14px 16px;">Image</th>
-                    <th style="padding:14px 16px;">Product Title</th>
-                    <th style="padding:14px 16px;">Category</th>
-                    <th style="padding:14px 16px;">Brand</th>
-                    <th style="padding:14px 16px;">Price (৳)</th>
-                    <th style="padding:14px 16px;">Stock</th>
-                    <th style="padding:14px 16px; text-align:center;">Action</th>
-                </tr>
-            </thead>
-            <tbody>`;
+function addNewProduct(event) {
+    if (event && event.preventDefault) event.preventDefault();
 
-    products.forEach(p => {
-        html += `
-        <tr style="border-bottom:1px solid #f1f5f9;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
-            <td style="padding:12px 16px; font-weight:600; color:#64748b;">#${p.id}</td>
-            <td style="padding:12px 16px;"><img src="${p.image}" alt="${p.title}" style="width:46px; height:46px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0;"></td>
-            <td style="padding:12px 16px; font-weight:600; color:#0f172a;">${p.title}</td>
-            <td style="padding:12px 16px;"><span style="background:#eff6ff; color:#1d4ed8; padding:4px 8px; border-radius:4px; font-size:12px; font-weight:500;">${p.category}</span></td>
-            <td style="padding:12px 16px; color:#475569; font-weight:500;">${p.brand}</td>
-            <td style="padding:12px 16px; font-weight:700; color:#166534;">৳${p.price.toLocaleString()}</td>
-            <td style="padding:12px 16px;">
-                <span style="padding:4px 10px; border-radius:12px; font-size:12px; font-weight:600; background:${p.stock > 5 ? '#dcfce7' : (p.stock > 0 ? '#fef3c7' : '#fee2e2')}; color:${p.stock > 5 ? '#15803d' : (p.stock > 0 ? '#b45309' : '#b91c1c')};">
-                    ${p.stock > 0 ? p.stock + ' in stock' : 'Out of stock'}
-                </span>
-            </td>
-            <td style="padding:12px 16px; text-align:center;">
-                <button onclick="deleteProduct(${p.id})" style="background:#ef4444; color:#fff; border:none; padding:7px 14px; border-radius:6px; cursor:pointer; font-weight:500; font-size:13px;" onmouseover="this.style.background='#dc2626'" onmouseout="this.style.background='#ef4444'">
-                    <i class="fa-solid fa-trash-can"></i> Delete
-                </button>
-            </td>
-        </tr>`;
-    });
+    const title = document.getElementById("new-prod-title")?.value;
+    const category = document.getElementById("new-prod-category")?.value;
+    const subCategory = document.getElementById("new-prod-subcategory")?.value || "General";
+    const brand = document.getElementById("new-prod-brand")?.value;
+    const price = Number(document.getElementById("new-prod-price")?.value);
+    const stock = Number(document.getElementById("new-prod-stock")?.value);
+    const specs = document.getElementById("new-prod-specs")?.value || "";
+    const image = document.getElementById("new-prod-image")?.value || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80";
 
-    html += `</tbody></table></div>`;
-    container.innerHTML = html;
+    const newProd = {
+        id: 100 + products.length + 1,
+        title,
+        category,
+        subCategory,
+        brand,
+        price,
+        stock,
+        specs,
+        image
+    };
+
+    products.push(newProd);
+    renderSellerInventory();
+    filterProducts();
+    closeModal("add-product-modal");
+    alert("নতুন প্রোডাক্ট সফলভাবে যুক্ত করা হয়েছে!");
 }
 
 function deleteProduct(id) {
-    if (confirm("আপনি কি নিশ্চিতভাবে এই প্রোডাক্টটি মুছে ফেলতে চান?")) {
+    if (confirm("আপনি কি নিশ্চিত যে এই প্রোডাক্টটি মুছে ফেলতে চান?")) {
         products = products.filter(p => p.id !== id);
         renderSellerInventory();
-        renderAdminStats();
         filterProducts();
     }
 }
 
-// --- ADMIN MANAGEMENT ---
+// --- ADMIN DASHBOARD STATS ---
 function renderAdminStats() {
     const totalProdElem = document.getElementById("admin-total-products");
+    const totalStockElem = document.getElementById("admin-total-stock");
     const totalOrdersElem = document.getElementById("admin-total-orders");
-    const totalRevElem = document.getElementById("admin-total-revenue");
+    const totalSalesElem = document.getElementById("admin-total-sales");
+
+    const totalStock = products.reduce((acc, curr) => acc + curr.stock, 0);
+    const totalSales = orders.reduce((acc, curr) => acc + curr.totalAmount, 0);
 
     if (totalProdElem) totalProdElem.innerText = products.length;
+    if (totalStockElem) totalStockElem.innerText = totalStock;
     if (totalOrdersElem) totalOrdersElem.innerText = orders.length;
-    if (totalRevElem) {
-        const rev = orders.reduce((sum, o) => sum + (o.total || 0), 0);
-        totalRevElem.innerText = "৳" + rev.toLocaleString();
-    }
+    if (totalSalesElem) totalSalesElem.innerText = `৳${totalSales.toLocaleString()}`;
 }
