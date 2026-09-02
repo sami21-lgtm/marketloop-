@@ -10,7 +10,7 @@ let products = [
         price: 32990,
         stock: 12,
         specs: "12GB RAM | 256GB ROM | 50MP OIS Camera",
-        image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80"
+        image: "images (17).jpg"
     },
     {
         id: 102,
