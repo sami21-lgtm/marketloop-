@@ -21,7 +21,7 @@ let products = [
         price: 54999,
         stock: 19,
         specs: "Snapdragon 8s Gen 3 | 120Hz AMOLED",
-        image: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80"
+        image: "images (18).jpg"
     },
     {
         id: 103,
@@ -32,7 +32,7 @@ let products = [
         price: 28500,
         stock: 14,
         specs: "200MP OIS Camera | 67W Turbo Charge",
-        image: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=400&q=80"
+        image: "images (19).jpg"
     },
     {
         id: 104,
@@ -43,7 +43,7 @@ let products = [
         price: 48999,
         stock: 21,
         specs: "Exynos 1480 | IP67 Water Resistance",
-        image: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=400&q=80"
+        image: "images (20).jpg"
     },
     {
         id: 105,
@@ -54,7 +54,7 @@ let products = [
         price: 24990,
         stock: 16,
         specs: "6000mAh Battery | 70W Ultra Charge",
-        image: "https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400&q=80"
+        image: "images (21).jpg"
     },
     {
         id: 106,
@@ -65,7 +65,7 @@ let products = [
         price: 18999,
         stock: 11,
         specs: "108MP 3X In-sensor Zoom | Snapdragon 685",
-        image: "https://images.unsplash.com/photo-1580910051074-3eb694886505?w=400&q=80"
+        image: "images (22).jpg"
     },
     {
         id: 107,
@@ -76,7 +76,7 @@ let products = [
         price: 36999,
         stock: 18,
         specs: "Dimensity 8300-Ultra | 120Hz FiFlow AMOLED",
-        image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=400&q=80"
+        image: "images (23).jpg"
     },
     {
         id: 108,
@@ -87,7 +87,7 @@ let products = [
         price: 45999,
         stock: 13,
         specs: "Aura Light Portrait | Snapdragon 7 Gen 3",
-        image: "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=400&q=80"
+        image: "images (24).jpg"
     },
     {
         id: 109,
@@ -98,7 +98,7 @@ let products = [
         price: 19999,
         stock: 20,
         specs: "6000mAh Battery | Super AMOLED Display",
-        image: "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?w=400&q=80"
+        image: "images (25).jpg"
     },
     {
         id: 110,
@@ -109,7 +109,7 @@ let products = [
         price: 21500,
         stock: 15,
         specs: "108MP Camera | Curved 120Hz AMOLED",
-        image: "https://images.unsplash.com/photo-1570891836654-d4961a7b6929?w=400&q=80"
+        image: "images (26).jpg"
     },
     {
         id: 111,
@@ -120,7 +120,7 @@ let products = [
         price: 42999,
         stock: 10,
         specs: "64MP Periscope Telephoto | Luxury Watch Design",
-        image: "https://images.unsplash.com/photo-1533228876829-65c94e7b5025?w=400&q=80"
+        image: "images (27).jpg"
     },
     {
         id: 112,
@@ -131,7 +131,7 @@ let products = [
         price: 14499,
         stock: 17,
         specs: "5000mAh | 50MP AI Dual Camera",
-        image: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=400&q=80"
+        image: "images (28).jpg"
     },
     {
         id: 113,
@@ -142,7 +142,7 @@ let products = [
         price: 64999,
         stock: 12,
         specs: "Tensor G3 | Gemini AI Integrated",
-        image: "https://images.unsplash.com/photo-1598327105854-c8674fabbf79?w=400&q=80"
+        image: "images (29).jpg"
     },
     {
         id: 114,
@@ -153,7 +153,7 @@ let products = [
         price: 34999,
         stock: 19,
         specs: "Snapdragon 7 Gen 3 | 100W SUPERVOOC",
-        image: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=400&q=80"
+        image: "images (30).jpg"
     },
 
     // --- WOMEN FASHION (10 Items) ---
@@ -166,7 +166,7 @@ let products = [
         price: 8500,
         stock: 14,
         specs: "Traditional Handloom | Pure Cotton Thread Work",
-        image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=80"
+        image: "images (31).jpg"
     },
     {
         id: 116,
@@ -177,7 +177,7 @@ let products = [
         price: 4200,
         stock: 21,
         specs: "Fine Silk Fabric | Elegant Necklines & Dupatta",
-        image: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400&q=80"
+        image: "images (32).jpg"
     },
     {
         id: 117,
@@ -188,7 +188,7 @@ let products = [
         price: 14500,
         stock: 16,
         specs: "Handpainted Floral Pattern | Pure Muslin",
-        image: "https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400&q=80"
+        image: "images (33).jpg"
     },
     {
         id: 118,
@@ -199,7 +199,7 @@ let products = [
         price: 2800,
         stock: 11,
         specs: "Breathable Cotton | Block Print Work",
-        image: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=400&q=80"
+        image: "images (34).jpg"
     },
     {
         id: 119,
@@ -210,7 +210,7 @@ let products = [
         price: 6500,
         stock: 18,
         specs: "Intricate Geometric Weave | Festive Collection",
-        image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80"
+        image: "images (35).jpg"
     },
     {
         id: 120,
@@ -221,7 +221,7 @@ let products = [
         price: 3800,
         stock: 13,
         specs: "3-Piece Premium Lawn & Georgette Dupatta",
-        image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80"
+        image: "images (36).jpg"
     },
     {
         id: 121,
@@ -232,7 +232,7 @@ let products = [
         price: 18500,
         stock: 20,
         specs: "Zari Embroidery | Traditional Festive Wear",
-        image: "https://images.unsplash.com/photo-1610030469668-96542795c375?w=400&q=80"
+        image: "images (37).jpg"
     },
     {
         id: 122,
@@ -243,7 +243,7 @@ let products = [
         price: 2200,
         stock: 15,
         specs: "Comfortable Summer Fit | Contemporary Cut",
-        image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=400&q=80"
+        image: "images (38).jpg"
     },
     {
         id: 123,
@@ -254,7 +254,7 @@ let products = [
         price: 5500,
         stock: 10,
         specs: "Heavy Stone & Zari Embroidery",
-        image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&q=80"
+        image: "images (39).jpg"
     },
     {
         id: 124,
@@ -265,7 +265,7 @@ let products = [
         price: 3200,
         stock: 17,
         specs: "100% Handloom Cotton | Daily Wear",
-        image: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=400&q=80"
+        image: "images (40).jpg"
     },
 
     // --- MEN FASHION (9 Items) ---
@@ -278,7 +278,7 @@ let products = [
         price: 3500,
         stock: 12,
         specs: "100% Organic Cotton | Slim Fit | Designer Buttons",
-        image: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=400&q=80"
+        image: "images (41).jpg"
     },
     {
         id: 126,
@@ -289,7 +289,7 @@ let products = [
         price: 4800,
         stock: 19,
         specs: "Jacquard Weave Silk | Matching Pajama",
-        image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=400&q=80"
+        image: "images (42).jpg"
     },
     {
         id: 127,
@@ -300,7 +300,7 @@ let products = [
         price: 1950,
         stock: 14,
         specs: "Breathable Cotton | Mandarin Collar",
-        image: "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=400&q=80"
+        image: "images (43).jpg"
     },
     {
         id: 128,
@@ -311,7 +311,7 @@ let products = [
         price: 2450,
         stock: 21,
         specs: "Stretchable Cotton Twill | Smart Casual",
-        image: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=400&q=80"
+        image: "images (44).jpg"
     },
     {
         id: 129,
@@ -322,7 +322,7 @@ let products = [
         price: 8900,
         stock: 16,
         specs: "Luxury Velvet Trim | Wedding Special",
-        image: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=400&q=80"
+        image: "images (45).jpg"
     },
     {
         id: 130,
@@ -333,7 +333,7 @@ let products = [
         price: 2200,
         stock: 11,
         specs: "100% Egyptian Cotton | Easy Iron",
-        image: "https://images.unsplash.com/photo-1620012253295-c15cc3e65df4?w=400&q=80"
+        image: "images (46).jpg"
     },
     {
         id: 131,
@@ -344,7 +344,7 @@ let products = [
         price: 2800,
         stock: 18,
         specs: "Stretch Denim | Modern Tapered Fit",
-        image: "https://images.unsplash.com/photo-1542272604-780c36856d60?w=400&q=80"
+        image: "images (47).jpg"
     },
     {
         id: 132,
@@ -355,7 +355,7 @@ let products = [
         price: 2990,
         stock: 13,
         specs: "Traditional Crafting | Breathable Fit",
-        image: "https://images.unsplash.com/photo-1618886614638-80e3c103d31a?w=400&q=80"
+        image: "images (48).jpg"
     },
     {
         id: 133,
@@ -366,7 +366,7 @@ let products = [
         price: 1850,
         stock: 20,
         specs: "Pure Linen | Lightweight Summer Style",
-        image: "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&q=80"
+        image: "images (49).jpg"
     },
 
     // --- HOME DÉCOR (7 Items) ---
@@ -379,7 +379,7 @@ let products = [
         price: 2800,
         stock: 15,
         specs: "King Size | Hand Stitched | Premium Fabric",
-        image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80"
+        image: "images (50).jpg"
     },
     {
         id: 135,
@@ -390,7 +390,7 @@ let products = [
         price: 12500,
         stock: 10,
         specs: "Pure Brass | Antique Bengali Craftsmanship",
-        image: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=400&q=80"
+        image: "images (51).jpg"
     },
     {
         id: 136,
@@ -401,7 +401,7 @@ let products = [
         price: 3400,
         stock: 17,
         specs: "6 Cups & Teapot | Eco-friendly Tray",
-        image: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=400&q=80"
+        image: "images (52).jpg"
     },
     {
         id: 137,
@@ -412,7 +412,7 @@ let products = [
         price: 1850,
         stock: 12,
         specs: "100% Cotton | Includes 2 Pillow Covers",
-        image: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400&q=80"
+        image: "images (53).jpg"
     },
     {
         id: 138,
@@ -423,7 +423,7 @@ let products = [
         price: 1400,
         stock: 19,
         specs: "Natural Jute Fiber | Eco-Friendly",
-        image: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126?w=400&q=80"
+        image: "images (54).jpg"
     },
     {
         id: 139,
@@ -434,7 +434,7 @@ let products = [
         price: 8900,
         stock: 14,
         specs: "Scratch Resistant | Microwave Safe",
-        image: "https://images.unsplash.com/photo-1577937927133-66ef06acdf18?w=400&q=80"
+        image: "images (55).jpg"
     },
     {
         id: 140,
@@ -445,7 +445,7 @@ let products = [
         price: 1200,
         stock: 21,
         specs: "Set of 4 | Colorful Patchwork",
-        image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=400&q=80"
+        image: "images (56).jpg"
     },
 
     // --- SKIN & HAIR (7 Items) ---
@@ -458,7 +458,7 @@ let products = [
         price: 950,
         stock: 16,
         specs: "100% Natural Turmeric & Neem Formulation",
-        image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?w=400&q=80"
+        image: "images (58).jpg"
     },
     {
         id: 142,
@@ -469,7 +469,7 @@ let products = [
         price: 450,
         stock: 11,
         specs: "Deep Root Nourishment | Organic",
-        image: "https://images.unsplash.com/photo-1608248597261-833257647009?w=400&q=80"
+        image: "images (59).jpg"
     },
     {
         id: 143,
@@ -480,7 +480,7 @@ let products = [
         price: 380,
         stock: 18,
         specs: "Enriched with Aloe Vera & Tea Tree",
-        image: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=400&q=80"
+        image: "images (60).jpg"
     },
     {
         id: 144,
@@ -491,7 +491,7 @@ let products = [
         price: 1450,
         stock: 13,
         specs: "Dermatologically Tested | Skin Hydration",
-        image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&q=80"
+        image: "images (61).jpg"
     },
     {
         id: 145,
@@ -502,7 +502,7 @@ let products = [
         price: 850,
         stock: 20,
         specs: "Exfoliating & Deep Cleansing",
-        image: "https://images.unsplash.com/photo-1567928269937-ae146e45b428?w=400&q=80"
+        image: "images (62).jpg"
     },
     {
         id: 146,
@@ -513,7 +513,7 @@ let products = [
         price: 520,
         stock: 15,
         specs: "Onion & Hibiscus Infused Extract",
-        image: "https://images.unsplash.com/photo-1608248548823-8a931726168a?w=400&q=80"
+        image: "images (63).jpg"
     },
     {
         id: 147,
@@ -524,7 +524,7 @@ let products = [
         price: 650,
         stock: 10,
         specs: "Hydrating Mist | 100% Organic",
-        image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
+        image: "images (64).jpg"
     },
 
     // --- ADDITIONAL VARIATIONS (3 Items) ---
@@ -537,7 +537,7 @@ let products = [
         price: 36289,
         stock: 7,
         specs: "12GB RAM | 512GB ROM | 50MP OIS Camera",
-        image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&q=80"
+        image: "images (65).jpg"
     },
     {
         id: 149,
@@ -548,7 +548,7 @@ let products = [
         price: 60498,
         stock: 10,
         specs: "Snapdragon 8 Gen 3 | 120Hz Curved Display",
-        image: "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&q=80"
+        image: "images (66).jpg"
     },
     {
         id: 150,
@@ -559,7 +559,7 @@ let products = [
         price: 31350,
         stock: 13,
         specs:  "200MP Camera | 120W Fast Charging",
-        image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&q=80"
+        image: "images (67).jpg"
     },
 
     {
@@ -571,7 +571,7 @@ let products = [
         price: 110000,
         stock: 13,
         specs: "46MP Camera | 3,274 mAh Fast Charging",
-        image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&q=80"
+        image: "images (68).jpg"
     }
 ];
 
