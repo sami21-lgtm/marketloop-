@@ -339,7 +339,7 @@ body {
 /* REALISTIC PRODUCT GRID LAYOUT */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 20px;
 }
 
@@ -361,7 +361,7 @@ body {
     box-shadow: var(--shadow-hover);
 }
 
-/* PRODUCT IMAGE (REALISTIC RATIO & CONTAINMENT) */
+/* PRODUCT IMAGE */
 .product-img-wrapper {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -516,7 +516,7 @@ body {
 .tag-danger { background: #fee2e2; color: #b91c1c; padding: 4px 10px; border-radius: 12px; font-weight: 600; font-size: 12px; }
 .full-width { width: 100%; }
 
-/* DASHBOARDS & REAL SELLER DASHBOARD LAYOUT */
+/* DASHBOARDS */
 .dashboard-header {
     display: flex;
     justify-content: space-between;
@@ -526,7 +526,7 @@ body {
 
 .stats-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     margin-bottom: 30px;
 }
@@ -542,7 +542,7 @@ body {
 .stat-card h4 { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
 .stat-card p { font-size: 26px; font-weight: 800; color: var(--primary-color); }
 
-/* FULL WIDTH DATA TABLE FOR SELLER / ADMIN */
+/* FULL WIDTH DATA TABLE */
 .table-responsive {
     width: 100%;
     overflow-x: auto;
@@ -589,6 +589,7 @@ body {
     z-index: 1000;
     justify-content: center;
     align-items: center;
+    padding: 15px;
 }
 
 .modal.active {
@@ -598,7 +599,7 @@ body {
 .modal-box {
     background: white;
     border-radius: 12px;
-    width: 90%;
+    width: 100%;
     max-width: 540px;
     max-height: 85vh;
     display: flex;
@@ -621,50 +622,61 @@ body {
 .form-group input:focus, .form-group select:focus { border-color: var(--primary-color); }
 .form-row { display: flex; gap: 15px; }
 
-/* PORTAL MODAL DESIGN */
+/* FIX: PORTAL MODAL DESIGN & RESPONSIVENESS */
 .portal-modal-box {
     background: #1e232d;
     color: #ffffff;
     border: 1px solid #2e3545;
     border-radius: 16px;
-    width: 92%;
-    max-width: 440px;
-    padding: 30px 24px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 88vh; /* স্ক্রিনের বাইরে যাওয়া বন্ধ করবে */
+    overflow-y: auto;  /* অতিরিক্ত লেখা আসলে স্ক্রলবার দেখাবে */
+    padding: 22px 20px;
     position: relative;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
 }
 
+/* কাস্টম স্ক্রলবার */
+.portal-modal-box::-webkit-scrollbar {
+    width: 6px;
+}
+.portal-modal-box::-webkit-scrollbar-thumb {
+    background: #3b4457;
+    border-radius: 4px;
+}
+
 .close-portal-btn {
     position: absolute;
-    top: 15px;
-    right: 20px;
+    top: 12px;
+    right: 18px;
     color: #94a3b8;
-    font-size: 24px;
+    font-size: 22px;
     cursor: pointer;
 }
 
 .portal-header {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .portal-logo {
-    font-size: 28px;
+    font-size: 24px;
     color: #d97706;
-    margin-bottom: 5px;
+    margin-bottom: 2px;
 }
 
 .portal-header h2 {
-    font-size: 20px;
-    letter-spacing: 1px;
+    font-size: 18px;
+    letter-spacing: 0.5px;
     color: #ffffff;
     font-weight: 700;
 }
 
 .portal-header p {
-    font-size: 12px;
+    font-size: 11px;
     color: #94a3b8;
     margin-top: 2px;
 }
@@ -675,7 +687,7 @@ body {
     border-radius: 10px;
     display: flex;
     gap: 4px;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
     border: 1px solid #2a3140;
 }
 
@@ -684,7 +696,7 @@ body {
     background: transparent;
     border: none;
     color: #94a3b8;
-    padding: 10px 8px;
+    padding: 8px 6px;
     font-size: 12px;
     font-weight: 600;
     border-radius: 8px;
@@ -699,23 +711,23 @@ body {
 
 .portal-subhead {
     text-align: center;
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
 
 .portal-subhead h4 {
-    font-size: 15px;
+    font-size: 14px;
     color: #ffffff;
     font-weight: 600;
 }
 
 .portal-subhead p {
-    font-size: 12px;
+    font-size: 11px;
     color: #cbd5e1;
-    margin-top: 3px;
+    margin-top: 2px;
 }
 
 .portal-input-group {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .portal-input-group input, .portal-input-group select {
@@ -723,7 +735,7 @@ body {
     background: #2a303e;
     border: 1px solid #3b4457;
     border-radius: 8px;
-    padding: 12px 14px;
+    padding: 10px 12px;
     color: #ffffff;
     font-size: 13px;
     outline: none;
@@ -738,12 +750,12 @@ body {
     background: #d97706;
     color: #ffffff;
     border: none;
-    padding: 12px;
+    padding: 11px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 8px;
     transition: 0.2s;
 }
 
@@ -756,7 +768,7 @@ body {
     border: 1px solid rgba(37, 99, 235, 0.3);
     padding: 8px 12px;
     border-radius: 6px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     color: #93c5fd;
     font-size: 11px;
 }
@@ -767,12 +779,29 @@ body {
 .checkout-summary h4 { display: flex; justify-content: space-between; font-size: 17px; margin: 12px 0; color: var(--text-main); font-weight: 700; }
 .hidden { display: none !important; }
 
-/* RESPONSIVE BREAKPOINTS */
+/* FULL RESPONSIVE BREAKPOINTS (MOBILE & TABLET) */
 @media (max-width: 768px) {
-    .main-header { flex-direction: column; gap: 15px; }
+    .role-bar { flex-direction: column; gap: 8px; text-align: center; }
+    .main-header { flex-direction: column; gap: 12px; padding: 12px 4%; }
     .search-box { width: 100%; }
-    .category-nav { overflow-x: auto; white-space: nowrap; }
-    .filter-toolbar { flex-direction: column; align-items: stretch; }
+    .header-actions { width: 100%; justify-content: space-around; }
+    .category-nav { overflow-x: auto; white-space: nowrap; padding: 0 4%; }
+    .filter-toolbar { flex-direction: column; align-items: stretch; gap: 12px; }
+    .filter-controls { width: 100%; justify-content: space-between; }
+    
+    .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .product-card { border-radius: 8px; }
+    .product-details { padding: 10px; }
+    .product-title { font-size: 13px; min-height: 36px; }
+    .price { font-size: 16px; }
+    
     .product-grid.list-view .product-card { flex-direction: column; height: auto; }
     .product-grid.list-view .product-img-wrapper { width: 100%; height: 180px; }
+    .form-row { flex-direction: column; gap: 0; }
+}
+
+@media (max-width: 480px) {
+    .product-grid { grid-template-columns: repeat(1, 1fr); }
+    .portal-modal-box { padding: 18px 14px; width: 95%; max-height: 92vh; }
+    .portal-tabs { flex-direction: column; gap: 6px; }
 }
