@@ -558,10 +558,9 @@ let products = [
         brand: "Xiaomi",
         price: 31350,
         stock: 13,
-        specs:  "200MP Camera | 120W Fast Charging",
+        specs: "200MP Camera | 120W Fast Charging",
         image: "images (67).jpg"
     },
-
     {
         id: 151,
         title: "Iphone 15 Pro",
@@ -841,7 +840,7 @@ function addToCart(productId) {
         cart.push({ ...item, qty: 1 });
     }
     updateBadges();
-    alert(`"${item.title}" কার্ডে যোগ করা হয়েছে!`);
+    alert(`"${item.title}" কার্ডে যোগ করা হয়েছে!`);
 }
 
 function updateCartQty(id, delta) {
@@ -850,7 +849,7 @@ function updateCartQty(id, delta) {
 
     if (item) {
         if (delta > 0 && item.qty >= prod.stock) {
-            alert(`স্টকে সর্বমোট ${prod.stock} টি প্রোডাক্ট রয়েছে।`);
+            alert(`স্টকে সর্বমোট ${prod.stock} টি প্রোডাক্ট রয়েছে।`);
             return;
         }
         item.qty += delta;
@@ -915,9 +914,9 @@ function renderCart() {
 
     if (cart.length === 0) {
         container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Your cart is empty.</p>";
-        if (subtotalElem) subtotalElem.innerText = "৳0";
-        if (discountElem) discountElem.innerText = "৳0";
-        if (totalElem) totalElem.innerText = "৳0";
+        if (subtotalElem) subtotalElem.innerText = "0";
+        if (discountElem) discountElem.innerText = "0";
+        if (totalElem) totalElem.innerText = "0";
         return;
     }
 
@@ -946,24 +945,30 @@ function renderCart() {
     const discountAmount = Math.round((subtotal * appliedDiscount) / 100);
     const grandTotal = subtotal - discountAmount;
 
-    if (subtotalElem) subtotalElem.innerText = `৳${subtotal.toLocaleString()}`;
-    if (discountElem) discountElem.innerText = `-৳${discountAmount.toLocaleString()}`;
-    if (totalElem) totalElem.innerText = `৳${grandTotal.toLocaleString()}`;
+    if (subtotalElem) subtotalElem.innerText = subtotal.toLocaleString();
+    if (discountElem) discountElem.innerText = discountAmount.toLocaleString();
+    if (totalElem) totalElem.innerText = grandTotal.toLocaleString();
 }
 
+// --- COUPON APPLICATION & CHECKOUT ---
 function applyCoupon() {
-    const input = document.getElementById("coupon-input");
+    const input = document.getElementById("coupon-code") || document.getElementById("coupon-input");
     const code = input ? input.value.trim().toUpperCase() : "";
 
-    if (code === "PROMO10" || code === "DISCOUNT10") {
+    if (code === "SAMISA20") {
+        appliedDiscount = 20;
+        alert("🎉 অভিনন্দন! 'samisa20' কুপনে ২০% ডিসকাউন্ট প্রয়োগ করা হয়েছে!");
+    } else if (code === "PROMO10" || code === "DISCOUNT10") {
         appliedDiscount = 10;
-        alert("১০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
+        alert("১০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
     } else if (code === "PROMO20") {
         appliedDiscount = 20;
-        alert("২০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
+        alert("২০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
+    } else if (code === "") {
+        alert("অনুগ্রহ করে একটি কুপন কোড লিখুন।");
     } else {
-        alert("অবৈধ কুপন কোড! (চেষ্টা করুন: PROMO10 অথবা PROMO20)");
         appliedDiscount = 0;
+        alert("অবৈধ বা মেয়াদোত্তীর্ণ কুপন কোড!");
     }
     renderCart();
 }
@@ -974,86 +979,93 @@ function checkout() {
         return;
     }
 
-    let subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
-    let discount = Math.round((subtotal * appliedDiscount) / 100);
-    let grandTotal = subtotal - discount;
+    let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    let discountAmount = Math.round((subtotal * appliedDiscount) / 100);
+    let grandTotal = subtotal - discountAmount;
 
-    const newOrder = {
-        orderId: "ORD-" + Math.floor(100000 + Math.random() * 900000),
-        user: currentUser.name,
-        date: new Date().toLocaleDateString('bn-BD'),
-        items: [...cart],
-        totalAmount: grandTotal,
-        status: "Processing"
-    };
-
-    // stock update
+    // Deduct Stock
     cart.forEach(cartItem => {
-        const prod = products.find(p => p.id === cartItem.id);
-        if (prod) prod.stock -= cartItem.qty;
+        let p = products.find(prod => prod.id === cartItem.id);
+        if (p) p.stock -= cartItem.qty;
     });
 
-    orders.push(newOrder);
+    // Create Order Record
+    const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
+    orders.push({
+        id: orderId,
+        date: new Date().toLocaleDateString('bn-BD'),
+        items: [...cart],
+        total: grandTotal,
+        discount: discountAmount,
+        status: "Processing"
+    });
+
+    alert(`🎉 অর্ডার সফল হয়েছে!\nঅর্ডার আইডি: ${orderId}\nমোট পরিশোধিত মূল্য: ৳${grandTotal.toLocaleString()}`);
+
+    // Reset Cart & Coupon
     cart = [];
     appliedDiscount = 0;
+    const couponInput = document.getElementById("coupon-code") || document.getElementById("coupon-input");
+    if (couponInput) couponInput.value = "";
 
     updateBadges();
-    closeModal("cart-modal");
     filterProducts();
-    alert(`অর্ডার সফল হয়েছে! অর্ডার আইডি: ${newOrder.orderId}`);
+    closeModal("cart-modal");
+    renderAdminStats();
+    renderSellerInventory();
 }
 
-// --- RENDER WISHLIST & COMPARE & ORDERS ---
+// --- RENDER MODALS (WISHLIST, COMPARE, ORDERS) ---
 function renderWishlist() {
     const container = document.getElementById("wishlist-items-container");
     if (!container) return;
 
-    const wishProducts = products.filter(p => wishlist.includes(p.id));
-
-    if (wishProducts.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>আপনার উইশলিস্টে কোনো আইটেম নেই।</p>";
+    if (wishlist.length === 0) {
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Wishlist is empty.</p>";
         return;
     }
 
-    container.innerHTML = wishProducts.map(p => `
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
-        <div style="display:flex; align-items:center; gap:12px;">
-            <img src="${p.image}" alt="${p.title}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
-            <div>
-                <h5 style="margin:0;">${p.title}</h5>
-                <strong style="color:#2563eb;">৳${p.price.toLocaleString()}</strong>
+    const items = products.filter(p => wishlist.includes(p.id));
+    container.innerHTML = items.map(item => `
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <img src="${item.image}" alt="${item.title}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+                <div>
+                    <h5 style="margin:0; font-size:14px;">${item.title}</h5>
+                    <small style="color:#2563eb; font-weight:bold;">৳${item.price.toLocaleString()}</small>
+                </div>
+            </div>
+            <div style="display:flex; gap:6px;">
+                <button class="btn-primary" style="padding:6px 10px; font-size:12px;" onclick="addToCart(${item.id})">Add to Cart</button>
+                <button onclick="toggleWishlist(${item.id}); renderWishlist();" style="color:#ef4444; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>
-        <div>
-            <button class="btn-primary" style="padding:6px 12px; font-size:12px;" onclick="addToCart(${p.id})">Add to Cart</button>
-            <button onclick="toggleWishlist(${p.id})" style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:8px;"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-    </div>`).join('');
+    `).join('');
 }
 
 function renderCompare() {
     const container = document.getElementById("compare-items-container");
     if (!container) return;
 
-    const compProducts = products.filter(p => compareList.includes(p.id));
-
-    if (compProducts.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>তুলনা করার জন্য কোনো প্রোডাক্ট নির্বাচন করা হয়নি।</p>";
+    if (compareList.length === 0) {
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No items selected for comparison.</p>";
         return;
     }
 
+    const items = products.filter(p => compareList.includes(p.id));
     container.innerHTML = `
-    <div style="display:grid; grid-template-columns: repeat(${compProducts.length}, 1fr); gap:15px;">
-        ${compProducts.map(p => `
-            <div style="border:1px solid #cbd5e1; border-radius:6px; padding:12px; text-align:center;">
-                <img src="${p.image}" style="width:100%; height:120px; object-fit:cover; border-radius:4px; margin-bottom:8px;">
-                <h5 style="margin:5px 0;">${p.title}</h5>
-                <h4 style="color:#2563eb; margin:5px 0;">৳${p.price.toLocaleString()}</h4>
-                <p style="font-size:12px; color:#64748b; margin:10px 0;">${p.specs}</p>
-                <button onclick="toggleCompare(${p.id})" style="color:#ef4444; border:1px solid #fee2e2; background:#fff1f2; padding:4px 8px; border-radius:4px; font-size:12px; cursor:pointer;">Remove</button>
-            </div>
-        `).join('')}
-    </div>`;
+        <div style="display:grid; grid-template-columns: repeat(${items.length}, 1fr); gap:15px; text-align:center;">
+            ${items.map(item => `
+                <div style="border:1px solid #e2e8f0; padding:10px; border-radius:6px; background:#f8fafc;">
+                    <img src="${item.image}" style="width:100%; height:120px; object-fit:cover; border-radius:4px;">
+                    <h4 style="font-size:14px; margin:8px 0;">${item.title}</h4>
+                    <p style="color:#2563eb; font-weight:bold; margin:4px 0;">৳${item.price.toLocaleString()}</p>
+                    <p style="font-size:12px; color:#64748b;">${item.specs}</p>
+                    <button onclick="toggleCompare(${item.id}); renderCompare();" class="btn-danger btn-sm" style="margin-top:8px;">Remove</button>
+                </div>
+            `).join('')}
+        </div>
+    `;
 }
 
 function renderOrders() {
@@ -1061,59 +1073,66 @@ function renderOrders() {
     if (!container) return;
 
     if (orders.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>এখনো কোনো অর্ডার সম্পন্ন হয়নি।</p>";
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No placed orders found.</p>";
         return;
     }
 
     container.innerHTML = orders.map(ord => `
-    <div style="border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <strong>${ord.orderId}</strong>
-            <span style="font-size:12px; background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:4px;">${ord.status}</span>
+        <div style="border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:10px; background:#fff;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <strong>ID: ${ord.id}</strong>
+                <span class="tag tag-success">${ord.status}</span>
+            </div>
+            <p style="margin:2px 0; font-size:13px; color:#64748b;">তারিখ: ${ord.date}</p>
+            <p style="margin:2px 0; font-size:13px; color:#64748b;">মোট আইটেম: ${ord.items.length}</p>
+            <h4 style="margin:5px 0; color:#2563eb;">সর্বমোট: ৳${ord.total.toLocaleString()}</h4>
         </div>
-        <small style="color:#64748b;">তারিখ: ${ord.date} | গ্রাহক: ${ord.user}</small>
-        <div style="margin:8px 0; font-size:13px;">
-            ${ord.items.map(i => `${i.title} (${i.qty}x)`).join(', ')}
-        </div>
-        <div style="text-align:right; font-weight:bold; color:#166534;">
-            মোট মূল্য: ৳${ord.totalAmount.toLocaleString()}
-        </div>
-    </div>`).join('');
+    `).join('');
 }
 
-// --- SELLER INVENTORY MANAGEMENT ---
+// --- SELLER DASHBOARD LOGIC ---
 function renderSellerInventory() {
-    const tableBody = document.getElementById("seller-inventory-table");
-    if (!tableBody) return;
+    const tbody = document.getElementById("seller-inventory-table");
+    const revElem = document.getElementById("seller-total-sales");
+    const activeElem = document.getElementById("seller-active-products");
+    const orderCountElem = document.getElementById("seller-total-orders");
 
-    tableBody.innerHTML = products.map((p, idx) => `
-    <tr>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.id}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;"><img src="${p.image}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;"></td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.title}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.category}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">৳${p.price.toLocaleString()}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.stock}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">
-            <button onclick="deleteProduct(${p.id})" style="color:#ef4444; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
-        </td>
-    </tr>`).join('');
+    if (tbody) {
+        tbody.innerHTML = products.map(p => `
+            <tr>
+                <td>#${p.id}</td>
+                <td>${p.title}</td>
+                <td>${p.category}</td>
+                <td>${p.brand}</td>
+                <td>৳${p.price.toLocaleString()}</td>
+                <td>${p.stock}</td>
+                <td>
+                    <button class="btn-sm btn-danger" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    let totalSales = orders.reduce((sum, o) => sum + o.total, 0);
+    if (revElem) revElem.innerText = `৳ ${totalSales.toLocaleString()}`;
+    if (activeElem) activeElem.innerText = products.length;
+    if (orderCountElem) orderCountElem.innerText = orders.length;
 }
 
-function addNewProduct(event) {
+function saveProduct(event) {
     if (event && event.preventDefault) event.preventDefault();
 
-    const title = document.getElementById("new-prod-title")?.value;
+    const title = document.getElementById("new-prod-name")?.value;
     const category = document.getElementById("new-prod-category")?.value;
-    const subCategory = document.getElementById("new-prod-subcategory")?.value || "General";
     const brand = document.getElementById("new-prod-brand")?.value;
+    const subCategory = document.getElementById("new-prod-subcat")?.value;
     const price = Number(document.getElementById("new-prod-price")?.value);
     const stock = Number(document.getElementById("new-prod-stock")?.value);
-    const specs = document.getElementById("new-prod-specs")?.value || "";
-    const image = document.getElementById("new-prod-image")?.value || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80";
+    const specs = document.getElementById("new-prod-spec")?.value || "";
+    const image = document.getElementById("new-prod-img")?.value || "images (17).jpg";
 
     const newProd = {
-        id: 100 + products.length + 1,
+        id: Date.now(),
         title,
         category,
         subCategory,
@@ -1124,11 +1143,11 @@ function addNewProduct(event) {
         image
     };
 
-    products.push(newProd);
+    products.unshift(newProd);
+    alert("নতুন প্রোডাক্ট সফলভাবে যুক্ত করা হয়েছে!");
+    closeModal("product-modal");
     renderSellerInventory();
     filterProducts();
-    closeModal("add-product-modal");
-    alert("নতুন প্রোডাক্ট সফলভাবে যুক্ত করা হয়েছে!");
 }
 
 function deleteProduct(id) {
@@ -1139,18 +1158,36 @@ function deleteProduct(id) {
     }
 }
 
-// --- ADMIN DASHBOARD STATS ---
+// --- ADMIN CONTROL LOGIC ---
 function renderAdminStats() {
-    const totalProdElem = document.getElementById("admin-total-products");
-    const totalStockElem = document.getElementById("admin-total-stock");
-    const totalOrdersElem = document.getElementById("admin-total-orders");
-    const totalSalesElem = document.getElementById("admin-total-sales");
+    const revElem = document.getElementById("admin-gross-revenue");
+    const ordersElem = document.getElementById("admin-platform-orders");
 
-    const totalStock = products.reduce((acc, curr) => acc + curr.stock, 0);
-    const totalSales = orders.reduce((acc, curr) => acc + curr.totalAmount, 0);
+    let grossRev = orders.reduce((sum, o) => sum + o.total, 0);
+    if (revElem) revElem.innerText = `৳ ${grossRev.toLocaleString()}`;
+    if (ordersElem) ordersElem.innerText = orders.length;
+}
 
-    if (totalProdElem) totalProdElem.innerText = products.length;
-    if (totalStockElem) totalStockElem.innerText = totalStock;
-    if (totalOrdersElem) totalOrdersElem.innerText = orders.length;
-    if (totalSalesElem) totalSalesElem.innerText = `৳${totalSales.toLocaleString()}`;
+function approveSeller(storeId) {
+    const statusElem = document.getElementById(`status-${storeId.toLowerCase()}`);
+    const actionElem = document.getElementById(`action-${storeId.toLowerCase()}`);
+    if (statusElem) {
+        statusElem.className = "tag tag-success";
+        statusElem.innerText = "VERIFIED";
+    }
+    if (actionElem) {
+        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled>Approved</button>`;
+    }
+}
+
+function rejectSeller(storeId) {
+    const statusElem = document.getElementById(`status-${storeId.toLowerCase()}`);
+    const actionElem = document.getElementById(`action-${storeId.toLowerCase()}`);
+    if (statusElem) {
+        statusElem.className = "tag tag-danger";
+        statusElem.innerText = "REJECTED";
+    }
+    if (actionElem) {
+        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled>Rejected</button>`;
+    }
 }
