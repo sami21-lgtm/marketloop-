@@ -595,6 +595,14 @@ let appliedDiscount = 0;
 
 // --- INITIALIZATION ---
 document.addEventListener("DOMContentLoaded", () => {
+    const savedUser = sessionStorage.getItem("currentUser");
+    if (savedUser) {
+        currentUser = JSON.parse(savedUser);
+        requestRoleSwitch(currentUser.role);
+    } else {
+        openModal("auth-modal");
+    }
+
     filterProducts();
     updateBadges();
     renderSellerInventory();
@@ -655,12 +663,14 @@ function handleCustomerAccess(event) {
     const nameInput = document.getElementById("guest-name");
     const name = nameInput && nameInput.value.trim() !== "" ? nameInput.value : "Customer";
     currentUser = { name: name, role: "customer" };
+    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
     closeModal("auth-modal");
     requestRoleSwitch("customer");
 }
 
 function enterAsGuest() {
     currentUser = { name: "Guest User", role: "customer" };
+    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
     closeModal("auth-modal");
     requestRoleSwitch("customer");
 }
@@ -669,6 +679,8 @@ function handleStaffAccess(event) {
     if (event && event.preventDefault) event.preventDefault();
     const roleSelect = document.getElementById("staff-role-select");
     const selectedRole = roleSelect ? roleSelect.value : 'seller';
+    currentUser = { name: selectedRole === 'admin' ? "System Admin" : "Store Seller", role: selectedRole };
+    sessionStorage.setItem("currentUser", JSON.stringify(currentUser));
     closeModal("auth-modal");
     requestRoleSwitch(selectedRole);
 }
