@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketLoop - Advanced Multi-Vendor E-Commerce Ecosystem</title>
+    <title>MarketLoop - Premier E-Commerce Ecosystem</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -12,21 +12,23 @@
     <!-- TOP SYSTEM ROLE BAR -->
     <div class="role-bar">
         <div class="role-info">
-            <i class="fa-solid fa-layer-group"></i> MarketLoop Multi-Vendor Sandbox
+            <i class="fa-solid fa-crown"></i> MarketLoop Multi-Vendor Platform
         </div>
         <div class="role-switcher">
-            <span id="user-status-text">Active Role: <strong id="current-role-label">GUEST</strong></span>
-            <button onclick="requestRoleSwitch('customer')" class="btn-role active"><i class="fa-solid fa-user"></i> Customer</button>
-            <button onclick="requestRoleSwitch('seller')" class="btn-role"><i class="fa-solid fa-store"></i> Seller Portal</button>
-            <button onclick="requestRoleSwitch('admin')" class="btn-role"><i class="fa-solid fa-user-shield"></i> Admin Control</button>
-            <button id="auth-btn" onclick="openModal('auth-modal')" class="btn-role btn-accent"><i class="fa-solid fa-right-to-bracket"></i> Login / Register</button>
+            <span id="user-status-text">Active User: <strong>Guest</strong></span>
+            <button id="auth-btn" onclick="openModal('auth-modal')" class="btn-role btn-accent">
+                <i class="fa-solid fa-shield-halved"></i> Access Portal
+            </button>
+            <button onclick="requestRoleSwitch('customer')" class="btn-role"><i class="fa-solid fa-user"></i> Customer</button>
+            <button onclick="requestRoleSwitch('seller')" class="btn-role"><i class="fa-solid fa-store"></i> Seller</button>
+            <button onclick="requestRoleSwitch('admin')" class="btn-role"><i class="fa-solid fa-user-shield"></i> Admin</button>
         </div>
     </div>
 
     <!-- MAIN APP HEADER -->
     <header class="main-header">
-        <div class="brand-logo" onclick="requestRoleSwitch('customer')">
-            <i class="fa-solid fa-arrows-spin"></i> MarketLoop
+        <div class="brand-logo" onclick="setCategoryFilter('ALL')">
+            <i class="fa-solid fa-crown"></i> MarketLoop
         </div>
         <div class="search-box">
             <select id="search-category-select" onchange="filterProducts()">
@@ -37,7 +39,7 @@
                 <option value="HOME DÉCOR">Home Décor</option>
                 <option value="SKIN & HAIR">Skin & Hair</option>
             </select>
-            <input type="text" id="search-input" placeholder="Search products, brands, models..." onkeyup="filterProducts()">
+            <input type="text" id="search-input" placeholder="Search products, brands, categories..." onkeyup="filterProducts()">
             <button><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         <div class="header-actions">
@@ -49,7 +51,7 @@
                 <i class="fa-regular fa-heart"></i>
                 <span class="badge" id="wishlist-count">0</span>
             </button>
-            <button class="action-btn" onclick="openModal('cart-modal')" title="Cart">
+            <button class="action-btn" onclick="openModal('cart-modal')" title="Shopping Cart">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span class="badge" id="cart-count">0</span>
             </button>
@@ -60,11 +62,9 @@
         </div>
     </header>
 
-    <!-- CATEGORY NAVIGATION WITH MEGA SUB-CATEGORIES -->
+    <!-- CATEGORY NAVIGATION -->
     <nav class="category-nav">
-        <div class="nav-item">
-            <a href="#" onclick="setCategoryFilter('ALL')">ALL CATEGORIES</a>
-        </div>
+        <div class="nav-item"><a href="#" onclick="setCategoryFilter('ALL')">ALL CATEGORIES</a></div>
         <div class="nav-item">
             <a href="#" onclick="setCategoryFilter('MOBILES')">MOBILES & TABLETS</a>
             <div class="dropdown-menu">
@@ -72,16 +72,14 @@
                 <a href="#" onclick="setSubCategoryFilter('AI Smartphones')">AI Smartphones</a>
                 <a href="#" onclick="setSubCategoryFilter('Best Camera')">Best Camera Mobiles</a>
                 <a href="#" onclick="setSubCategoryFilter('Best Battery')">Best Battery Mobiles</a>
-                <a href="#" onclick="setSubCategoryFilter('Slimmest')">Slimmest Mobiles</a>
             </div>
         </div>
         <div class="nav-item">
             <a href="#" onclick="setCategoryFilter('WOMEN')">WOMEN</a>
             <div class="dropdown-menu">
-                <a href="#" onclick="setSubCategoryFilter('Saree')">Saree (Jamdani, Silk, Cotton)</a>
+                <a href="#" onclick="setSubCategoryFilter('Saree')">Saree (Jamdani, Silk)</a>
                 <a href="#" onclick="setSubCategoryFilter('Shalwar Kameez')">Shalwar Kameez</a>
                 <a href="#" onclick="setSubCategoryFilter('Kurta & Tops')">Kurta & Tops</a>
-                <a href="#" onclick="setSubCategoryFilter('Women Accessories')">Jewellery & Bags</a>
             </div>
         </div>
         <div class="nav-item">
@@ -90,7 +88,6 @@
                 <a href="#" onclick="setSubCategoryFilter('Panjabi')">Panjabi (Cotton, Silk)</a>
                 <a href="#" onclick="setSubCategoryFilter('Short Kurta')">Short Kurta & Shirts</a>
                 <a href="#" onclick="setSubCategoryFilter('Trousers')">Trousers & Chinos</a>
-                <a href="#" onclick="setSubCategoryFilter('Men Accessories')">Footwear & Belts</a>
             </div>
         </div>
         <div class="nav-item">
@@ -98,28 +95,26 @@
             <div class="dropdown-menu">
                 <a href="#" onclick="setSubCategoryFilter('Bedcovers')">Bedcovers & Kantha</a>
                 <a href="#" onclick="setSubCategoryFilter('Dining')">Dinnerware & Trays</a>
-                <a href="#" onclick="setSubCategoryFilter('Décor Items')">Vases & Wall Hangings</a>
             </div>
         </div>
         <div class="nav-item">
             <a href="#" onclick="setCategoryFilter('SKIN & HAIR')">SKIN & HAIR</a>
             <div class="dropdown-menu">
                 <a href="#" onclick="setSubCategoryFilter('Face Care')">Face Packs & Masks</a>
-                <a href="#" onclick="setSubCategoryFilter('Body Care')">Body Washes & Soaps</a>
                 <a href="#" onclick="setSubCategoryFilter('Hair Care')">Hair Oils & Shampoo</a>
             </div>
         </div>
     </nav>
 
-    <!-- CONTAINER BODY -->
+    <!-- MAIN CONTAINER -->
     <main class="container">
 
         <!-- 1. CUSTOMER STOREFRONT VIEW -->
         <section id="customer-view" class="view-section">
             <div class="filter-toolbar">
                 <div class="price-pills">
-                    <span class="pill-label">Price Range:</span>
-                    <button class="pill-btn active" onclick="setPriceRange(0, 999999)">All</button>
+                    <span class="pill-label">Filter Price:</span>
+                    <button class="pill-btn active" onclick="setPriceRange(0, 999999)">All Prices</button>
                     <button class="pill-btn" onclick="setPriceRange(0, 10000)">Under ৳10k</button>
                     <button class="pill-btn" onclick="setPriceRange(10000, 30000)">৳10k - ৳30k</button>
                     <button class="pill-btn" onclick="setPriceRange(30000, 60000)">৳30k - ৳60k</button>
@@ -128,7 +123,7 @@
                 
                 <div class="filter-controls">
                     <select id="brand-select" onchange="filterProducts()">
-                        <option value="ALL">Select Brand</option>
+                        <option value="ALL">All Brands</option>
                         <option value="Tecno">Tecno</option>
                         <option value="Realme">Realme</option>
                         <option value="Xiaomi">Xiaomi</option>
@@ -150,11 +145,11 @@
             </div>
 
             <div class="section-header">
-                <h3 id="current-filter-heading">Explore Marketplace Products</h3>
+                <h3 id="current-filter-heading">Featured Marketplace Products</h3>
             </div>
 
             <div class="product-grid" id="product-grid">
-                <!-- Dynamic Products -->
+                <!-- Products Render Dynamically -->
             </div>
         </section>
 
@@ -164,75 +159,36 @@
                 <h2><i class="fa-solid fa-store"></i> Seller Central Dashboard</h2>
                 <button class="btn-primary" onclick="openModal('product-modal')"><i class="fa-solid fa-plus"></i> Add New Product</button>
             </div>
-
             <div class="stats-cards">
-                <div class="stat-card">
-                    <h4>Total Revenue</h4>
-                    <p id="seller-total-sales">৳ 0</p>
-                </div>
-                <div class="stat-card">
-                    <h4>Active Listings</h4>
-                    <p id="seller-active-products">0</p>
-                </div>
-                <div class="stat-card">
-                    <h4>Orders Received</h4>
-                    <p id="seller-total-orders">0</p>
-                </div>
+                <div class="stat-card"><h4>Seller Revenue</h4><p id="seller-total-sales">৳ 0</p></div>
+                <div class="stat-card"><h4>Active Listings</h4><p id="seller-active-products">0</p></div>
+                <div class="stat-card"><h4>Received Orders</h4><p id="seller-total-orders">0</p></div>
             </div>
-
             <h3 class="sub-title">Inventory Control</h3>
             <table class="data-table">
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Product Title</th>
-                        <th>Category</th>
-                        <th>Subcategory</th>
-                        <th>Brand</th>
-                        <th>Price (৳)</th>
-                        <th>Stock Qty</th>
-                        <th>Actions</th>
-                    </tr>
+                    <tr><th>ID</th><th>Title</th><th>Category</th><th>Brand</th><th>Price (৳)</th><th>Stock</th><th>Action</th></tr>
                 </thead>
-                <tbody id="seller-inventory-table">
-                    <!-- Dynamic Seller Products -->
-                </tbody>
+                <tbody id="seller-inventory-table"></tbody>
             </table>
         </section>
 
         <!-- 3. ADMIN CONTROL VIEW -->
         <section id="admin-view" class="view-section hidden">
             <div class="dashboard-header">
-                <h2><i class="fa-solid fa-user-shield"></i> Marketplace Governance Console</h2>
+                <h2><i class="fa-solid fa-user-shield"></i> Platform Governance Console</h2>
             </div>
-
             <div class="stats-cards">
-                <div class="stat-card">
-                    <h4>Platform Gross Revenue</h4>
-                    <p id="admin-gross-revenue">৳ 0</p>
-                </div>
-                <div class="stat-card">
-                    <h4>Registered Sellers</h4>
-                    <p id="admin-total-sellers">2 Active</p>
-                </div>
-                <div class="stat-card">
-                    <h4>Platform Orders</h4>
-                    <p id="admin-platform-orders">0</p>
-                </div>
+                <div class="stat-card"><h4>Gross Revenue</h4><p id="admin-gross-revenue">৳ 0</p></div>
+                <div class="stat-card"><h4>Registered Sellers</h4><p>2 Active</p></div>
+                <div class="stat-card"><h4>Platform Orders</h4><p id="admin-platform-orders">0</p></div>
             </div>
-
-            <h3 class="sub-title">Seller Verification & Approvals</h3>
+            <h3 class="sub-title">Seller Approvals</h3>
             <table class="data-table">
                 <thead>
-                    <tr>
-                        <th>Store ID</th>
-                        <th>Store Name</th>
-                        <th>Owner Email</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
+                    <tr><th>Store ID</th><th>Store Name</th><th>Owner Email</th><th>Status</th><th>Actions</th></tr>
                 </thead>
-                <tbody id="admin-seller-table">
+                <tbody>
                     <tr>
                         <td>STR-801</td>
                         <td>Aarong Fashion Store</td>
@@ -256,68 +212,87 @@
 
     </main>
 
-    <!-- MODAL: AUTHENTICATION / LOGIN PORTAL -->
+    <!-- IMAGE-INSPIRED DUAL ACCESS MANAGEMENT MODAL -->
     <div class="modal" id="auth-modal">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 id="auth-modal-title"><i class="fa-solid fa-shield-halved"></i> Security Portal Login</h3>
-                <span class="close-btn" onclick="closeModal('auth-modal')">&times;</span>
+        <div class="portal-modal-box">
+            <span class="close-portal-btn" onclick="closeModal('auth-modal')">&times;</span>
+            
+            <div class="portal-header">
+                <div class="portal-logo"><i class="fa-solid fa-crown"></i></div>
+                <h2>MARKETLOOP APP</h2>
+                <p>Access Management Portal</p>
             </div>
-            <div class="modal-body">
-                <div class="auth-tabs">
-                    <button class="auth-tab-btn active" onclick="switchAuthTab('login')">Login</button>
-                    <button class="auth-tab-btn" onclick="switchAuthTab('register')">Register Customer</button>
+
+            <!-- PILL TAB SWITCHER -->
+            <div class="portal-tabs">
+                <button id="tab-guest-btn" class="portal-tab-btn active" onclick="switchPortalTab('guest')">
+                    <i class="fa-solid fa-user-large"></i> Guest Portal (Public)
+                </button>
+                <button id="tab-staff-btn" class="portal-tab-btn" onclick="switchPortalTab('staff')">
+                    <i class="fa-solid fa-shield-halved"></i> Staff Portal (Admin)
+                </button>
+            </div>
+
+            <!-- TAB 1: GUEST / CUSTOMER PORTAL -->
+            <div id="guest-portal-content" class="portal-tab-content">
+                <div class="portal-subhead">
+                    <h4>Customer Portal Access</h4>
+                    <p><i class="fa-solid fa-circle-check"></i> Direct Shopping & Product Browsing</p>
                 </div>
 
-                <!-- LOGIN FORM -->
-                <form id="login-form" onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label>Login As</label>
-                        <select id="login-role-select" onchange="toggleRoleHint()">
-                            <option value="customer">Customer</option>
-                            <option value="seller">Seller</option>
-                            <option value="admin">Administrator</option>
+                <form id="guest-access-form" onsubmit="handleCustomerAccess(event)">
+                    <div class="portal-input-group">
+                        <input type="text" id="guest-name" placeholder="Enter Your Full Name *" required>
+                    </div>
+                    <div class="portal-input-group">
+                        <input type="email" id="guest-email" placeholder="Enter Your Email Address *" required>
+                    </div>
+                    <div class="portal-input-group">
+                        <input type="tel" id="guest-phone" placeholder="Enter Your Phone Number *" required>
+                    </div>
+                    <div class="portal-input-group">
+                        <input type="password" id="guest-pass" placeholder="Enter Password *" required>
+                    </div>
+                    <button type="submit" class="portal-submit-btn">
+                        <i class="fa-solid fa-right-to-bracket"></i> Continue to Guest Portal
+                    </button>
+                </form>
+            </div>
+
+            <!-- TAB 2: STAFF / ADMIN PORTAL -->
+            <div id="staff-portal-content" class="portal-tab-content hidden">
+                <div class="portal-subhead">
+                    <h4>Staff & Management Access</h4>
+                    <p><i class="fa-solid fa-lock"></i> Restricted Area for Admins & Sellers</p>
+                </div>
+
+                <form id="staff-access-form" onsubmit="handleStaffAccess(event)">
+                    <div class="portal-input-group">
+                        <select id="staff-role-select">
+                            <option value="admin">Administrator (Governance)</option>
+                            <option value="seller">Seller Portal (Store Owner)</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Email / User ID / Phone</label>
-                        <input type="text" id="login-id" placeholder="Enter ID or Email" required>
+                    <div class="portal-input-group">
+                        <input type="text" id="staff-id" placeholder="Enter Staff ID or Email *" required>
                     </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="login-pass" placeholder="Enter Password" required>
+                    <div class="portal-input-group">
+                        <input type="password" id="staff-pass" placeholder="Enter Security Password *" required>
                     </div>
-                    <p id="admin-credentials-hint" class="hint-text" style="display:none; color: #2563eb; font-size: 12px; margin-bottom: 10px;">
-                        💡 <strong>Admin Credentials:</strong> ID: <code>admin@marketloop.com</code> | Pass: <code>admin123</code>
-                    </p>
-                    <button type="submit" class="btn-primary full-width">Sign In</button>
-                </form>
+                    
+                    <div class="staff-credential-box">
+                        <small>💡 <strong>Admin Credentials:</strong> ID: <code>admin@marketloop.com</code> | Pass: <code>admin123</code></small>
+                    </div>
 
-                <!-- CUSTOMER REGISTER FORM -->
-                <form id="register-form" class="hidden" onsubmit="handleCustomerRegister(event)">
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" id="reg-name" placeholder="e.g. Rahat Ahmed" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Phone Number</label>
-                        <input type="tel" id="reg-phone" placeholder="e.g. 01700000000" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email Address</label>
-                        <input type="email" id="reg-email" placeholder="name@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Create Password</label>
-                        <input type="password" id="reg-pass" placeholder="Minimum 6 characters" required>
-                    </div>
-                    <button type="submit" class="btn-primary full-width">Create Account</button>
+                    <button type="submit" class="portal-submit-btn">
+                        <i class="fa-solid fa-shield-halved"></i> Login to Staff Portal
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- MODAL: COMPARE PRODUCTS -->
+    <!-- MODAL: COMPARE -->
     <div class="modal" id="compare-modal">
         <div class="modal-box wide">
             <div class="modal-header">
@@ -328,7 +303,7 @@
         </div>
     </div>
 
-    <!-- MODAL: SHOPPING CART -->
+    <!-- MODAL: CART -->
     <div class="modal" id="cart-modal">
         <div class="modal-box">
             <div class="modal-header">
@@ -338,7 +313,7 @@
             <div class="modal-body" id="cart-items-container"></div>
             <div class="modal-footer">
                 <div class="coupon-section">
-                    <input type="text" id="coupon-code" placeholder="Coupon Code (e.g. WELCOME20)">
+                    <input type="text" id="coupon-code" placeholder="Coupon (e.g. WELCOME20)">
                     <button class="btn-secondary" onclick="applyCoupon()">Apply</button>
                 </div>
                 <div class="checkout-summary">
@@ -351,7 +326,7 @@
         </div>
     </div>
 
-    <!-- MODAL: CUSTOMER ORDERS -->
+    <!-- MODAL: ORDERS -->
     <div class="modal" id="orders-modal">
         <div class="modal-box wide">
             <div class="modal-header">
@@ -377,7 +352,7 @@
     <div class="modal" id="product-modal">
         <div class="modal-box">
             <div class="modal-header">
-                <h3>Add New Product</h3>
+                <h3>Add New Inventory Product</h3>
                 <span class="close-btn" onclick="closeModal('product-modal')">&times;</span>
             </div>
             <div class="modal-body">
@@ -399,7 +374,7 @@
                         </div>
                         <div class="form-group">
                             <label>Brand</label>
-                            <input type="text" id="new-prod-brand" required placeholder="e.g. Realme">
+                            <input type="text" id="new-prod-brand" required placeholder="Brand Name">
                         </div>
                     </div>
                     <div class="form-group">
@@ -417,12 +392,12 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Key Spec / Details</label>
-                        <input type="text" id="new-prod-spec" placeholder="e.g. 8000mAh Battery, 120Hz Display">
+                        <label>Key Specifications</label>
+                        <input type="text" id="new-prod-spec" placeholder="Key Details">
                     </div>
                     <div class="form-group">
                         <label>Image URL</label>
-                        <input type="url" id="new-prod-img" placeholder="https://..." required>
+                        <input type="url" id="new-prod-img" required placeholder="https://...">
                     </div>
                     <button type="submit" class="btn-primary full-width">Publish Product</button>
                 </form>
