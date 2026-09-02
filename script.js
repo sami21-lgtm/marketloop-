@@ -527,7 +527,7 @@ let products = [
         image: "images (64).jpg"
     },
 
-    // --- ADDITIONAL VARIATIONS (3 Items) ---
+    // --- ADDITIONAL VARIATIONS (4 Items) ---
     {
         id: 148,
         title: "Tecno Camon 30 Ultra 5G",
@@ -578,6 +578,12 @@ let cart = [];
 let wishlist = [];
 let compareList = [];
 let orders = [];
+
+// --- AD CAMPAIGN STATE ---
+let ads = [
+    { id: 1, storeId: "STR-801", storeName: "Aarong Fashion Store", ownerEmail: "vendor1@aarong.com", slot: "Hero Main Banner", price: 2500, duration: "7 Days", status: "APPROVED" },
+    { id: 2, storeId: "STR-802", storeName: "MobileDokan BD", ownerEmail: "contact@mobiledokan.bd", slot: "Category Banner", price: 1500, duration: "5 Days", status: "PENDING" }
+];
 
 let currentUser = { name: "Guest", role: "customer" };
 let selectedCategory = "ALL";
@@ -903,7 +909,7 @@ function updateBadges() {
     if (orderBadge) orderBadge.innerText = orders.length;
 }
 
-// --- RENDER CART MODAL & CHECKOUT ---
+// --- RENDER CART MODAL ---
 function renderCart() {
     const container = document.getElementById("cart-items-container");
     const subtotalElem = document.getElementById("cart-subtotal");
@@ -957,87 +963,71 @@ function applyCoupon() {
 
     if (code === "SAMISA20") {
         appliedDiscount = 20;
-        alert("🎉 অভিনন্দন! 'samisa20' কুপনে ২০% ডিসকাউন্ট প্রয়োগ করা হয়েছে!");
+        alert("🎉 অভিনন্দন! 'SAMISA20' কুপনে ২০% ডিসকাউন্ট প্রয়োগ করা হয়েছে!");
     } else if (code === "PROMO10" || code === "DISCOUNT10") {
         appliedDiscount = 10;
-        alert("১০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
-    } else if (code === "PROMO20") {
-        appliedDiscount = 20;
-        alert("২০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
-    } else if (code === "") {
-        alert("অনুগ্রহ করে একটি কুপন কোড লিখুন।");
+        alert("🎉 ১০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
     } else {
         appliedDiscount = 0;
-        alert("অবৈধ বা মেয়াদোত্তীর্ণ কুপন কোড!");
+        alert("❌ অবৈধ কুপন কোড! সঠিক কোড প্রয়োগ করুন।");
     }
     renderCart();
 }
 
-function checkout() {
+function processCheckout() {
     if (cart.length === 0) {
         alert("আপনার কার্ট খালি!");
         return;
     }
-
-    let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    let subtotal = cart.reduce((acc, item) => acc + (item.price * item.qty), 0);
     let discountAmount = Math.round((subtotal * appliedDiscount) / 100);
     let grandTotal = subtotal - discountAmount;
 
-    // Deduct Stock
-    cart.forEach(cartItem => {
-        let p = products.find(prod => prod.id === cartItem.id);
-        if (p) p.stock -= cartItem.qty;
-    });
-
-    // Create Order Record
-    const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
-    orders.push({
-        id: orderId,
+    const newOrder = {
+        id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
         date: new Date().toLocaleDateString('bn-BD'),
         items: [...cart],
-        total: grandTotal,
-        discount: discountAmount,
+        totalAmount: grandTotal,
         status: "Processing"
+    };
+
+    orders.push(newOrder);
+
+    cart.forEach(cartItem => {
+        let prod = products.find(p => p.id === cartItem.id);
+        if (prod) prod.stock -= cartItem.qty;
     });
 
-    alert(`🎉 অর্ডার সফল হয়েছে!\nঅর্ডার আইডি: ${orderId}\nমোট পরিশোধিত মূল্য: ৳${grandTotal.toLocaleString()}`);
-
-    // Reset Cart & Coupon
     cart = [];
     appliedDiscount = 0;
-    const couponInput = document.getElementById("coupon-code") || document.getElementById("coupon-input");
-    if (couponInput) couponInput.value = "";
-
     updateBadges();
-    filterProducts();
     closeModal("cart-modal");
+    alert(`✅ অর্ডার সফল হয়েছে! Order ID: ${newOrder.id}`);
+    filterProducts();
     renderAdminStats();
-    renderSellerInventory();
 }
 
-// --- RENDER MODALS (WISHLIST, COMPARE, ORDERS) ---
+// --- WISHLIST, COMPARE & ORDERS RENDERERS ---
 function renderWishlist() {
     const container = document.getElementById("wishlist-items-container");
     if (!container) return;
-
-    if (wishlist.length === 0) {
+    let wishProducts = products.filter(p => wishlist.includes(p.id));
+    if (wishProducts.length === 0) {
         container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Wishlist is empty.</p>";
         return;
     }
-
-    const items = products.filter(p => wishlist.includes(p.id));
-    container.innerHTML = items.map(item => `
+    container.innerHTML = wishProducts.map(p => `
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
             <div style="display:flex; align-items:center; gap:12px;">
-                <img src="${item.image}" alt="${item.title}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+                <img src="${p.image}" alt="${p.title}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
                 <div>
-                    <h5 style="margin:0; font-size:14px;">${item.title}</h5>
-                    <small style="color:#2563eb; font-weight:bold;">৳${item.price.toLocaleString()}</small>
+                    <h5 style="margin:0;">${p.title}</h5>
+                    <small style="color:#2563eb; font-weight:bold;">৳${p.price.toLocaleString()}</small>
                 </div>
             </div>
-            <div style="display:flex; gap:6px;">
-                <button class="btn-primary" style="padding:6px 10px; font-size:12px;" onclick="addToCart(${item.id})">Add to Cart</button>
-                <button onclick="toggleWishlist(${item.id}); renderWishlist();" style="color:#ef4444; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+            <div style="display:flex; gap:8px;">
+                <button class="btn-primary" style="padding:4px 10px; font-size:12px;" onclick="addToCart(${p.id})">Add to Cart</button>
+                <button onclick="toggleWishlist(${p.id})" style="border:none; background:none; color:#ef4444; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>
     `).join('');
@@ -1046,22 +1036,20 @@ function renderWishlist() {
 function renderCompare() {
     const container = document.getElementById("compare-items-container");
     if (!container) return;
-
-    if (compareList.length === 0) {
+    let compProducts = products.filter(p => compareList.includes(p.id));
+    if (compProducts.length === 0) {
         container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No items selected for comparison.</p>";
         return;
     }
-
-    const items = products.filter(p => compareList.includes(p.id));
     container.innerHTML = `
-        <div style="display:grid; grid-template-columns: repeat(${items.length}, 1fr); gap:15px; text-align:center;">
-            ${items.map(item => `
-                <div style="border:1px solid #e2e8f0; padding:10px; border-radius:6px; background:#f8fafc;">
-                    <img src="${item.image}" style="width:100%; height:120px; object-fit:cover; border-radius:4px;">
-                    <h4 style="font-size:14px; margin:8px 0;">${item.title}</h4>
-                    <p style="color:#2563eb; font-weight:bold; margin:4px 0;">৳${item.price.toLocaleString()}</p>
-                    <p style="font-size:12px; color:#64748b;">${item.specs}</p>
-                    <button onclick="toggleCompare(${item.id}); renderCompare();" class="btn-danger btn-sm" style="margin-top:8px;">Remove</button>
+        <div style="display:grid; grid-template-columns: repeat(${compProducts.length}, 1fr); gap:15px;">
+            ${compProducts.map(p => `
+                <div style="border:1px solid #cbd5e1; border-radius:8px; padding:10px; text-align:center;">
+                    <img src="${p.image}" style="width:100%; height:100px; object-fit:cover; border-radius:4px;">
+                    <h5 style="margin:8px 0 4px 0; font-size:13px;">${p.title}</h5>
+                    <p style="color:#2563eb; font-weight:bold; margin:0 0 8px 0;">৳${p.price.toLocaleString()}</p>
+                    <p style="font-size:11px; color:#64748b;">${p.specs}</p>
+                    <button onclick="toggleCompare(${p.id})" style="margin-top:8px; color:#ef4444; border:1px solid #fee2e2; background:#fff; padding:4px 8px; border-radius:4px; font-size:11px; cursor:pointer;">Remove</button>
                 </div>
             `).join('')}
         </div>
@@ -1071,123 +1059,106 @@ function renderCompare() {
 function renderOrders() {
     const container = document.getElementById("orders-items-container");
     if (!container) return;
-
     if (orders.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No placed orders found.</p>";
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No order history found.</p>";
         return;
     }
-
     container.innerHTML = orders.map(ord => `
-        <div style="border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:10px; background:#fff;">
+        <div style="border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:10px; background:#f8fafc;">
             <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                <strong>ID: ${ord.id}</strong>
-                <span class="tag tag-success">${ord.status}</span>
+                <strong>${ord.id}</strong>
+                <span style="font-size:12px; color:#64748b;">${ord.date}</span>
             </div>
-            <p style="margin:2px 0; font-size:13px; color:#64748b;">তারিখ: ${ord.date}</p>
-            <p style="margin:2px 0; font-size:13px; color:#64748b;">মোট আইটেম: ${ord.items.length}</p>
-            <h4 style="margin:5px 0; color:#2563eb;">সর্বমোট: ৳${ord.total.toLocaleString()}</h4>
+            <div style="font-size:13px; color:#475569;">
+                Items: ${ord.items.map(i => `${i.title} (x${i.qty})`).join(', ')}
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-weight:bold;">
+                <span>Total: ৳${ord.totalAmount.toLocaleString()}</span>
+                <span style="color:#16a34a; font-size:12px;">Status: ${ord.status}</span>
+            </div>
         </div>
     `).join('');
 }
 
-// --- SELLER DASHBOARD LOGIC ---
+// --- SELLER & ADMIN DASHBOARD MANAGEMENT WITH AD CAMPAIGNS ---
 function renderSellerInventory() {
-    const tbody = document.getElementById("seller-inventory-table");
-    const revElem = document.getElementById("seller-total-sales");
-    const activeElem = document.getElementById("seller-active-products");
-    const orderCountElem = document.getElementById("seller-total-orders");
+    const container = document.getElementById("seller-inventory-table");
+    if (!container) return;
+    container.innerHTML = products.slice(0, 10).map(p => `
+        <tr>
+            <td>#${p.id}</td>
+            <td><strong>${p.title}</strong></td>
+            <td>${p.category}</td>
+            <td>৳${p.price.toLocaleString()}</td>
+            <td>${p.stock}</td>
+            <td><span style="color:#16a34a; font-weight:600;">Active</span></td>
+        </tr>
+    `).join('');
+}
 
-    if (tbody) {
-        tbody.innerHTML = products.map(p => `
+function requestNewAdCampaign(storeName, slot, price) {
+    const newAd = {
+        id: Date.now(),
+        storeId: "STR-" + Math.floor(1000 + Math.random() * 9000),
+        storeName: storeName || "My Store",
+        ownerEmail: "seller@marketloop.com",
+        slot: slot || "Hero Main Banner",
+        price: price || 2000,
+        duration: "7 Days",
+        status: "PENDING"
+    };
+    ads.push(newAd);
+    alert("✅ আপনার অ্যাড প্রমোশন রিকোয়েস্ট সফলভাবে জমা দেওয়া হয়েছে! এডমিন অ্যাপ্রুভ করলে এটি চালু হবে।");
+    renderAdminStats();
+}
+
+function renderAdminStats() {
+    const revenueElem = document.getElementById("stat-gross-revenue");
+    const sellersElem = document.getElementById("stat-registered-sellers");
+    const ordersElem = document.getElementById("stat-platform-orders");
+    const adEarningsElem = document.getElementById("stat-ad-earnings");
+
+    let totalGrossRevenue = orders.reduce((acc, o) => acc + o.totalAmount, 0);
+    let totalAdRevenue = ads.filter(a => a.status === "APPROVED").reduce((acc, a) => acc + a.price, 0);
+    let activeAdsCount = ads.filter(a => a.status === 'APPROVED').length;
+
+    if (revenueElem) revenueElem.innerText = "৳ " + totalGrossRevenue.toLocaleString();
+    if (sellersElem) sellersElem.innerText = "2 Active";
+    if (ordersElem) ordersElem.innerText = orders.length;
+    if (adEarningsElem) adEarningsElem.innerText = `৳ ${totalAdRevenue.toLocaleString()} (${activeAdsCount} Active)`;
+
+    // Render Ad Approvals Table in Admin Dashboard
+    const adTableContainer = document.getElementById("admin-ad-approvals-table");
+    if (adTableContainer) {
+        adTableContainer.innerHTML = ads.map(ad => `
             <tr>
-                <td>#${p.id}</td>
-                <td>${p.title}</td>
-                <td>${p.category}</td>
-                <td>${p.brand}</td>
-                <td>৳${p.price.toLocaleString()}</td>
-                <td>${p.stock}</td>
+                <td>${ad.storeId}</td>
+                <td><strong>${ad.storeName}</strong></td>
+                <td>${ad.slot} (${ad.duration})</td>
+                <td>৳${ad.price.toLocaleString()}</td>
                 <td>
-                    <button class="btn-sm btn-danger" onclick="deleteProduct(${p.id})"><i class="fa-solid fa-trash"></i></button>
+                    <span style="padding:3px 8px; border-radius:4px; font-size:11px; font-weight:bold; 
+                        background:${ad.status === 'APPROVED' ? '#dcfce7' : ad.status === 'REJECTED' ? '#fee2e2' : '#fef3c7'}; 
+                        color:${ad.status === 'APPROVED' ? '#15803d' : ad.status === 'REJECTED' ? '#b91c1c' : '#b45309'};">
+                        ${ad.status}
+                    </span>
+                </td>
+                <td>
+                    ${ad.status === 'PENDING' ? `
+                        <button onclick="updateAdStatus(${ad.id}, 'APPROVED')" style="background:#22c55e; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Approve</button>
+                        <button onclick="updateAdStatus(${ad.id}, 'REJECTED')" style="background:#ef4444; color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Reject</button>
+                    ` : `<span style="color:#64748b; font-size:12px;">Completed</span>`}
                 </td>
             </tr>
         `).join('');
     }
-
-    let totalSales = orders.reduce((sum, o) => sum + o.total, 0);
-    if (revElem) revElem.innerText = `৳ ${totalSales.toLocaleString()}`;
-    if (activeElem) activeElem.innerText = products.length;
-    if (orderCountElem) orderCountElem.innerText = orders.length;
 }
 
-function saveProduct(event) {
-    if (event && event.preventDefault) event.preventDefault();
-
-    const title = document.getElementById("new-prod-name")?.value;
-    const category = document.getElementById("new-prod-category")?.value;
-    const brand = document.getElementById("new-prod-brand")?.value;
-    const subCategory = document.getElementById("new-prod-subcat")?.value;
-    const price = Number(document.getElementById("new-prod-price")?.value);
-    const stock = Number(document.getElementById("new-prod-stock")?.value);
-    const specs = document.getElementById("new-prod-spec")?.value || "";
-    const image = document.getElementById("new-prod-img")?.value || "images (17).jpg";
-
-    const newProd = {
-        id: Date.now(),
-        title,
-        category,
-        subCategory,
-        brand,
-        price,
-        stock,
-        specs,
-        image
-    };
-
-    products.unshift(newProd);
-    alert("নতুন প্রোডাক্ট সফলভাবে যুক্ত করা হয়েছে!");
-    closeModal("product-modal");
-    renderSellerInventory();
-    filterProducts();
-}
-
-function deleteProduct(id) {
-    if (confirm("আপনি কি নিশ্চিত যে এই প্রোডাক্টটি মুছে ফেলতে চান?")) {
-        products = products.filter(p => p.id !== id);
-        renderSellerInventory();
-        filterProducts();
-    }
-}
-
-// --- ADMIN CONTROL LOGIC ---
-function renderAdminStats() {
-    const revElem = document.getElementById("admin-gross-revenue");
-    const ordersElem = document.getElementById("admin-platform-orders");
-
-    let grossRev = orders.reduce((sum, o) => sum + o.total, 0);
-    if (revElem) revElem.innerText = `৳ ${grossRev.toLocaleString()}`;
-    if (ordersElem) ordersElem.innerText = orders.length;
-}
-
-function approveSeller(storeId) {
-    const statusElem = document.getElementById(`status-${storeId.toLowerCase()}`);
-    const actionElem = document.getElementById(`action-${storeId.toLowerCase()}`);
-    if (statusElem) {
-        statusElem.className = "tag tag-success";
-        statusElem.innerText = "VERIFIED";
-    }
-    if (actionElem) {
-        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled>Approved</button>`;
-    }
-}
-
-function rejectSeller(storeId) {
-    const statusElem = document.getElementById(`status-${storeId.toLowerCase()}`);
-    const actionElem = document.getElementById(`action-${storeId.toLowerCase()}`);
-    if (statusElem) {
-        statusElem.className = "tag tag-danger";
-        statusElem.innerText = "REJECTED";
-    }
-    if (actionElem) {
-        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled>Rejected</button>`;
+function updateAdStatus(adId, status) {
+    const ad = ads.find(a => a.id === adId);
+    if (ad) {
+        ad.status = status;
+        alert(`অ্যাড প্রমোশন রিকোয়েস্ট ${status === 'APPROVED' ? 'অনুমোদন (Approve)' : 'বাতিল (Reject)'} করা হয়েছে!`);
+        renderAdminStats();
     }
 }
