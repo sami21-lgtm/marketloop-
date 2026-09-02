@@ -271,27 +271,17 @@ let minPrice = 0;
 let maxPrice = 999999;
 let currentViewMode = "grid";
 
-// INITIALIZATION (PAGE LOAD ENHANCEMENT)
+// SAFE INITIALIZATION (FIXED BLANK SCREEN BUG)
 document.addEventListener("DOMContentLoaded", () => {
     filterProducts();
     updateBadges();
-
-    // পেজ লোড হলে পুরো ওয়েবসাইট লুকানো থাকবে এবং লগইন উইন্ডো খোলা থাকবে
-    if (!currentUser) {
-        hideMainApp();
-        openModal('auth-modal');
-    }
+    updateUserStatus();
 });
 
 // UI VISIBILITY CONTROL
 function showMainApp() {
     const appWrapper = document.getElementById("app-wrapper");
     if (appWrapper) appWrapper.style.display = "block";
-}
-
-function hideMainApp() {
-    const appWrapper = document.getElementById("app-wrapper");
-    if (appWrapper) appWrapper.style.display = "none";
 }
 
 // PORTAL TAB SWITCHER
@@ -354,7 +344,7 @@ function switchRole(role) {
     }
 }
 
-// CUSTOMER ACCESS (NAME, PHONE, PASS)
+// CUSTOMER ACCESS
 function handleCustomerAccess(e) {
     if(e) e.preventDefault();
     const nameInput = document.getElementById("guest-name");
@@ -380,7 +370,6 @@ function handleCustomerAccess(e) {
     currentUser = user;
     updateUserStatus();
     closeModal('auth-modal');
-    showMainApp(); // সফলভাবে লগইন করলে ওয়েবসাইট আনলক হবে
     switchRole('customer');
     alert(`স্বাগতম, ${user.name}!`);
 }
@@ -402,7 +391,6 @@ function handleStaffAccess(e) {
         currentUser = user;
         updateUserStatus();
         closeModal('auth-modal');
-        showMainApp();
         switchRole(role);
         alert(`Logged in successfully as ${user.name} (${user.role.toUpperCase()})`);
     } else {
@@ -410,12 +398,10 @@ function handleStaffAccess(e) {
     }
 }
 
-// GUEST ACCESS OPTION
 function enterAsGuest() {
     currentUser = null;
     updateUserStatus();
     closeModal('auth-modal');
-    showMainApp();
     switchRole('customer');
 }
 
@@ -441,10 +427,8 @@ function updateUserStatus() {
 function handleLogout() {
     currentUser = null;
     updateUserStatus();
-    hideMainApp(); // ওয়েবসাইট লুকিয়ে দেওয়া হবে
     switchRole('customer');
     alert("Logged out successfully.");
-    openModal('auth-modal');
 }
 
 // PRODUCT FILTERS
@@ -469,7 +453,7 @@ function setPriceRange(min, max) {
     minPrice = min;
     maxPrice = max;
     document.querySelectorAll(".pill-btn").forEach(btn => btn.classList.remove("active"));
-    if(event && event.target) event.target.classList.add("active");
+    if(window.event && window.event.target) window.event.target.classList.add("active");
     filterProducts();
 }
 
