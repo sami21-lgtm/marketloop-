@@ -527,7 +527,7 @@ let products = [
         image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80"
     },
 
-    // --- ADDITIONAL VARIATIONS (3 Items) ---
+    // --- ADDITIONAL VARIATIONS (4 Items) ---
     {
         id: 148,
         title: "Tecno Camon 30 Ultra 5G",
@@ -562,16 +562,16 @@ let products = [
         image: "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&q=80"
     },
     {
-    id: 151,
-    title: "Apple iPhone 15",
-    category: "MOBILES",
-    subCategory: "5G Mobiles",
-    brand: "Apple",
-    price: 155000,
-    stock: 10,
-    specs: "128GB ROM | Dynamic Island | 48MP Main Camera",
-    image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&q=80"
-}
+        id: 151,
+        title: "Apple iPhone 15",
+        category: "MOBILES",
+        subCategory: "5G Mobiles",
+        brand: "Apple",
+        price: 155000,
+        stock: 10,
+        specs: "128GB ROM | Dynamic Island | 48MP Main Camera",
+        image: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&q=80"
+    }
 ];
 
 let cart = [];
@@ -614,7 +614,7 @@ function requestRoleSwitch(role) {
     } else if (role === 'seller') {
         if (sellerView) sellerView.classList.remove("hidden");
         currentUser.role = "seller";
-        if (statusText) statusText.innerHTML = `Active User: <strong>Store Seller</strong>`;
+        if (statusText) statusText.innerHTML = `Active User: <strong>Store Seller (Staff)</strong>`;
         renderSellerInventory();
     } else if (role === 'admin') {
         if (adminView) adminView.classList.remove("hidden");
@@ -662,7 +662,20 @@ function enterAsGuest() {
 function handleStaffAccess(event) {
     if (event && event.preventDefault) event.preventDefault();
     const roleSelect = document.getElementById("staff-role-select");
+    const passInput = document.getElementById("staff-passkey");
     const selectedRole = roleSelect ? roleSelect.value : 'seller';
+    const password = passInput ? passInput.value.trim() : '';
+
+    // Staff Passkey verification
+    if (selectedRole === 'admin' && password !== 'admin123') {
+        alert("ভুল এডমিন পাসওয়ার্ড! (Default: admin123)");
+        return;
+    }
+    if (selectedRole === 'seller' && password !== '' && password !== 'seller123') {
+        alert("ভুল স্টাফ পাসওয়ার্ড! (Default: seller123)");
+        return;
+    }
+
     closeModal("auth-modal");
     requestRoleSwitch(selectedRole);
 }
@@ -840,7 +853,7 @@ function addToCart(productId) {
         cart.push({ ...item, qty: 1 });
     }
     updateBadges();
-    alert(`"${item.title}" কার্ডে যোগ করা হয়েছে!`);
+    alert(`"${item.title}" কার্টে যোগ করা হয়েছে!`);
 }
 
 function updateCartQty(id, delta) {
@@ -849,7 +862,7 @@ function updateCartQty(id, delta) {
 
     if (item) {
         if (delta > 0 && item.qty >= prod.stock) {
-            alert(`স্টকে সর্বমোট ${prod.stock} টি প্রোডাক্ট রয়েছে।`);
+            alert(`স্টকে সর্বমোট ${prod.stock} টি প্রোডাক্ট রয়েছে।`);
             return;
         }
         item.qty += delta;
@@ -908,12 +921,16 @@ function renderCart() {
     const container = document.getElementById("cart-items-container");
     const subtotalElem = document.getElementById("cart-subtotal");
     const discountElem = document.getElementById("cart-discount");
-    const totalElem = document.getElementById("cart-grand-total");
+    const totalElem = document.getElementById("cart-total");
 
     if (!container) return;
 
     if (cart.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Your cart is empty.</p>";
+        container.innerHTML = `
+            <div style="text-align: center; padding: 30px; color: #64748b;">
+                <i class="fa-solid fa-cart-shopping" style="font-size: 40px; margin-bottom: 10px;"></i>
+                <p>Your cart is empty.</p>
+            </div>`;
         if (subtotalElem) subtotalElem.innerText = "৳0";
         if (discountElem) discountElem.innerText = "৳0";
         if (totalElem) totalElem.innerText = "৳0";
@@ -925,44 +942,46 @@ function renderCart() {
         const itemTotal = item.price * item.qty;
         subtotal += itemTotal;
         return `
-        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
-            <div style="display:flex; align-items:center; gap:12px;">
-                <img src="${item.image}" alt="${item.title}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
-                <div>
-                    <h5 style="margin:0; font-size:14px;">${item.title}</h5>
-                    <small style="color:#64748b;">৳${item.price.toLocaleString()} x ${item.qty}</small>
+            <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding: 10px 0;">
+                <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
+                    <img src="${item.image}" alt="${item.title}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                    <div>
+                        <h5 style="margin: 0; font-size: 14px; color: #1e293b;">${item.title}</h5>
+                        <small style="color: #64748b;">৳${item.price.toLocaleString()} x ${item.qty}</small>
+                    </div>
                 </div>
-            </div>
-            <div style="display:flex; align-items:center; gap:8px;">
-                <button onclick="updateCartQty(${item.id}, -1)" style="padding:2px 8px; border:1px solid #cbd5e1; border-radius:4px;">-</button>
-                <span>${item.qty}</span>
-                <button onclick="updateCartQty(${item.id}, 1)" style="padding:2px 8px; border:1px solid #cbd5e1; border-radius:4px;">+</button>
-                <button onclick="removeFromCart(${item.id})" style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:10px;"><i class="fa-solid fa-trash"></i></button>
-            </div>
-        </div>`;
-    }).join('');
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    <button onclick="updateCartQty(${item.id}, -1)" style="padding: 2px 8px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 4px; cursor: pointer;">-</button>
+                    <span style="font-weight: 600; font-size: 14px;">${item.qty}</span>
+                    <button onclick="updateCartQty(${item.id}, 1)" style="padding: 2px 8px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 4px; cursor: pointer;">+</button>
+                    <button onclick="removeFromCart(${item.id})" style="padding: 4px 8px; border: none; background: #fee2e2; color: #ef4444; border-radius: 4px; margin-left: 8px; cursor: pointer;">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>`;
+    }).join("");
 
     const discountAmount = Math.round((subtotal * appliedDiscount) / 100);
-    const grandTotal = subtotal - discountAmount;
+    const total = subtotal - discountAmount;
 
     if (subtotalElem) subtotalElem.innerText = `৳${subtotal.toLocaleString()}`;
-    if (discountElem) discountElem.innerText = `-৳${discountAmount.toLocaleString()}`;
-    if (totalElem) totalElem.innerText = `৳${grandTotal.toLocaleString()}`;
+    if (discountElem) discountElem.innerText = `৳${discountAmount.toLocaleString()}`;
+    if (totalElem) totalElem.innerText = `৳${total.toLocaleString()}`;
 }
 
 function applyCoupon() {
-    const input = document.getElementById("coupon-input");
-    const code = input ? input.value.trim().toUpperCase() : "";
+    const codeInput = document.getElementById("coupon-code-input");
+    const code = codeInput ? codeInput.value.trim().toUpperCase() : "";
 
-    if (code === "PROMO10" || code === "DISCOUNT10") {
+    if (code === "SAVE10") {
         appliedDiscount = 10;
-        alert("১০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
-    } else if (code === "PROMO20") {
+        alert("১০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
+    } else if (code === "SAVE20") {
         appliedDiscount = 20;
-        alert("২০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
+        alert("২০% ডিসকাউন্ট কুপন সফলভাবে প্রয়োগ করা হয়েছে!");
     } else {
-        alert("অবৈধ কুপন কোড! (চেষ্টা করুন: PROMO10 অথবা PROMO20)");
-        appliedDiscount = 0;
+        alert("অকার্যকর কুপন কোড। (সহায়ক কোড: SAVE10, SAVE20)");
+        return;
     }
     renderCart();
 }
@@ -973,24 +992,25 @@ function checkout() {
         return;
     }
 
-    let subtotal = cart.reduce((acc, curr) => acc + (curr.price * curr.qty), 0);
-    let discount = Math.round((subtotal * appliedDiscount) / 100);
-    let grandTotal = subtotal - discount;
+    cart.forEach(cartItem => {
+        const product = products.find(p => p.id === cartItem.id);
+        if (product) {
+            product.stock -= cartItem.qty;
+        }
+    });
+
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+    const discountAmount = Math.round((subtotal * appliedDiscount) / 100);
+    const finalTotal = subtotal - discountAmount;
 
     const newOrder = {
         orderId: "ORD-" + Math.floor(100000 + Math.random() * 900000),
-        user: currentUser.name,
-        date: new Date().toLocaleDateString('bn-BD'),
+        customerName: currentUser.name,
         items: [...cart],
-        totalAmount: grandTotal,
-        status: "Processing"
+        totalAmount: finalTotal,
+        date: new Date().toLocaleDateString(),
+        status: "Pending"
     };
-
-    // stock update
-    cart.forEach(cartItem => {
-        const prod = products.find(p => p.id === cartItem.id);
-        if (prod) prod.stock -= cartItem.qty;
-    });
 
     orders.push(newOrder);
     cart = [];
@@ -999,120 +1019,183 @@ function checkout() {
     updateBadges();
     closeModal("cart-modal");
     filterProducts();
-    alert(`অর্ডার সফল হয়েছে! অর্ডার আইডি: ${newOrder.orderId}`);
+    if (currentUser.role === "seller") renderSellerInventory();
+    if (currentUser.role === "admin") renderAdminStats();
+
+    alert(`অর্ডার সফলভাবে সম্পন্ন হয়েছে! Order ID: ${newOrder.orderId}`);
 }
 
-// --- RENDER WISHLIST & COMPARE & ORDERS ---
+// --- RENDER WISHLIST MODAL ---
 function renderWishlist() {
     const container = document.getElementById("wishlist-items-container");
     if (!container) return;
 
-    const wishProducts = products.filter(p => wishlist.includes(p.id));
-
-    if (wishProducts.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>আপনার উইশলিস্টে কোনো আইটেম নেই।</p>";
+    if (wishlist.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 30px; color: #64748b;">
+                <i class="fa-regular fa-heart" style="font-size: 40px; margin-bottom: 10px;"></i>
+                <p>Your wishlist is empty.</p>
+            </div>`;
         return;
     }
 
+    const wishProducts = products.filter(p => wishlist.includes(p.id));
+
     container.innerHTML = wishProducts.map(p => `
-    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
-        <div style="display:flex; align-items:center; gap:12px;">
-            <img src="${p.image}" alt="${p.title}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
-            <div>
-                <h5 style="margin:0;">${p.title}</h5>
-                <strong style="color:#2563eb;">৳${p.price.toLocaleString()}</strong>
+        <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding: 10px 0;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <img src="${p.image}" alt="${p.title}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+                <div>
+                    <h5 style="margin: 0; font-size: 14px; color: #1e293b;">${p.title}</h5>
+                    <strong style="color: #2563eb;">৳${p.price.toLocaleString()}</strong>
+                </div>
+            </div>
+            <div style="display: flex; gap: 8px;">
+                <button class="btn-primary" style="padding: 6px 10px; font-size: 12px;" onclick="addToCart(${p.id})">
+                    <i class="fa-solid fa-cart-plus"></i> Add to Cart
+                </button>
+                <button onclick="toggleWishlist(${p.id})" style="padding: 6px 10px; border: 1px solid #fee2e2; background: #fee2e2; color: #ef4444; border-radius: 4px; cursor: pointer;">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
             </div>
         </div>
-        <div>
-            <button class="btn-primary" style="padding:6px 12px; font-size:12px;" onclick="addToCart(${p.id})">Add to Cart</button>
-            <button onclick="toggleWishlist(${p.id})" style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:8px;"><i class="fa-solid fa-xmark"></i></button>
-        </div>
-    </div>`).join('');
+    `).join("");
 }
 
+// --- RENDER COMPARE MODAL ---
 function renderCompare() {
     const container = document.getElementById("compare-items-container");
     if (!container) return;
 
-    const compProducts = products.filter(p => compareList.includes(p.id));
-
-    if (compProducts.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>তুলনা করার জন্য কোনো প্রোডাক্ট নির্বাচন করা হয়নি।</p>";
+    if (compareList.length === 0) {
+        container.innerHTML = `
+            <div style="text-align: center; padding: 30px; color: #64748b;">
+                <i class="fa-solid fa-scale-balanced" style="font-size: 40px; margin-bottom: 10px;"></i>
+                <p>No products selected for comparison.</p>
+            </div>`;
         return;
     }
 
+    const compareProducts = products.filter(p => compareList.includes(p.id));
+
     container.innerHTML = `
-    <div style="display:grid; grid-template-columns: repeat(${compProducts.length}, 1fr); gap:15px;">
-        ${compProducts.map(p => `
-            <div style="border:1px solid #cbd5e1; border-radius:6px; padding:12px; text-align:center;">
-                <img src="${p.image}" style="width:100%; height:120px; object-fit:cover; border-radius:4px; margin-bottom:8px;">
-                <h5 style="margin:5px 0;">${p.title}</h5>
-                <h4 style="color:#2563eb; margin:5px 0;">৳${p.price.toLocaleString()}</h4>
-                <p style="font-size:12px; color:#64748b; margin:10px 0;">${p.specs}</p>
-                <button onclick="toggleCompare(${p.id})" style="color:#ef4444; border:1px solid #fee2e2; background:#fff1f2; padding:4px 8px; border-radius:4px; font-size:12px; cursor:pointer;">Remove</button>
-            </div>
-        `).join('')}
-    </div>`;
+        <div style="display: grid; grid-template-columns: repeat(${compareProducts.length}, 1fr); gap: 15px;">
+            ${compareProducts.map(p => `
+                <div style="border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; text-align: center; background: #fff;">
+                    <img src="${p.image}" alt="${p.title}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 4px;">
+                    <h5 style="margin: 10px 0 5px 0; font-size: 14px;">${p.title}</h5>
+                    <p style="color: #2563eb; font-weight: bold; margin-bottom: 8px;">৳${p.price.toLocaleString()}</p>
+                    <p style="font-size: 12px; color: #64748b; min-height: 40px;">${p.specs}</p>
+                    <button onclick="toggleCompare(${p.id})" style="margin-top: 8px; width: 100%; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; background: #f8fafc; cursor: pointer;">Remove</button>
+                </div>
+            `).join("")}
+        </div>`;
 }
 
+// --- RENDER ORDERS MODAL ---
 function renderOrders() {
     const container = document.getElementById("orders-items-container");
     if (!container) return;
 
     if (orders.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>এখনো কোনো অর্ডার সম্পন্ন হয়নি।</p>";
+        container.innerHTML = `
+            <div style="text-align: center; padding: 30px; color: #64748b;">
+                <i class="fa-solid fa-box" style="font-size: 40px; margin-bottom: 10px;"></i>
+                <p>No order history found.</p>
+            </div>`;
         return;
     }
 
-    container.innerHTML = orders.map(ord => `
-    <div style="border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:12px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-            <strong>${ord.orderId}</strong>
-            <span style="font-size:12px; background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:4px;">${ord.status}</span>
+    container.innerHTML = orders.map(order => `
+        <div style="border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fff;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding-bottom: 6px; margin-bottom: 8px;">
+                <strong>ID: ${order.orderId}</strong>
+                <span style="color: #64748b; font-size: 12px;">${order.date}</span>
+            </div>
+            <p style="margin: 4px 0; font-size: 13px;">Customer: <strong>${order.customerName}</strong></p>
+            <p style="margin: 4px 0; font-size: 13px;">Items: ${order.items.map(i => `${i.title} (${i.qty})`).join(", ")}</p>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+                <span style="font-weight: bold; color: #2563eb;">Total: ৳${order.totalAmount.toLocaleString()}</span>
+                <span style="background: #fef3c7; color: #d97706; font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 600;">${order.status}</span>
+            </div>
         </div>
-        <small style="color:#64748b;">তারিখ: ${ord.date} | গ্রাহক: ${ord.user}</small>
-        <div style="margin:8px 0; font-size:13px;">
-            ${ord.items.map(i => `${i.title} (${i.qty}x)`).join(', ')}
-        </div>
-        <div style="text-align:right; font-weight:bold; color:#166534;">
-            মোট মূল্য: ৳${ord.totalAmount.toLocaleString()}
-        </div>
-    </div>`).join('');
+    `).join("");
 }
 
-// --- SELLER INVENTORY MANAGEMENT ---
+// --- STAFF (SELLER) PORTAL MANAGEMENT ---
 function renderSellerInventory() {
-    const tableBody = document.getElementById("seller-inventory-table");
-    if (!tableBody) return;
+    const container = document.getElementById("seller-inventory-table");
+    if (!container) return;
 
-    tableBody.innerHTML = products.map((p, idx) => `
-    <tr>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.id}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;"><img src="${p.image}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;"></td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.title}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.category}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">৳${p.price.toLocaleString()}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${p.stock}</td>
-        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">
-            <button onclick="deleteProduct(${p.id})" style="color:#ef4444; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
-        </td>
-    </tr>`).join('');
+    container.innerHTML = `
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+            <thead>
+                <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <th style="padding: 8px;">ID</th>
+                    <th style="padding: 8px;">Title</th>
+                    <th style="padding: 8px;">Category</th>
+                    <th style="padding: 8px;">Price</th>
+                    <th style="padding: 8px;">Stock</th>
+                    <th style="padding: 8px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${products.map(p => `
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 8px;">${p.id}</td>
+                        <td style="padding: 8px; font-weight: 500;">${p.title}</td>
+                        <td style="padding: 8px;">${p.category}</td>
+                        <td style="padding: 8px;">৳${p.price.toLocaleString()}</td>
+                        <td style="padding: 8px;">
+                            <input type="number" value="${p.stock}" min="0" onchange="updateProductStock(${p.id}, this.value)" style="width: 60px; padding: 4px; border: 1px solid #cbd5e1; border-radius: 4px;">
+                        </td>
+                        <td style="padding: 8px;">
+                            <button onclick="deleteProduct(${p.id})" style="padding: 4px 8px; background: #fee2e2; color: #ef4444; border: none; border-radius: 4px; cursor: pointer;">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </button>
+                        </td>
+                    </tr>
+                `).join("")}
+            </tbody>
+        </table>`;
+}
+
+function updateProductStock(id, newStock) {
+    const product = products.find(p => p.id === id);
+    if (product) {
+        product.stock = parseInt(newStock) || 0;
+        filterProducts();
+        if (currentUser.role === "admin") renderAdminStats();
+    }
+}
+
+function deleteProduct(id) {
+    if (confirm("আপনি কি নিশ্চিত যে আপনি এই প্রোডাক্টটি মুছে ফেলতে চান?")) {
+        products = products.filter(p => p.id !== id);
+        renderSellerInventory();
+        filterProducts();
+        if (currentUser.role === "admin") renderAdminStats();
+    }
 }
 
 function addNewProduct(event) {
     if (event && event.preventDefault) event.preventDefault();
-
     const title = document.getElementById("new-prod-title")?.value;
-    const category = document.getElementById("new-prod-category")?.value;
-    const subCategory = document.getElementById("new-prod-subcategory")?.value || "General";
-    const brand = document.getElementById("new-prod-brand")?.value;
-    const price = Number(document.getElementById("new-prod-price")?.value);
-    const stock = Number(document.getElementById("new-prod-stock")?.value);
+    const category = document.getElementById("new-prod-category")?.value || "MOBILES";
+    const subCategory = document.getElementById("new-prod-subcategory")?.value || "5G Mobiles";
+    const brand = document.getElementById("new-prod-brand")?.value || "Generic";
+    const price = parseFloat(document.getElementById("new-prod-price")?.value) || 0;
+    const stock = parseInt(document.getElementById("new-prod-stock")?.value) || 0;
     const specs = document.getElementById("new-prod-specs")?.value || "";
-    const image = document.getElementById("new-prod-image")?.value || "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80";
+    const image = document.getElementById("new-prod-image")?.value || "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=400&q=80";
+
+    if (!title || price <= 0) {
+        alert("অনুগ্রহ করে সঠিক প্রোডাক্ট নাম এবং মূল্য প্রদান করুন।");
+        return;
+    }
 
     const newProd = {
-        id: 100 + products.length + 1,
+        id: Date.now(),
         title,
         category,
         subCategory,
@@ -1123,33 +1206,75 @@ function addNewProduct(event) {
         image
     };
 
-    products.push(newProd);
+    products.unshift(newProd);
     renderSellerInventory();
     filterProducts();
+    if (currentUser.role === "admin") renderAdminStats();
+
     closeModal("add-product-modal");
-    alert("নতুন প্রোডাক্ট সফলভাবে যুক্ত করা হয়েছে!");
+    alert("নতুন প্রোডাক্ট সফলভাবে যোগ করা হয়েছে!");
 }
 
-function deleteProduct(id) {
-    if (confirm("আপনি কি নিশ্চিত যে এই প্রোডাক্টটি মুছে ফেলতে চান?")) {
-        products = products.filter(p => p.id !== id);
-        renderSellerInventory();
-        filterProducts();
+// --- ADMIN PORTAL STATS & MANAGEMENT ---
+function renderAdminStats() {
+    const totalProdElem = document.getElementById("admin-total-products");
+    const totalOrdersElem = document.getElementById("admin-total-orders");
+    const totalRevenueElem = document.getElementById("admin-total-revenue");
+    const totalStockElem = document.getElementById("admin-total-stock");
+    const adminOrdersListElem = document.getElementById("admin-orders-list");
+
+    const totalProducts = products.length;
+    const totalOrdersCount = orders.length;
+    const totalRevenue = orders.reduce((sum, o) => sum + o.totalAmount, 0);
+    const totalStockCount = products.reduce((sum, p) => sum + p.stock, 0);
+
+    if (totalProdElem) totalProdElem.innerText = totalProducts;
+    if (totalOrdersElem) totalOrdersElem.innerText = totalOrdersCount;
+    if (totalRevenueElem) totalRevenueElem.innerText = `৳${totalRevenue.toLocaleString()}`;
+    if (totalStockElem) totalStockElem.innerText = totalStockCount;
+
+    // Render Admin Management Orders Table if element exists
+    if (adminOrdersListElem) {
+        if (orders.length === 0) {
+            adminOrdersListElem.innerHTML = `<p style="color: #64748b; font-size: 13px;">No orders to manage.</p>`;
+        } else {
+            adminOrdersListElem.innerHTML = `
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px; margin-top: 10px;">
+                    <thead>
+                        <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                            <th style="padding: 8px;">Order ID</th>
+                            <th style="padding: 8px;">Customer</th>
+                            <th style="padding: 8px;">Total</th>
+                            <th style="padding: 8px;">Status</th>
+                            <th style="padding: 8px;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${orders.map(o => `
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 8px;">${o.orderId}</td>
+                                <td style="padding: 8px;">${o.customerName}</td>
+                                <td style="padding: 8px;">৳${o.totalAmount.toLocaleString()}</td>
+                                <td style="padding: 8px;"><span style="font-weight:600; color:#d97706;">${o.status}</span></td>
+                                <td style="padding: 8px;">
+                                    <button onclick="updateOrderStatus('${o.orderId}', 'Delivered')" style="padding: 4px 8px; background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; border-radius: 4px; cursor: pointer;">
+                                        Mark Delivered
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join("")}
+                    </tbody>
+                </table>`;
+        }
     }
 }
 
-// --- ADMIN DASHBOARD STATS ---
-function renderAdminStats() {
-    const totalProdElem = document.getElementById("admin-total-products");
-    const totalStockElem = document.getElementById("admin-total-stock");
-    const totalOrdersElem = document.getElementById("admin-total-orders");
-    const totalSalesElem = document.getElementById("admin-total-sales");
-
-    const totalStock = products.reduce((acc, curr) => acc + curr.stock, 0);
-    const totalSales = orders.reduce((acc, curr) => acc + curr.totalAmount, 0);
-
-    if (totalProdElem) totalProdElem.innerText = products.length;
-    if (totalStockElem) totalStockElem.innerText = totalStock;
-    if (totalOrdersElem) totalOrdersElem.innerText = orders.length;
-    if (totalSalesElem) totalSalesElem.innerText = `৳${totalSales.toLocaleString()}`;
+function updateOrderStatus(orderId, newStatus) {
+    const order = orders.find(o => o.orderId === orderId);
+    if (order) {
+        order.status = newStatus;
+        renderAdminStats();
+        renderOrders();
+        alert(`Order ${orderId} status changed to ${newStatus}`);
+    }
 }
