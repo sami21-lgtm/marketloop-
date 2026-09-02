@@ -527,7 +527,7 @@ let products = [
         image: "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=400&q=80"
     },
 
-    // --- ADDITIONAL VARIATIONS (To complete 50 unique listings) ---
+    // --- ADDITIONAL VARIATIONS ---
     {
         id: 148,
         title: "Tecno Camon 30 Ultra 5G",
@@ -589,27 +589,26 @@ function requestRoleSwitch(role) {
     const customerView = document.getElementById("customer-view");
     const sellerView = document.getElementById("seller-view");
     const adminView = document.getElementById("admin-view");
+    const statusText = document.getElementById("user-status-text");
 
-    if (!customerView || !sellerView || !adminView) return;
-
-    customerView.classList.add("hidden");
-    sellerView.classList.add("hidden");
-    adminView.classList.add("hidden");
+    if (customerView) customerView.classList.add("hidden");
+    if (sellerView) sellerView.classList.add("hidden");
+    if (adminView) adminView.classList.add("hidden");
 
     if (role === 'customer') {
-        customerView.classList.remove("hidden");
+        if (customerView) customerView.classList.remove("hidden");
         currentUser.role = "customer";
-        document.getElementById("user-status-text").innerHTML = `Active User: <strong>${currentUser.name} (Customer)</strong>`;
+        if (statusText) statusText.innerHTML = `Active User: <strong>${currentUser.name} (Customer)</strong>`;
         filterProducts();
     } else if (role === 'seller') {
-        sellerView.classList.remove("hidden");
+        if (sellerView) sellerView.classList.remove("hidden");
         currentUser.role = "seller";
-        document.getElementById("user-status-text").innerHTML = `Active User: <strong>Store Seller</strong>`;
+        if (statusText) statusText.innerHTML = `Active User: <strong>Store Seller</strong>`;
         renderSellerInventory();
     } else if (role === 'admin') {
-        adminView.classList.remove("hidden");
+        if (adminView) adminView.classList.remove("hidden");
         currentUser.role = "admin";
-        document.getElementById("user-status-text").innerHTML = `Active User: <strong>System Admin</strong>`;
+        if (statusText) statusText.innerHTML = `Active User: <strong>System Admin</strong>`;
         renderAdminStats();
     }
 }
@@ -635,9 +634,9 @@ function switchPortalTab(tab) {
 }
 
 function handleCustomerAccess(event) {
-    event.preventDefault();
+    if (event && event.preventDefault) event.preventDefault();
     const nameInput = document.getElementById("guest-name");
-    const name = nameInput ? nameInput.value : "Customer";
+    const name = nameInput && nameInput.value.trim() !== "" ? nameInput.value : "Customer";
     currentUser = { name: name, role: "customer" };
     closeModal("auth-modal");
     requestRoleSwitch("customer");
@@ -650,10 +649,11 @@ function enterAsGuest() {
 }
 
 function handleStaffAccess(event) {
-    event.preventDefault();
-    const roleSelect = document.getElementById("staff-role-select").value;
+    if (event && event.preventDefault) event.preventDefault();
+    const roleSelect = document.getElementById("staff-role-select");
+    const selectedRole = roleSelect ? roleSelect.value : 'seller';
     closeModal("auth-modal");
-    requestRoleSwitch(roleSelect);
+    requestRoleSwitch(selectedRole);
 }
 
 // --- MODAL CONTROL ---
@@ -677,23 +677,21 @@ function setCategoryFilter(cat) {
     selectedSubCategory = "ALL";
     const selectElem = document.getElementById("search-category-select");
     if (selectElem) selectElem.value = cat;
-    requestRoleSwitch("customer");
+    if (currentUser.role === "customer") requestRoleSwitch("customer");
     filterProducts();
 }
 
 function setSubCategoryFilter(subCat) {
     selectedSubCategory = subCat;
-    requestRoleSwitch("customer");
+    if (currentUser.role === "customer") requestRoleSwitch("customer");
     filterProducts();
 }
 
 function setPriceRange(min, max) {
     minPrice = min;
     maxPrice = max;
-    
     document.querySelectorAll(".price-pills .pill-btn").forEach(btn => btn.classList.remove("active"));
     if (window.event && window.event.target) window.event.target.classList.add("active");
-    
     filterProducts();
 }
 
@@ -763,7 +761,7 @@ function renderProducts(items) {
 
         if (viewMode === "grid") {
             return `
-            <div class="product-card" style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; background: #fff; display:flex; flex-direction:column; justify-between;">
+            <div class="product-card" style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; background: #fff; display:flex; flex-direction:column; justify-content:space-between;">
                 <img src="${p.image}" alt="${p.title}" style="width:100%; height:180px; object-fit:cover; border-radius:6px;">
                 <div style="margin-top:10px; flex:1;">
                     <small style="color:#64748b; font-weight:600; text-transform:uppercase;">${p.brand} | ${p.category}</small>
@@ -821,7 +819,7 @@ function addToCart(productId) {
         cart.push({ ...item, qty: 1 });
     }
     updateBadges();
-    alert(`"${item.title}" cart-এ যোগ করা হয়েছে!`);
+    alert(`"${item.title}" cart-এ যোগ করা হয়েছে!`);
 }
 
 function updateCartQty(id, delta) {
@@ -878,16 +876,16 @@ function updateBadges() {
     if (orderBadge) orderBadge.innerText = orders.length;
 }
 
-// --- RENDER MODALS DATA ---
+// --- RENDER MODALS & SELLER / ADMIN DATA ---
 function renderCart() {
     const container = document.getElementById("cart-items-container");
     if (!container) return;
 
     if (cart.length === 0) {
         container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Your cart is empty.</p>";
-        document.getElementById("cart-subtotal").innerText = "0";
-        document.getElementById("cart-discount").innerText = "0";
-        document.getElementById("cart-grand-total").innerText = "0";
+        if (document.getElementById("cart-subtotal")) document.getElementById("cart-subtotal").innerText = "0";
+        if (document.getElementById("cart-discount")) document.getElementById("cart-discount").innerText = "0";
+        if (document.getElementById("cart-grand-total")) document.getElementById("cart-grand-total").innerText = "0";
         return;
     }
 
@@ -901,120 +899,70 @@ function renderCart() {
                 <strong>${item.title}</strong><br>
                 <small style="color:#64748b;">৳${item.price.toLocaleString()} x ${item.qty}</small>
             </div>
-            <div style="display:flex; align-items:center;">
-                <button style="padding:2px 8px;" onclick="updateCartQty(${item.id}, -1)">-</button>
-                <span style="margin:0 8px; font-weight:bold;">${item.qty}</span>
-                <button style="padding:2px 8px;" onclick="updateCartQty(${item.id}, 1)">+</button>
-                <button onclick="removeFromCart(${item.id})" style="margin-left:12px; color:#ef4444; border:none; background:none; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <button style="padding:2px 8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer;" onclick="updateCartQty(${item.id}, -1)">-</button>
+                <span>${item.qty}</span>
+                <button style="padding:2px 8px; border:1px solid #cbd5e1; background:#fff; cursor:pointer;" onclick="updateCartQty(${item.id}, 1)">+</button>
+                <button style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:10px;" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button>
             </div>
         </div>`;
     }).join('');
 
-    const discountAmount = (subtotal * appliedDiscount) / 100;
-    const grandTotal = subtotal - discountAmount;
-
-    document.getElementById("cart-subtotal").innerText = subtotal.toLocaleString();
-    document.getElementById("cart-discount").innerText = discountAmount.toLocaleString();
-    document.getElementById("cart-grand-total").innerText = grandTotal.toLocaleString();
-}
-
-function applyCoupon() {
-    const input = document.getElementById("coupon-code");
-    const code = input ? input.value.trim().toUpperCase() : "";
-    if (code === "WELCOME20") {
-        appliedDiscount = 20;
-        alert("কুপন সফলভাবে প্রয়োগ হয়েছে! ২০% ডিসকাউন্ট যোগ করা হলো।");
-    } else {
-        alert("অবৈধ কুপন কোড! চেষ্টা করুন: WELCOME20");
-    }
-    renderCart();
-}
-
-function checkout() {
-    if (cart.length === 0) {
-        alert("কার্ট খালি!");
-        return;
-    }
-
-    const orderId = "ORD-" + Math.floor(100000 + Math.random() * 900000);
-    const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-    
-    orders.push({
-        id: orderId,
-        items: [...cart],
-        amount: totalAmount,
-        status: "Processing",
-        date: new Date().toLocaleDateString()
-    });
-
-    cart = [];
-    appliedDiscount = 0;
-    updateBadges();
-    closeModal("cart-modal");
-    alert(`অর্ডার সফলভাবে সম্পন্ন হয়েছে! আপনার Order ID: ${orderId}`);
-    renderAdminStats();
-    renderSellerInventory();
+    const grandTotal = Math.max(0, subtotal - appliedDiscount);
+    if (document.getElementById("cart-subtotal")) document.getElementById("cart-subtotal").innerText = subtotal.toLocaleString();
+    if (document.getElementById("cart-discount")) document.getElementById("cart-discount").innerText = appliedDiscount.toLocaleString();
+    if (document.getElementById("cart-grand-total")) document.getElementById("cart-grand-total").innerText = grandTotal.toLocaleString();
 }
 
 function renderWishlist() {
     const container = document.getElementById("wishlist-items-container");
     if (!container) return;
+    const wishItems = products.filter(p => wishlist.includes(p.id));
 
-    const items = products.filter(p => wishlist.includes(p.id));
-
-    if (items.length === 0) {
+    if (wishItems.length === 0) {
         container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>Wishlist is empty.</p>";
         return;
     }
 
-    container.innerHTML = items.map(p => `
-    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px solid #e2e8f0;">
-        <span>${p.title} - <strong>৳${p.price.toLocaleString()}</strong></span>
-        <div>
-            <button class="btn-sm btn-primary" onclick="addToCart(${p.id})">Add to Cart</button>
-            <button onclick="toggleWishlist(${p.id})" style="color:#ef4444; border:none; background:none; cursor:pointer; margin-left:8px;"><i class="fa-solid fa-trash"></i></button>
+    container.innerHTML = wishItems.map(p => `
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding:10px 0;">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <img src="${p.image}" style="width:50px; height:50px; object-fit:cover; border-radius:4px;">
+                <div>
+                    <strong>${p.title}</strong><br>
+                    <span style="color:#2563eb;">৳${p.price.toLocaleString()}</span>
+                </div>
+            </div>
+            <div>
+                <button class="btn-primary" style="padding:4px 8px; font-size:12px;" onclick="addToCart(${p.id})">Add to Cart</button>
+                <button style="padding:4px 8px; color:#ef4444; border:none; background:none; cursor:pointer;" onclick="toggleWishlist(${p.id})"><i class="fa-solid fa-trash"></i></button>
+            </div>
         </div>
-    </div>`).join('');
+    `).join('');
 }
 
 function renderCompare() {
     const container = document.getElementById("compare-items-container");
     if (!container) return;
+    const compItems = products.filter(p => compareList.includes(p.id));
 
-    const items = products.filter(p => compareList.includes(p.id));
-
-    if (items.length === 0) {
-        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No items selected for comparison.</p>";
+    if (compItems.length === 0) {
+        container.innerHTML = "<p style='text-align:center; padding:20px; color:#64748b;'>No products selected for comparison.</p>";
         return;
     }
 
     container.innerHTML = `
-    <table style="width:100%; border-collapse:collapse; text-align:left; font-size:14px;">
-        <thead>
-            <tr style="border-bottom:2px solid #cbd5e1; background:#f8fafc;">
-                <th style="padding:8px;">Feature</th>
-                ${items.map(p => `<th style="padding:8px;">${p.title}</th>`).join('')}
-            </tr>
-        </thead>
-        <tbody>
-            <tr style="border-bottom:1px solid #e2e8f0;">
-                <td style="padding:8px;"><strong>Price</strong></td>
-                ${items.map(p => `<td style="padding:8px; color:#2563eb; font-weight:bold;">৳${p.price.toLocaleString()}</td>`).join('')}
-            </tr>
-            <tr style="border-bottom:1px solid #e2e8f0;">
-                <td style="padding:8px;"><strong>Brand</strong></td>
-                ${items.map(p => `<td style="padding:8px;">${p.brand}</td>`).join('')}
-            </tr>
-            <tr style="border-bottom:1px solid #e2e8f0;">
-                <td style="padding:8px;"><strong>Category</strong></td>
-                ${items.map(p => `<td style="padding:8px;">${p.category}</td>`).join('')}
-            </tr>
-            <tr>
-                <td style="padding:8px;"><strong>Specs</strong></td>
-                ${items.map(p => `<td style="padding:8px; font-size:12px; color:#475569;">${p.specs}</td>`).join('')}
-            </tr>
-        </tbody>
-    </table>`;
+    <div style="display:flex; gap:15px; overflow-x:auto;">
+        ${compItems.map(p => `
+            <div style="flex:1; min-width:180px; border:1px solid #e2e8f0; padding:10px; border-radius:6px; text-align:center;">
+                <img src="${p.image}" style="width:100%; height:100px; object-fit:cover; border-radius:4px;">
+                <h4>${p.title}</h4>
+                <p style="color:#2563eb; font-weight:bold;">৳${p.price.toLocaleString()}</p>
+                <p style="font-size:12px; color:#64748b;">${p.specs}</p>
+                <button style="color:#ef4444; border:1px solid #ef4444; background:#fff; padding:4px 8px; border-radius:4px; margin-top:5px; cursor:pointer;" onclick="toggleCompare(${p.id})">Remove</button>
+            </div>
+        `).join('')}
+    </div>`;
 }
 
 function renderOrders() {
@@ -1027,114 +975,73 @@ function renderOrders() {
     }
 
     container.innerHTML = orders.map(o => `
-    <div style="border:1px solid #e2e8f0; border-radius:6px; padding:12px; margin-bottom:10px; background:#fff;">
-        <div style="display:flex; justify-content:space-between; font-weight:bold;">
-            <span>Order ID: ${o.id}</span>
-            <span style="color:#2563eb;">${o.status}</span>
+        <div style="border:1px solid #e2e8f0; padding:12px; border-radius:6px; margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                <strong>Order #${o.id}</strong>
+                <span style="color:#166534; font-weight:bold;">${o.status}</span>
+            </div>
+            <p style="font-size:13px; color:#64748b; margin:0;">Items: ${o.items.map(i => i.title).join(', ')}</p>
+            <p style="font-size:14px; font-weight:bold; margin-top:5px;">Total: ৳${o.total.toLocaleString()}</p>
         </div>
-        <small style="color:#64748b;">Date: ${o.date}</small>
-        <hr style="margin:8px 0; border:none; border-top:1px solid #e2e8f0;">
-        <div>Total Amount: <strong>৳${o.amount.toLocaleString()}</strong></div>
-    </div>`).join('');
+    `).join('');
 }
 
-// --- SELLER DASHBOARD LOGIC ---
+// --- SELLER MANAGEMENT ---
 function renderSellerInventory() {
-    const tbody = document.getElementById("seller-inventory-table");
-    if (!tbody) return;
+    const container = document.getElementById("seller-inventory-table") || document.getElementById("seller-products");
+    if (!container) return;
 
-    tbody.innerHTML = products.map(p => `
-    <tr>
-        <td>#${p.id}</td>
-        <td><strong>${p.title}</strong></td>
-        <td>${p.category}</td>
-        <td>${p.brand}</td>
-        <td>৳${p.price.toLocaleString()}</td>
-        <td>${p.stock}</td>
-        <td><button class="btn-sm btn-danger" onclick="deleteProduct(${p.id})" style="padding:4px 8px; border-radius:4px; border:none; background:#ef4444; color:#fff; cursor:pointer;">Delete</button></td>
-    </tr>`).join('');
+    let html = `
+    <table style="width:100%; border-collapse:collapse; margin-top:15px; background:#fff; border:1px solid #e2e8f0;">
+        <thead>
+            <tr style="background:#f1f5f9; text-align:left;">
+                <th style="padding:10px; border:1px solid #e2e8f0;">Image</th>
+                <th style="padding:10px; border:1px solid #e2e8f0;">Title</th>
+                <th style="padding:10px; border:1px solid #e2e8f0;">Category</th>
+                <th style="padding:10px; border:1px solid #e2e8f0;">Price (৳)</th>
+                <th style="padding:10px; border:1px solid #e2e8f0;">Stock</th>
+                <th style="padding:10px; border:1px solid #e2e8f0;">Action</th>
+            </tr>
+        </thead>
+        <tbody>`;
 
-    const sellerSalesTotal = orders.reduce((sum, o) => sum + o.amount, 0);
-    const totalSalesElem = document.getElementById("seller-total-sales");
-    const activeProductsElem = document.getElementById("seller-active-products");
-    const totalOrdersElem = document.getElementById("seller-total-orders");
+    products.forEach(p => {
+        html += `
+        <tr>
+            <td style="padding:8px; border:1px solid #e2e8f0;"><img src="${p.image}" style="width:40px; height:40px; object-fit:cover; border-radius:4px;"></td>
+            <td style="padding:8px; border:1px solid #e2e8f0;"><strong>${p.title}</strong></td>
+            <td style="padding:8px; border:1px solid #e2e8f0;">${p.category}</td>
+            <td style="padding:8px; border:1px solid #e2e8f0;">৳${p.price.toLocaleString()}</td>
+            <td style="padding:8px; border:1px solid #e2e8f0;">${p.stock}</td>
+            <td style="padding:8px; border:1px solid #e2e8f0;">
+                <button onclick="deleteProduct(${p.id})" style="background:#ef4444; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Delete</button>
+            </td>
+        </tr>`;
+    });
 
-    if (totalSalesElem) totalSalesElem.innerText = `৳ ${sellerSalesTotal.toLocaleString()}`;
-    if (activeProductsElem) activeProductsElem.innerText = products.length;
-    if (totalOrdersElem) totalOrdersElem.innerText = orders.length;
-}
-
-function saveProduct(event) {
-    event.preventDefault();
-    const name = document.getElementById("new-prod-name")?.value;
-    const cat = document.getElementById("new-prod-category")?.value;
-    const brand = document.getElementById("new-prod-brand")?.value;
-    const subcat = document.getElementById("new-prod-subcat")?.value;
-    const price = parseFloat(document.getElementById("new-prod-price")?.value || 0);
-    const stock = parseInt(document.getElementById("new-prod-stock")?.value || 0);
-    const spec = document.getElementById("new-prod-spec")?.value || "";
-    const img = document.getElementById("new-prod-img")?.value;
-
-    const newProd = {
-        id: Date.now(),
-        title: name,
-        category: cat,
-        subCategory: subcat,
-        brand: brand,
-        price: price,
-        stock: stock,
-        specs: spec,
-        image: img || "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&q=80"
-    };
-
-    products.unshift(newProd);
-    closeModal("product-modal");
-    document.getElementById("add-product-form")?.reset();
-    renderSellerInventory();
-    filterProducts();
-    alert("নতুন প্রোডাক্ট সফলভাবে ইনভেন্টরিতে যুক্ত হয়েছে!");
+    html += `</tbody></table>`;
+    container.innerHTML = html;
 }
 
 function deleteProduct(id) {
-    products = products.filter(p => p.id !== id);
-    renderSellerInventory();
-    filterProducts();
+    if (confirm("আপনি কি নিশ্চিতভাবে এই প্রোডাক্টটি মুছে ফেলতে চান?")) {
+        products = products.filter(p => p.id !== id);
+        renderSellerInventory();
+        renderAdminStats();
+        filterProducts();
+    }
 }
 
-// --- ADMIN DASHBOARD LOGIC ---
+// --- ADMIN MANAGEMENT ---
 function renderAdminStats() {
-    const gross = orders.reduce((sum, o) => sum + o.amount, 0);
-    const grossElem = document.getElementById("admin-gross-revenue");
-    const ordersElem = document.getElementById("admin-platform-orders");
+    const totalProdElem = document.getElementById("admin-total-products");
+    const totalOrdersElem = document.getElementById("admin-total-orders");
+    const totalRevElem = document.getElementById("admin-total-revenue");
 
-    if (grossElem) grossElem.innerText = `৳ ${gross.toLocaleString()}`;
-    if (ordersElem) ordersElem.innerText = orders.length;
-}
-
-function approveSeller(storeId) {
-    const target = storeId.toLowerCase();
-    const statusElem = document.getElementById(`status-${target}`);
-    const actionElem = document.getElementById(`action-${target}`);
-
-    if (statusElem) {
-        statusElem.className = "tag tag-success";
-        statusElem.innerText = "VERIFIED";
-    }
-    if (actionElem) {
-        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled style="padding:4px 8px; border-radius:4px; border:none; background:#cbd5e1;">Approved</button>`;
-    }
-}
-
-function rejectSeller(storeId) {
-    const target = storeId.toLowerCase();
-    const statusElem = document.getElementById(`status-${target}`);
-    const actionElem = document.getElementById(`action-${target}`);
-
-    if (statusElem) {
-        statusElem.className = "tag tag-danger";
-        statusElem.innerText = "REJECTED";
-    }
-    if (actionElem) {
-        actionElem.innerHTML = `<button class="btn-sm btn-disabled" disabled style="padding:4px 8px; border-radius:4px; border:none; background:#cbd5e1;">Rejected</button>`;
+    if (totalProdElem) totalProdElem.innerText = products.length;
+    if (totalOrdersElem) totalOrdersElem.innerText = orders.length;
+    if (totalRevElem) {
+        const rev = orders.reduce((sum, o) => sum + (o.total || 0), 0);
+        totalRevElem.innerText = "৳" + rev.toLocaleString();
     }
 }
